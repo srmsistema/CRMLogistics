@@ -32,6 +32,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('app.backends.JWTAuthentication',),
     'EXCEPTION_HANDLER': 'crm.exceptions.core_exception_handler',
     'NON_FIELD_ERRORS_KEY': 'error',
+
     # 'DEFAULT_PAGINATION_CLASS': 'app.pagination.PageNumberPaginationDataOnly'
 }
 
@@ -46,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app.apps.AppConfig',
-
+    'rest_framework_jwt',
     'crispy_forms',
 ]
 

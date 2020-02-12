@@ -100,3 +100,43 @@ class LegalEntitySerializer(serializers.ModelSerializer):
         user = UsersSerializer.create(UsersSerializer(), validated_data=user_data)
         legalEntity, created = LegalEntity.objects.update_or_create(user=user)
         return legalEntity
+
+
+class DriversSerializer(serializers.ModelSerializer):
+
+    User_id = UsersSerializer(required=True)
+
+    class Meta:
+        model = Driver
+        fields = ('User_id', 'autoTechPassPhoto', 'trailerTechPassPhoto', 'autoOwnerPass', 'driverPass', 'driverLicense',
+            'internationalTransportationLicense', 'insurancePolicy')
+
+        def create(self, validated_data):
+            user_data = validated_data.pop('User_id')
+            user = UsersSerializer.create(UsersSerializer(), validated_data=user_data)
+            driver, created = Driver.objects.update_or_create(user=user)
+            return driver
+
+
+class IndividualsSerializer(serializers.ModelSerializer):
+    
+    User_id = UsersSerializer(required=True)
+    
+    class Meta:
+        model = Individual
+        fields = ('User_id', 'address')
+            
+    def create(self, validated_data):
+        user_data = validated_data.pop('User_id')
+        user = UsersSerializer.create(UsersSerializer(), validated_data=user_data)
+        individual, created = Individual.objects.update_or_create(user=user)
+        return individual
+
+
+class ManagersSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Manager
+        fields = ('id', 'username', 'tradingSet')
+
+

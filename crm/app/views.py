@@ -28,6 +28,7 @@ class SignUpView(CreateView):
     template_name = 'signup.html'
 # Create your views here.
 
+
 class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     permission_classes = (IsAuthenticated,)
     # renderer_classes = (UserJSONRenderer,)
@@ -77,7 +78,7 @@ class UserListAPIView(ListAPIView):
 
 class RegistrationAPIView(APIView):
     permission_classes = (AllowAny,)
-    # renderer_classes = (UserJSONRenderer,)
+    #renderer_classes = (UserJSONRenderer,)
     serializer_class = RegistrationSerializer
 
     def post(self, request):
@@ -91,7 +92,7 @@ class RegistrationAPIView(APIView):
 
 class LoginAPIView(APIView):
     permission_classes = (AllowAny,)
-    # renderer_classes = (UserJSONRenderer,)
+    #renderer_classes = (UserJSONRenderer,)
     serializer_class = LoginSerializer
 
     def post(self, request):
@@ -106,14 +107,57 @@ class TradingSetDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TradingSet.objects.all()
     serializer_class = TradingSetSerializer
 
+
 class TradingSetListAPIView(ListAPIView):
     permission_classes = (AllowAny,)
     serializer_class = TradingSetSerializer
 
     queryset = TradingSet.objects.all()
 
+
 class LegalEntityListAPIView(ListAPIView):
     permission_classes = (AllowAny, )
     serializer_class = LegalEntitySerializer
 
     queryset = LegalEntity.objects.all()
+
+
+class LegalEntityDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = LegalEntity.objects.all()
+    serializer_class = LegalEntitySerializer
+
+
+class DriverListAPIView(ListAPIView):
+    permission_classes = (AllowAny, )
+    serializer_class = DriversSerializer
+
+    queryset = Driver.objects.all()
+
+
+class DriverDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Driver.objects.all()
+    serializer_class = DriversSerializer
+
+
+class IndividualListAPIView(ListAPIView):
+    permission_classes = (AllowAny, )
+    serializer_class = IndividualsSerializer
+    
+    queryset = Individual.objects.all()
+
+
+class IndividualDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Individual.objects.all()
+    serializer_class = IndividualsSerializer
+
+
+class ManagerListAPIView(ListAPIView):
+    permission_classes = (AllowAny, )
+    serializer_class = ManagersSerializer
+    
+    queryset = Manager.objects.all()
+
+
+class ManagerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Manager.objects.all()
+    serializer_class = ManagersSerializer

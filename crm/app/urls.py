@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import SignUpView, RegistrationAPIView, UserListAPIView, UserRetrieveUpdateAPIView, LoginAPIView, \
-    TradingSetDetailAPIView, TradingSetListAPIView, LegalEntityListAPIView
+from .views import *
 from django.views.generic import TemplateView
 from rest_framework_jwt.views import obtain_jwt_token
 from django.conf.urls import url
@@ -16,11 +15,18 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('signup/', RegistrationAPIView.as_view(), name='signup'),
-    path('user/<int:pk>/', UserRetrieveUpdateAPIView.as_view()),
+    path('users/<int:pk>/', UserRetrieveUpdateAPIView.as_view()),
     path('users/', UserListAPIView.as_view(), name='user'),
     path('login/', LoginAPIView.as_view(), name='login'),
     path('obtain_token/', obtain_jwt_token),
-    path('trading_set/', TradingSetListAPIView.as_view(), name='tradingset'),
-    path('trading_set/<int:pk>/', TradingSetDetailAPIView.as_view(), name='tradingset'),
-    path('legal_entity/', LegalEntityListAPIView.as_view(), name='tradingset')
+    path('trading_sets/', TradingSetListAPIView.as_view(), name='tradingset'),
+    path('trading_sets/<int:pk>/', TradingSetDetailAPIView.as_view(), name='tradingset'),
+    path('legal_entities/', LegalEntityListAPIView.as_view(), name='legalentity'),
+    path('leagal_entities/<int:pk>', LegalEntityDetailAPIView.as_view(), name='legalentity'),
+    path('drivers/', DriverListAPIView.as_view(), name='driver'),
+    path('drivers/<int:pk>', DriverDetailAPIView.as_view(), name='driver'),
+    path('individuals/', IndividualListAPIView.as_view(), name='individual'),
+    path('individuals/<int:pk>', IndividualDetailAPIView.as_view(), name='individual'),
+    path('managers/', ManagerListAPIView.as_view(), name='manager'),
+    path('managers/<int:pk>', ManagerDetailAPIView.as_view(), name='manager')
 ]

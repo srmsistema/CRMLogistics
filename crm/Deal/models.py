@@ -159,7 +159,7 @@ class LocationCargo(models.Model):
         return self.locationCoordinates
 
     class Meta:
-        verbose_name = "Местоположения груза"
+        verbose_name = "Местоположение груза"
         verbose_name_plural = "Местоположения грузов"
 
 

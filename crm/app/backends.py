@@ -31,7 +31,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
         if prefix.lower() != auth_header_prefix:
             return None
 
-        return self.authenticate_credentials(request, token)
+        return self._authenticate_credentials(request, token)
 
     def _authenticate_credentials(self, request, token):
         try:

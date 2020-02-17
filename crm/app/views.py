@@ -1,33 +1,11 @@
-from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
-
-from django.shortcuts import render
-from .forms import SignupForm, CustomUserChangeForm
-from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect, HttpResponse
-from django.urls import reverse
-from django.contrib.auth.decorators import login_required
-
-from .forms import SignupForm
-
+from django.http import Http404
+from rest_framework.renderers import JSONRenderer
 from rest_framework import generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from crm import settings
-from django.shortcuts import render
-from .renderers import UserJSONRenderer
-from .models import *
 from .serializers import *
 from rest_framework.generics import RetrieveUpdateAPIView, ListAPIView
-
-
-class SignUpView(CreateView):
-    form_class = SignupForm
-    success_url = reverse_lazy('login')
-    template_name = 'signup.html'
-# Create your views here.
-
 
 class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     permission_classes = (IsAuthenticated,)
@@ -41,7 +19,7 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def update(self, request, *args, **kwargs):
-        serializer_data = request.data.get('user')
+        serializer_data = request.data
 
         serializer = self.serializer_class(request.user, data=serializer_data, partial=True)
 
@@ -78,15 +56,13 @@ class UserListAPIView(ListAPIView):
 
 class RegistrationAPIView(APIView):
     permission_classes = (AllowAny,)
-    renderer_classes = (UserJSONRenderer,)
+    #renderer_classes = (UserJSONRenderer,)
     serializer_class = RegistrationSerializer
 
     def post(self, request):
-        user = request.data
-        serializer = self.serializer_class(data=user)
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -96,8 +72,7 @@ class LoginAPIView(APIView):
     serializer_class = LoginSerializer
 
     def post(self, request):
-        user = request.data
-        serializer = self.serializer_class(data=user)
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

@@ -5,7 +5,6 @@ from rest_framework_jwt.views import obtain_jwt_token
 from django.conf.urls import url
 
 urlpatterns = [
-    #path('signup/', SignUpView.as_view(), name='signup'),
     path('users/password_change/', TemplateView.as_view(template_name="password_change_form.html"), name='password_change'),
     path('users/password_change/done/', TemplateView.as_view(template_name='password_change_done.html'), name='password_change_done'),
     path('users/password_reset/', TemplateView.as_view(template_name='password_reset_form.html'), name='password_reset'),
@@ -21,13 +20,13 @@ urlpatterns += [
     path('login/', LoginAPIView.as_view(), name='login'),
     path('obtain_token/', obtain_jwt_token),
     path('trading_sets/', TradingSetListAPIView.as_view(), name='tradingset'),
-    path('trading_sets/<int:pk>/', TradingSetDetailAPIView.as_view(), name='tradingset'),
+    path('trading_sets/<int:pk>/', TradingSetDetailAPIView.as_view(), name='tradingset_detail'),
     path('legal_entities/', LegalEntityListAPIView.as_view(), name='legalentity'),
-    path('leagal_entities/<int:pk>', LegalEntityDetailAPIView.as_view(), name='legalentity'),
+    path('leagal_entities/<int:pk>', LegalEntityDetailAPIView.as_view(), name='legalentity_detail'),
     path('drivers/', DriverListAPIView.as_view(), name='driver'),
-    path('drivers/<int:pk>', DriverDetailAPIView.as_view(), name='driver'),
+    path('drivers/<int:pk>', DriverDetailAPIView.as_view(), name='driver_detail'),
     path('individuals/', IndividualListAPIView.as_view(), name='individual'),
-    path('individuals/<int:pk>', IndividualDetailAPIView.as_view(), name='individual'),
+    path('individuals/<int:pk>', IndividualDetailAPIView.as_view(), name='individual_detail'),
     path('managers/', ManagerListAPIView.as_view(), name='manager'),
-    path('managers/<int:pk>', ManagerDetailAPIView.as_view(), name='manager')
+    path('managers/<int:pk>', ManagerDetailAPIView.as_view(), name='manager_detail')
 ]

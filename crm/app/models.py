@@ -8,7 +8,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 import datetime
 from datetime import datetime, timedelta
-from crm import settings
+from django.conf import settings
 
 
 class CustomUserManager(BaseUserManager):
@@ -74,35 +74,24 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     username = models.CharField(max_length=255, null=False, unique=True)
-    email = models.EmailField(_('email address'), unique=True)
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=30, blank=True)
+    email = models.EmailField('email address',db_index=True, unique=True)
+    first_name = models.CharField('first name', max_length=30, blank=True)
+    last_name = models.CharField('last name', max_length=30, blank=True)
     password = models.CharField(max_length=255, null=False)
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default=1)
     dateOfBirth = models.DateField(default=None, null=True)
     phone = models.CharField(max_length=255, null=False)
-    date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
-    is_active = models.BooleanField(_('active'), default=True)
+    date_joined = models.DateTimeField('date joined', auto_now_add=True)
+    is_active = models.BooleanField('active', default=True)
     photo = models.ImageField(null=True, blank=True, upload_to='static')
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
 
     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
-
-    class Meta:
-        verbose_name = _('user')
-        verbose_name_plural = _('users')
-
-    def get_full_name(self):
-        full_name = '%s %s' % (self.first_name, self.last_name)
-        return full_name.strip()
-
-    def get_short_name(self):
-        return self.first_name
-
-    def email_user(self, subject, message, from_email=None, **kwargs):
-        send_mail(subject, message, from_email, [self.email], **kwargs)
+    def __str__(self):
+        return self.email
 
     @property
     def token(self):
@@ -113,10 +102,19 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         token = jwt.encode({
             'id': self.pk,
-            'exp': int(dt.strftime('%s'))
+            'exp': dt.utcfromtimestamp(dt.timestamp())  # CHANGE HERE
         }, settings.SECRET_KEY, algorithm='HS256')
 
         return token.decode('utf-8')
+
+    def get_full_name(self):
+        full_name = '%s %s' % (self.first_name, self.last_name)
+        return full_name.strip()
+
+    def get_short_name(self):
+        return self.first_name
+
+
 
 
 class Individual(models.Model):

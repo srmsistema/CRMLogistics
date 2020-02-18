@@ -26,6 +26,7 @@ class DealSerializer(ModelSerializer):
             'dealStatus',
             'parametresTrailer',
             'locationCargo',
+            'owner'
         ]
 
 class SubclassHazardSerializer(ModelSerializer):

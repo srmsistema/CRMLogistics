@@ -32,6 +32,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('app.backends.JWTAuthentication',),
     'EXCEPTION_HANDLER': 'crm.exceptions.core_exception_handler',
     'NON_FIELD_ERRORS_KEY': 'error',
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
 
     # 'DEFAULT_PAGINATION_CLASS': 'app.pagination.PageNumberPaginationDataOnly'
 }
@@ -49,7 +52,7 @@ INSTALLED_APPS = [
     'app.apps.AppConfig',
     'rest_framework_jwt',
     'crispy_forms',
-    'Deal'
+    'Deal',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -139,10 +142,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'crm')
 
 
 AUTH_USER_MODEL = 'app.User' #new
-LOGIN_REDIRECT_URL = 'home' #new
 LOGOUT_REDIRECT_URL = 'login' #new
-
-ACCOUNT_SIGNUP_FORM_CLASS = 'app.forms.SignupForm' #new
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -152,7 +152,3 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
-
-# parent_dir = os.path.abspath(os.path.dirname(__file__) + '/..')
-# MEDIA_ROOT = os.path.join(parent_dir, 'media/')
-# MEDIA_URL = '/media/'

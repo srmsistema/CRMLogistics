@@ -7,13 +7,13 @@ from rest_framework import permissions
 class ListDealView(ListAPIView):
     queryset = Deal.objects.all()
     serializer_class = DealSerializer
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly)
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class CreateDealView(CreateAPIView):
     queryset = Deal.objects.all()
     serializer_class = DealSerializer
-    # permission_classes = (permissions.IsAuthenticated)
+    permission_classes = [permissions.IsAuthenticated]
 
     # def perform_create(self, serializer):
     #     serializer.save(owner = self.request.user)
@@ -40,6 +40,7 @@ class CreateTypeCargoView(ListCreateAPIView):
 class UpdateTypeCargoView(RetrieveUpdateDestroyAPIView):
     queryset = TypeCargo.objects.all()
     serializer_class = TypeCargoSerializer
+    # permission_classes = (permissions.IsAdminUser)
 
 
 class CreateTypeAutoView(ListCreateAPIView):
@@ -51,6 +52,7 @@ class CreateTypeAutoView(ListCreateAPIView):
 class UpdateTypeAutoView(RetrieveUpdateDestroyAPIView):
     queryset = TypeAuto.objects.all()
     serializer_class = TypeAutoSerializer
+    # permission_classes = (permissions.IsAdminUser)
 
 
 class CreateTypeLoadingView(ListCreateAPIView):
@@ -62,6 +64,7 @@ class CreateTypeLoadingView(ListCreateAPIView):
 class UpdateTypeLoadingView(RetrieveUpdateDestroyAPIView):
     queryset = TypeLoading.objects.all()
     serializer_class = TypeLoadingSerializer
+    # permission_classes = (permissions.IsAdminUser)
 
 
 class CreateUnitsView(ListCreateAPIView):
@@ -73,7 +76,7 @@ class CreateUnitsView(ListCreateAPIView):
 class UpdateUnitsView(RetrieveUpdateDestroyAPIView):
     queryset = Units.objects.all()
     serializer_class = UnitsSerializer
-
+    # permission_classes = (permissions.IsAdminUser)
 
 class CreateWeightView(ListCreateAPIView):
     queryset = Weight.objects.all()
@@ -84,6 +87,7 @@ class CreateWeightView(ListCreateAPIView):
 class UpdateWeightView(RetrieveUpdateDestroyAPIView):
     queryset = Weight.objects.all()
     serializer_class = WeightSerializer
+    # permission_classes = (permissions.IsAdminUser)
 
 
 class CreateVolumeView(ListCreateAPIView):
@@ -94,6 +98,7 @@ class CreateVolumeView(ListCreateAPIView):
 class UpdateVolumeView(RetrieveDestroyAPIView):
     queryset = Volume.objects.all()
     serializer_class = VolumeSerializer
+    # permission_classes = (permissions.IsAdminUser)
 
 class CreateParametresTrailerView(ListCreateAPIView):
     queryset = ParametresTrailer.objects.all()
@@ -104,6 +109,7 @@ class CreateParametresTrailerView(ListCreateAPIView):
 class UpdateParametresTrailerView(RetrieveUpdateDestroyAPIView):
     queryset = ParametresTrailer.objects.all()
     serializer_class = ParametresTrailerSerializer
+    # permission_classes = (permissions.IsAdminUser)
 
 
 class CreateLocationCargoView(ListCreateAPIView):
@@ -115,6 +121,7 @@ class CreateLocationCargoView(ListCreateAPIView):
 class UpdateLocationCargoView(RetrieveUpdateDestroyAPIView):
     queryset = LocationCargo.objects.all()
     serializer_class = LocationCargoSerializer
+    # permission_classes = (permissions.IsAdminUser)
 
 
 class CreateDealStatusView(ListCreateAPIView):
@@ -126,3 +133,4 @@ class CreateDealStatusView(ListCreateAPIView):
 class UpdateDealStatusView(RetrieveUpdateDestroyAPIView):
     queryset = DealStatus.objects.all()
     serializer_class = DealStatusSerializer
+    # permission_classes = (permissions.IsAdminUser)

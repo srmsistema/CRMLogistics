@@ -1,14 +1,14 @@
 from django.http import Http404
 from rest_framework.renderers import JSONRenderer
 from rest_framework import generics, status
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import *
 from rest_framework.generics import RetrieveUpdateAPIView, ListAPIView
 
 class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsAuthenticated]
     # renderer_classes = (UserJSONRenderer,)
     serializer_class = UsersSerializer
     queryset = User.objects.all()
@@ -45,12 +45,12 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UsersSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class UserListAPIView(ListAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = [IsAdminUser]
     serializer_class = UsersSerializer
-
     queryset = User.objects.all()
 
 
@@ -80,17 +80,19 @@ class LoginAPIView(APIView):
 class TradingSetDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TradingSet.objects.all()
     serializer_class = TradingSetSerializer
+    permission_classes = [IsAdminUser]
 
 
 class TradingSetListAPIView(ListAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = [IsAuthenticated]
     serializer_class = TradingSetSerializer
+
 
     queryset = TradingSet.objects.all()
 
 
 class LegalEntityListAPIView(ListAPIView):
-    permission_classes = (AllowAny, )
+    permission_classes = [IsAuthenticated]
     serializer_class = LegalEntitySerializer
 
     queryset = LegalEntity.objects.all()
@@ -99,10 +101,10 @@ class LegalEntityListAPIView(ListAPIView):
 class LegalEntityDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = LegalEntity.objects.all()
     serializer_class = LegalEntitySerializer
-
+    permission_classes = [IsAuthenticated]
 
 class DriverListAPIView(ListAPIView):
-    permission_classes = (AllowAny, )
+    permission_classes = [IsAuthenticated]
     serializer_class = DriversSerializer
 
     queryset = Driver.objects.all()
@@ -111,10 +113,11 @@ class DriverListAPIView(ListAPIView):
 class DriverDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Driver.objects.all()
     serializer_class = DriversSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class IndividualListAPIView(ListAPIView):
-    permission_classes = (AllowAny, )
+    permission_classes = [IsAuthenticated]
     serializer_class = IndividualsSerializer
     
     queryset = Individual.objects.all()
@@ -123,10 +126,11 @@ class IndividualListAPIView(ListAPIView):
 class IndividualDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Individual.objects.all()
     serializer_class = IndividualsSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class ManagerListAPIView(ListAPIView):
-    permission_classes = (AllowAny, )
+    permission_classes = [IsAuthenticated]
     serializer_class = ManagersSerializer
     
     queryset = Manager.objects.all()
@@ -135,3 +139,4 @@ class ManagerListAPIView(ListAPIView):
 class ManagerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Manager.objects.all()
     serializer_class = ManagersSerializer
+    permission_classes = [IsAuthenticated]

@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 class SubclassHazard(models.Model):
     """
@@ -209,6 +210,7 @@ class Deal(models.Model):
     dealStatus = models.ForeignKey(DealStatus, on_delete=models.SET_NULL, null=True)
     parametresTrailer = models.ForeignKey(ParametresTrailer, on_delete=models.SET_NULL, null=True)
     locationCargo = models.ForeignKey(LocationCargo, on_delete=models.SET_NULL, null=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.numberDealFromClient

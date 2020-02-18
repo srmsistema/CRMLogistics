@@ -24,6 +24,4 @@ urlpatterns = [
     path('location-cargo/update/', UpdateLocationCargoView.as_view(), name = 'location_cargo_update'),
     path('deal-status/create/', CreateDealStatusView.as_view(), name = 'deal_status_create'),
     path('deal-status/update/<int:pk>', UpdateDealStatusView.as_view(), name = 'deal_status_update'),
-
-
 ]

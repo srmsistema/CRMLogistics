@@ -2,7 +2,7 @@ from django.urls import path
 from .views import *
 from django.views.generic import TemplateView
 from rest_framework_jwt.views import obtain_jwt_token
-from django.conf.urls import url
+
 
 urlpatterns = [
     path('users/password_change/', TemplateView.as_view(template_name="password_change_form.html"), name='password_change'),

@@ -13,7 +13,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'password',
+        fields = ['email', 'first_name', 'last_name', 'password',
                   'gender', 'dateOfBirth', 'phone', 'photo', 'token']
 
     def create(self, validated_data):
@@ -25,7 +25,7 @@ class UsersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'is_admin', 'password',
+        fields = ['id', 'email', 'first_name', 'last_name', 'is_admin', 'password',
                   'is_staff', 'is_active', 'gender', 'dateOfBirth', 'phone', 'photo']
         read_only_fields = ('token',)
 
@@ -45,7 +45,6 @@ class UsersSerializer(serializers.ModelSerializer):
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.CharField(max_length=255)
-    username = serializers.CharField(max_length=255, read_only=True)
     password = serializers.CharField(max_length=255, write_only=True)
     token = serializers.CharField(max_length=255, read_only=True)
 
@@ -69,7 +68,6 @@ class LoginSerializer(serializers.Serializer):
 
         return {
             'email': user.email,
-            'username': user.username,
             'token': user.token
         }
 
@@ -134,9 +132,15 @@ class IndividualsSerializer(serializers.ModelSerializer):
 
 
 class ManagersSerializer(serializers.ModelSerializer):
-    
+
+    User_id = UsersSerializer(required=True)
+
     class Meta:
         model = Manager
-        fields = ('id', 'username', 'tradingSet')
+        fields = ('User_id', 'tradingSet')
 
-
+    def create(self, validated_data):
+        user_data = validated_data.pop('User_id')
+        user = UsersSerializer.create(UsersSerializer(), validated_data=user_data)
+        individual, created = Individual.objects.update_or_create(user=user)
+        return individual

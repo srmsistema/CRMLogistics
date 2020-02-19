@@ -12,29 +12,30 @@ from django.conf import settings
 
 class CustomUserManager(BaseUserManager):
     use_in_migrations = True
+    exclude = ('username',)
     """
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
     """
-    def create_user(self, username, email, password, **extra_fields):
+    def create_user(self, email, password, **extra_fields):
         """
         Create and save a User with the given email and password.
         """
         if not email:
             raise ValueError(_('The Email must be set'))
         email = self.normalize_email(email)
-        user = self.model(username=username, email=email, **extra_fields)
+        user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, username, email, password, **extra_fields):
+    def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_staff', True)
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self.create_user(username, email, password, **extra_fields)
+        return self.create_user(email, password, **extra_fields)
 
 
 class TradingSet(models.Model):
@@ -50,19 +51,6 @@ class TradingSet(models.Model):
         ordering = ['name']
         verbose_name_plural = 'TradingSets'
 
-class Manager(models.Model):
-
-    username = models.CharField(max_length=255, unique=True)
-    tradingSet = models.OneToOneField('TradingSet', to_field='name', on_delete=models.CASCADE, null=True)
-    password = models.CharField(max_length=255)
-
-    def __str__(self):
-        return '%s' % (self.username)
-
-    class Meta:
-        ordering = ['tradingSet']
-        verbose_name_plural = 'Managers'
-
 
 class User(AbstractBaseUser, PermissionsMixin):
 
@@ -72,20 +60,19 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    username = models.CharField(max_length=255, null=False, unique=True)
     email = models.EmailField('email address',db_index=True, unique=True)
     first_name = models.CharField('first name', max_length=30, blank=True)
     last_name = models.CharField('last name', max_length=30, blank=True)
     password = models.CharField(max_length=255, null=False)
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default=1)
-    dateOfBirth = models.DateField(default=None, null=True)
-    phone = models.CharField(max_length=255, null=False)
+    dateOfBirth = models.DateField(default=None, null=True, blank=True)
+    phone = models.CharField(max_length=255, null=True, blank=True, default='')
     date_joined = models.DateTimeField('date joined', auto_now_add=True)
     is_active = models.BooleanField('active', default=True)
     photo = models.ImageField(null=True, blank=True, upload_to='static')
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    # REQUIRED_FIELDS = ['username']
 
     objects = CustomUserManager()
 
@@ -113,6 +100,18 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.first_name
 
+
+class Manager(models.Model):
+
+    User_id = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True)
+    tradingSet = models.OneToOneField('TradingSet', to_field='name', on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return '%s' % (self.User_id)
+
+    class Meta:
+        ordering = ['tradingSet']
+        verbose_name_plural = 'Managers'
 
 
 

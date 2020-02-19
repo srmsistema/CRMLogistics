@@ -29,7 +29,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ('app.backends.JWTAuthentication',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+         'rest_framework_simplejwt.authentication.JWTAuthentication',
+         # 'app.backends.JWTAuthentication',
+         ),
     'EXCEPTION_HANDLER': 'crm.exceptions.core_exception_handler',
     'NON_FIELD_ERRORS_KEY': 'error',
     'DEFAULT_PERMISSION_CLASSES': [
@@ -152,3 +155,5 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+REST_USE_JWT = True

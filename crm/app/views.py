@@ -4,11 +4,13 @@ from rest_framework import generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from .renderers import UserJSONRenderer
 from .serializers import *
 from rest_framework.generics import RetrieveUpdateAPIView, ListAPIView
 
 class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
     # renderer_classes = (UserJSONRenderer,)
     serializer_class = UsersSerializer
     queryset = User.objects.all()
@@ -45,11 +47,11 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UsersSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
 
 class UserListAPIView(ListAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser, ]
     serializer_class = UsersSerializer
     queryset = User.objects.all()
 
@@ -126,11 +128,11 @@ class IndividualListAPIView(ListAPIView):
 class IndividualDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Individual.objects.all()
     serializer_class = IndividualsSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
 
 class ManagerListAPIView(ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
     serializer_class = ManagersSerializer
     
     queryset = Manager.objects.all()
@@ -139,4 +141,4 @@ class ManagerListAPIView(ListAPIView):
 class ManagerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Manager.objects.all()
     serializer_class = ManagersSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]

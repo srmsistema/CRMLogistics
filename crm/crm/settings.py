@@ -28,8 +28,22 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+INSTALLED_APPS = [
+    'Deal',
+    'app',
+    'rest_framework',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework_jwt',
+    'crispy_forms',
+
+]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
          'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -46,19 +60,6 @@ REST_FRAMEWORK = {
 
 # Application definition
 
-INSTALLED_APPS = [
-    'rest_framework',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework_jwt',
-    'crispy_forms',
-    'Deal',
-    # 'app',
-]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

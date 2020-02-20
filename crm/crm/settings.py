@@ -56,8 +56,9 @@ INSTALLED_APPS = [
     'app.apps.AppConfig',
     'rest_framework_jwt',
     'crispy_forms',
-    # 'Deal',
     'app.apps.DealConfig',
+    'Deal',
+    'app',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -6,14 +6,14 @@ from rest_framework import permissions
 
 class ListDealView(ListAPIView):
     queryset = Deal.objects.all()
-    serializer_class = DealSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = DealListSerializer
+    # permission_classes = [permissions.IsAuthenticated]
 
 
 class CreateDealView(CreateAPIView):
     queryset = Deal.objects.all()
     serializer_class = DealSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     # def perform_create(self, serializer):
     #     serializer.save(owner = self.request.user)
@@ -21,8 +21,8 @@ class CreateDealView(CreateAPIView):
 
 class UpdateDealView(RetrieveUpdateAPIView):
     queryset = Deal.objects.all()
-    serializer_class = DealSerializer
-    permission_classes = (permissions.IsAdminUser)
+    serializer_class = DealUpdateSerializer
+    # permission_classes = (permissions.IsAdminUser)
 
 
 class DeleteDealView(RetrieveDestroyAPIView):
@@ -133,4 +133,16 @@ class CreateDealStatusView(ListCreateAPIView):
 class UpdateDealStatusView(RetrieveUpdateDestroyAPIView):
     queryset = DealStatus.objects.all()
     serializer_class = DealStatusSerializer
+    # permission_classes = (permissions.IsAdminUser)
+
+
+class CreateSubclassHazardView(ListCreateAPIView):
+    queryset = SubclassHazard.objects.all()
+    serializer_class = SubclassHazardSerializer
+    # permission_classes = (permissions.IsAdminUser)
+
+
+class UpdateSubclassHazardView(RetrieveUpdateDestroyAPIView):
+    queryset = SubclassHazard.objects.all()
+    serializer_class = SubclassHazardSerializer
     # permission_classes = (permissions.IsAdminUser)

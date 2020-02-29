@@ -21,8 +21,6 @@ urlpatterns += [
     path('obtain_token/', obtain_jwt_token),
     path('trading_sets/', TradingSetListAPIView.as_view(), name='tradingset'),
     path('trading_sets/<int:pk>/', TradingSetDetailAPIView.as_view(), name='tradingset_detail'),
-    path('legal_entities/', LegalEntityListAPIView.as_view(), name='legalentity'),
-    path('leagal_entities/<int:pk>', LegalEntityDetailAPIView.as_view(), name='legalentity_detail'),
     path('drivers/', DriverListAPIView.as_view(), name='driver'),
     path('drivers/<int:pk>', DriverDetailAPIView.as_view(), name='driver_detail'),
     path('individuals/', IndividualListAPIView.as_view(), name='individual'),

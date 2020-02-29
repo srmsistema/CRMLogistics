@@ -13,7 +13,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'password',
+        fields = ['username', 'email', 'first_name', 'last_name', 'password',
                   'gender', 'dateOfBirth', 'phone', 'photo', 'token']
 
     def create(self, validated_data):
@@ -25,7 +25,7 @@ class UsersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'first_name', 'last_name', 'is_admin', 'password',
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'is_admin', 'password',
                   'is_staff', 'is_active', 'gender', 'dateOfBirth', 'phone', 'photo']
         read_only_fields = ('token',)
 
@@ -44,30 +44,30 @@ class UsersSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.Serializer):
-    email = serializers.CharField(max_length=255)
+    username = serializers.CharField(max_length=255)
     password = serializers.CharField(max_length=255, write_only=True)
     token = serializers.CharField(max_length=255, read_only=True)
 
     def validate(self, data):
-        email = data.get('email', None)
+        username = data.get('username', None)
         password = data.get('password', None)
 
-        if email is None:
-            raise serializers.ValidationError('An email address is required to log in.')
+        if username is None:
+            raise serializers.ValidationError('A username is required to log in.')
 
         if password is None:
             raise serializers.ValidationError('A password is required to log in.')
 
-        user = authenticate(username=email, password=password)
+        user = authenticate(username=username, password=password)
 
         if user is None:
-            raise serializers.ValidationError('A user with this email and password was not found.')
+            raise serializers.ValidationError('A user with this username and password was not found.')
 
         if not user.is_active:
             raise serializers.ValidationError('This user has been deactivated.')
 
         return {
-            'email': user.email,
+            'username': user.username,
             'token': user.token
         }
 
@@ -77,27 +77,7 @@ class TradingSetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TradingSet
-        fields = ('id', 'name', 'phone', 'ownerFullName')
-
-
-class LegalEntitySerializer(serializers.ModelSerializer):
-    # serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    User_id = UsersSerializer(required=True)
-
-    class Meta:
-        model = LegalEntity
-        fields = ('User_id', 'description', 'legalAddress', 'IIN', 'bankAccount')
-
-    def create(self, validated_data):
-        """
-        Overriding the default create method of the Model serializer.
-        :param validated_data: data containing all the details of student
-        :return: returns a successfully created student record
-        """
-        user_data = validated_data.pop('User_id')
-        user = UsersSerializer.create(UsersSerializer(), validated_data=user_data)
-        legalEntity, created = LegalEntity.objects.update_or_create(user=user)
-        return legalEntity
+        fields = ('id', 'name', 'phone', 'ownerFullName', 'description', 'legalAddress', 'IIN', 'bankAccount')
 
 
 class DriversSerializer(serializers.ModelSerializer):

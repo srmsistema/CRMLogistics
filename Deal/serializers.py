@@ -2,12 +2,12 @@ from rest_framework import serializers
 from .models import *
 
 
-class SubclassHazardSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model =  SubclassHazard
-        fields = ['description',]
-
+# class SubclassHazardSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model =  SubclassHazard
+#         fields = ['description',]
+#
 
 class TypeCargoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,10 +30,10 @@ class UnitsSerializer(serializers.ModelSerializer):
         fields = ['value', ]
 
 
-class WeightSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Weight
-        fields = ['minimum', 'maximum', 'unit']
+# class WeightSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Weight
+#         fields = ['minimum', 'maximum', 'unit']
 
 class VolumeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -50,22 +50,22 @@ class LocationCargoSerializer(serializers.ModelSerializer):
         model = LocationCargo
         fields = ['locationCoordinates', 'sendingTimeCoordinates', 'locationCoordinatesStatus']
 
-class DealStatusSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DealStatus
-        fields = ['new', 'concluded', 'loading', 'transportation', 'unloading', 'completed', 'cancel']
+# class DealStatusSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = DealStatus
+#         fields = ['new', 'concluded', 'loading', 'transportation', 'unloading', 'completed', 'cancel']
+#
 
 
-
-class DealUpdateSerializer(serializers.ModelSerializer):
+class OrderUpdateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
 
-        instance.numberDealFromClient = validated_data.get('numberDealFromClient', instance.numberDealFromClient)
+        instance.numberOrderFromClient = validated_data.get('numberOrderFromClient', instance.numberOrderFromClient)
         instance.priceClient = validated_data.get('priceClient', instance.priceClient)
         instance.companyProfit = validated_data.get('companyProfit', instance.companyProfit)
-        instance.fromDeal = validated_data.get('fromDeal', instance.fromDeal)
-        instance.toDeal = validated_data.get('toDeal', instance.toDeal)
+        instance.fromOrder = validated_data.get('fromOrder', instance.fromOrder)
+        instance.toOrder = validated_data.get('toOrder', instance.toOrder)
         instance.dateLoading = validated_data.get('dateLoading', instance.dateLoading)
         instance.dateUnloading = validated_data.get('dateUnloading', instance.dateUnloading)
         instance.autoReleaseYear = validated_data.get('autoReleaseYear', instance.autoReleaseYear)
@@ -78,7 +78,7 @@ class DealUpdateSerializer(serializers.ModelSerializer):
         instance.subclassHazard = validated_data.get('subclassHazard', instance.subclassHazard)
         instance.weight = validated_data.get('weight', instance.weight)
         instance.volume = validated_data.get('volume', instance.volume)
-        instance.dealStatus = validated_data.get('dealStatus', instance.dealStatus)
+        instance.orderStatus = validated_data.get('orderStatus', instance.orderStatus)
         instance.parametresTrailer = validated_data.get('parametresTrailer', instance.parametresTrailer)
         instance.locationCargo = validated_data.get('locationCargo', instance.locationCargo)
         instance.owner = validated_data.get('owner', instance.owner)
@@ -86,29 +86,29 @@ class DealUpdateSerializer(serializers.ModelSerializer):
         return  instance
 
     class Meta:
-        model = Deal
+        model = Order
         fields = '__all__'
 
 
 
-class DealListSerializer(serializers.ModelSerializer):
+class OrderListSerializer(serializers.ModelSerializer):
 
     typeAuto = TypeAutoSerializer(many=False, read_only=True)
     typeLoading = TypeLoadingSerializer(many=False, read_only=True)
     typeCargo = TypeCargoSerializer(many=False, read_only=True)
-    subclassHazard = SubclassHazardSerializer(many=False, read_only=True)
-    weight = WeightSerializer(many=False, read_only=True)
+    # subclassHazard = SubclassHazardSerializer(many=False, read_only=True)
+    # weight = WeightSerializer(many=False, read_only=True)
     volume = VolumeSerializer(many=False, read_only=True)
-    dealStatus = DealStatusSerializer(many=False, read_only=True)
+    # dealStatus = DealStatusSerializer(many=False, read_only=True)
     parametresTrailer = ParametresTrailerSerializer(many=False, read_only=True)
     locationCargo= LocationCargoSerializer(many=False, read_only=True)
     owner = serializers.CharField(source='owner.__str__')
 
     class Meta:
-        model = Deal
+        model = Order
         fields = '__all__'
 
-class DealSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Deal
+        model = Order
         fields = '__all__'

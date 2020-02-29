@@ -4,30 +4,30 @@ from .serializers import *
 from rest_framework import permissions
 
 
-class ListDealView(ListAPIView):
-    queryset = Deal.objects.all()
-    serializer_class = DealListSerializer
+class ListOrderView(ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderListSerializer
     # permission_classes = [permissions.IsAuthenticated]
 
 
-class CreateDealView(CreateAPIView):
-    queryset = Deal.objects.all()
-    serializer_class = DealSerializer
+class CreateOrderView(CreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
     # permission_classes = [permissions.IsAuthenticated]
 
     # def perform_create(self, serializer):
     #     serializer.save(owner = self.request.user)
 
 
-class UpdateDealView(RetrieveUpdateAPIView):
-    queryset = Deal.objects.all()
-    serializer_class = DealUpdateSerializer
+class UpdateOrderView(RetrieveUpdateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderUpdateSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
-class DeleteDealView(RetrieveDestroyAPIView):
-    queryset = Deal.objects.all()
-    serializer_class = DealSerializer
+class DeleteOrderView(RetrieveDestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
@@ -78,16 +78,16 @@ class UpdateUnitsView(RetrieveUpdateDestroyAPIView):
     serializer_class = UnitsSerializer
     # permission_classes = (permissions.IsAdminUser)
 
-class CreateWeightView(ListCreateAPIView):
-    queryset = Weight.objects.all()
-    serializer_class = WeightSerializer
-    # permission_classes = (permissions.IsAdminUser)
+# class CreateWeightView(ListCreateAPIView):
+#     queryset = Weight.objects.all()
+#     serializer_class = WeightSerializer
+#     # permission_classes = (permissions.IsAdminUser)
 
 
-class UpdateWeightView(RetrieveUpdateDestroyAPIView):
-    queryset = Weight.objects.all()
-    serializer_class = WeightSerializer
-    # permission_classes = (permissions.IsAdminUser)
+# class UpdateWeightView(RetrieveUpdateDestroyAPIView):
+#     queryset = Weight.objects.all()
+#     serializer_class = WeightSerializer
+#     # permission_classes = (permissions.IsAdminUser)
 
 
 class CreateVolumeView(ListCreateAPIView):
@@ -124,25 +124,25 @@ class UpdateLocationCargoView(RetrieveUpdateDestroyAPIView):
     # permission_classes = (permissions.IsAdminUser)
 
 
-class CreateDealStatusView(ListCreateAPIView):
-    queryset = DealStatus.objects.all()
-    serializer_class = DealStatusSerializer
-    # permission_classes = (permissions.IsAdminUser)
+# class CreateDealStatusView(ListCreateAPIView):
+#     queryset = DealStatus.objects.all()
+#     serializer_class = DealStatusSerializer
+#     # permission_classes = (permissions.IsAdminUser)
+#
+#
+# class UpdateDealStatusView(RetrieveUpdateDestroyAPIView):
+#     queryset = DealStatus.objects.all()
+#     serializer_class = DealStatusSerializer
+#     # permission_classes = (permissions.IsAdminUser)
 
 
-class UpdateDealStatusView(RetrieveUpdateDestroyAPIView):
-    queryset = DealStatus.objects.all()
-    serializer_class = DealStatusSerializer
-    # permission_classes = (permissions.IsAdminUser)
-
-
-class CreateSubclassHazardView(ListCreateAPIView):
-    queryset = SubclassHazard.objects.all()
-    serializer_class = SubclassHazardSerializer
-    # permission_classes = (permissions.IsAdminUser)
-
-
-class UpdateSubclassHazardView(RetrieveUpdateDestroyAPIView):
-    queryset = SubclassHazard.objects.all()
-    serializer_class = SubclassHazardSerializer
-    # permission_classes = (permissions.IsAdminUser)
+# class CreateSubclassHazardView(ListCreateAPIView):
+#     queryset = SubclassHazard.objects.all()
+#     serializer_class = SubclassHazardSerializer
+#     # permission_classes = (permissions.IsAdminUser)
+#
+#
+# class UpdateSubclassHazardView(RetrieveUpdateDestroyAPIView):
+#     queryset = SubclassHazard.objects.all()
+#     serializer_class = SubclassHazardSerializer
+#     # permission_classes = (permissions.IsAdminUser)

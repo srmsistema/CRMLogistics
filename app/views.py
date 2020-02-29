@@ -89,21 +89,8 @@ class TradingSetListAPIView(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = TradingSetSerializer
 
-
     queryset = TradingSet.objects.all()
 
-
-class LegalEntityListAPIView(ListAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = LegalEntitySerializer
-
-    queryset = LegalEntity.objects.all()
-
-
-class LegalEntityDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = LegalEntity.objects.all()
-    serializer_class = LegalEntitySerializer
-    permission_classes = [IsAuthenticated]
 
 class DriverListAPIView(ListAPIView):
     permission_classes = [IsAuthenticated]

@@ -12,67 +12,74 @@ from django.conf import settings
 
 class CustomUserManager(BaseUserManager):
     use_in_migrations = True
-    exclude = ('username',)
+    #exclude = ('',)
     """
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
     """
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, username, email, password, **extra_fields):
         """
         Create and save a User with the given email and password.
         """
-        if not email:
-            raise ValueError(_('The Email must be set'))
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        if not username:
+            raise ValueError(_('Должно быть введено имя пользователя.'))
+        if email:
+            email = self.normalize_email(email)
+        user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self,username, email, password, **extra_fields):
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_staff', True)
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self.create_user(email, password, **extra_fields)
+        return self.create_user(username, email, password, **extra_fields)
 
 
 class TradingSet(models.Model):
 
-    name = models.CharField(max_length=255, unique=True, null=False)
-    phone = models.CharField(max_length=255, null=True, blank=True)
-    ownerFullName = models.CharField(max_length=255, null=True, blank=True)
+    name = models.CharField(max_length=255, unique=True, null=False, verbose_name='Название')
+    phone = models.CharField(max_length=255, null=True, blank=True, verbose_name='Телефон')
+    ownerFullName = models.CharField(max_length=255, null=True, blank=True, verbose_name='ФИО владельца')
+    description = models.TextField(max_length=255, null=True, blank=True, verbose_name='Описание')
+    legalAddress = models.CharField(max_length=255, null=False, blank=True, verbose_name='Юр. адрес')
+    IIN = models.CharField(max_length=255, null=False, blank=True, verbose_name='ИИН')
+    bankAccount = models.CharField(max_length=255, null=False, blank=True, verbose_name='Номер счёта')
 
     def __str__(self):
         return "%s" % (self.name)
 
     class Meta:
         ordering = ['name']
-        verbose_name_plural = 'TradingSets'
+        verbose_name = 'Торговый сет'
+        verbose_name_plural = 'Торговые сеты'
 
 
 class User(AbstractBaseUser, PermissionsMixin):
 
     male = 'male'
     female = 'female'
-    GENDER_CHOICES = [(male, "male"), (female, "female")]
+    GENDER_CHOICES = [(male, "мужской"), (female, "женский")]
 
-    is_admin = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
-    email = models.EmailField('email address',db_index=True, unique=True)
-    first_name = models.CharField('first name', max_length=30, blank=True)
-    last_name = models.CharField('last name', max_length=30, blank=True)
-    password = models.CharField(max_length=255, null=False)
-    gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default=1)
-    dateOfBirth = models.DateField(default=None, null=True, blank=True)
-    phone = models.CharField(max_length=255, null=True, blank=True, default='')
-    date_joined = models.DateTimeField('date joined', auto_now_add=True)
-    is_active = models.BooleanField('active', default=True)
-    photo = models.ImageField(null=True, blank=True, upload_to='static')
+    is_admin = models.BooleanField(default=False, verbose_name='Администратор')
+    is_staff = models.BooleanField(default=False, verbose_name='Персонал')
+    username = models.CharField(db_index=True, max_length=255, blank=False, unique=True, default='', verbose_name='Имя пользователя')
+    email = models.EmailField(unique=True, blank=True, verbose_name='Почта')
+    first_name = models.CharField(max_length=30, blank=True, verbose_name='Имя')
+    last_name = models.CharField(max_length=30, blank=True, verbose_name='Фамилия')
+    password = models.CharField(max_length=255, null=False, verbose_name='Пароль')
+    gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default=1, verbose_name='Пол')
+    dateOfBirth = models.DateField(default=None, null=True, blank=True, verbose_name='Дата рождения')
+    phone = models.CharField(max_length=255, null=True, blank=True, default='', verbose_name='Телефон')
+    date_joined = models.DateTimeField(auto_now_add=True, verbose_name='Дата регистрации')
+    is_active = models.BooleanField(default=True, verbose_name='Активный')
+    photo = models.ImageField(null=True, blank=True, upload_to='static', verbose_name='Фото')
 
-    USERNAME_FIELD = 'email'
-    # REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
 
     objects = CustomUserManager()
 
@@ -100,28 +107,34 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.first_name
 
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
 
 class Manager(models.Model):
 
-    User_id = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True)
-    tradingSet = models.OneToOneField('TradingSet', to_field='name', on_delete=models.CASCADE, null=True)
+    User_id = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True, verbose_name='Пользователь')
+    tradingSet = models.OneToOneField('TradingSet', to_field='name', on_delete=models.CASCADE, null=True, verbose_name='Торговый сет')
 
     def __str__(self):
         return '%s' % (self.User_id)
 
     class Meta:
         ordering = ['tradingSet']
-        verbose_name_plural = 'Managers'
+        verbose_name = 'Менеджер'
+        verbose_name_plural = 'Менеджеры'
 
 
 
 class Individual(models.Model):
 
-    User_id = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True)
-    address = models.CharField(max_length=255)
+    User_id = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True, verbose_name='Пользователь')
+    address = models.CharField(max_length=255, verbose_name='Адрес')
 
     class Meta:
-        verbose_name_plural = 'Individuals'
+        verbose_name = 'Физическое лицо'
+        verbose_name_plural = 'Физические лица'
 
     def __str__(self):
         return '%s' % (self.address)
@@ -129,43 +142,30 @@ class Individual(models.Model):
 
 class UserStatus(models.Model):
 
-    status = models.CharField(max_length=255)
+    status = models.CharField(max_length=255, verbose_name='Статус')
 
     class Meta:
-        verbose_name_plural = 'UserStatuses'
+        verbose_name = 'Статус пользователя'
+        verbose_name_plural = 'Статусы пользователя'
 
     def __str__(self):
         return '%s' % (self.status)
 
 
-class LegalEntity(models.Model):
-
-    User_id = models.OneToOneField('User', on_delete=models.CASCADE, null=False, primary_key=True, related_name='User')
-    description = models.TextField(max_length=255, null=True)
-    legalAddress = models.CharField(max_length=255, null=False)
-    IIN = models.CharField(max_length=255, null=False)
-    bankAccount = models.CharField(max_length=255, null=False)
-
-    class Meta:
-        verbose_name_plural = 'LegalEntities'
-
-    def __str__(self):
-        return '%s, %s' % (self.description , self.legalAddress)
-
-
 class Driver(models.Model):
 
-    User_id = models.OneToOneField('User', on_delete=models.CASCADE, null=False, primary_key=True)
-    autoTechPassPhoto = models.ImageField(null=True, upload_to='static')
-    trailerTechPassPhoto = models.ImageField(null=True, upload_to='static')
-    autoOwnerPass = models.ImageField(null=True, upload_to='static')
-    driverPass = models.ImageField(null=True, upload_to='static')
-    driverLicense = models.ImageField(null=True, upload_to='static')
-    internationalTransportationLicense = models.ImageField(null=True, upload_to='static')
-    insurancePolicy = models.ImageField(null=True, upload_to='static')
+    User_id = models.OneToOneField('User', on_delete=models.CASCADE, null=False, primary_key=True, verbose_name='Пользователь')
+    autoTechPassPhoto = models.ImageField(null=True, upload_to='static', verbose_name='Технический паспорт авто')
+    trailerTechPassPhoto = models.ImageField(null=True, upload_to='static', verbose_name='Технический паспорт прицепа')
+    autoOwnerPass = models.ImageField(null=True, upload_to='static', verbose_name='Паспорт владельца')
+    driverPass = models.ImageField(null=True, upload_to='static', verbose_name='Паспорт водителя')
+    driverLicense = models.ImageField(null=True, upload_to='static', verbose_name='Водительская лицензия')
+    internationalTransportationLicense = models.ImageField(null=True, upload_to='static', verbose_name='Лицензия на международные перевозки')
+    insurancePolicy = models.ImageField(null=True, upload_to='static', verbose_name='Страховой полис')
 
     class Meta:
-        verbose_name_plural = 'Drivers'
+        verbose_name = 'Исполнитель'
+        verbose_name_plural = 'Исполнители'
 
     def __str__(self):
         return '%s' % (self.User_id)

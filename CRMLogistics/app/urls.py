@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import *
+from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import TemplateView
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_simplejwt import views as jwt_views
@@ -21,14 +22,13 @@ urlpatterns += [
     path('obtain_token/', obtain_jwt_token),
     path('trading_sets/', TradingSetListAPIView.as_view(), name='tradingset'),
     path('trading_sets/<int:pk>/', TradingSetDetailAPIView.as_view(), name='tradingset_detail'),
-    path('legal_entities/', LegalEntityListAPIView.as_view(), name='legalentity'),
-    path('leagal_entities/<int:pk>', LegalEntityDetailAPIView.as_view(), name='legalentity_detail'),
     path('drivers/', DriverListAPIView.as_view(), name='driver'),
     path('drivers/<int:pk>', DriverDetailAPIView.as_view(), name='driver_detail'),
     path('individuals/', IndividualListAPIView.as_view(), name='individual'),
     path('individuals/<int:pk>', IndividualDetailAPIView.as_view(), name='individual_detail'),
     path('managers/', ManagerListAPIView.as_view(), name='manager'),
-    path('managers/<int:pk>', ManagerDetailAPIView.as_view(), name='manager_detail')
+    path('managers/<int:pk>', ManagerDetailAPIView.as_view(), name='manager_detail'),
+    path('clients/create', ClientCreateAPIView.as_view(), name='client_create')
 ]
 
 urlpatterns += [

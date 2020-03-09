@@ -31,11 +31,11 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'django.contrib.auth',
     'Deal',
     'app',
     'rest_framework',
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -45,17 +45,12 @@ INSTALLED_APPS = [
 
 ]
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-         'rest_framework_simplejwt.authentication.JWTAuthentication',
-         # 'app.backends.JWTAuthentication',
-         ),
     'EXCEPTION_HANDLER': 'crm.exceptions.core_exception_handler',
     'NON_FIELD_ERRORS_KEY': 'error',
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ]
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+    ]
 
-    # 'DEFAULT_PAGINATION_CLASS': 'app.pagination.PageNumberPaginationDataOnly'
 }
 
 # Application definition
@@ -106,7 +101,7 @@ WSGI_APPLICATION = 'crm.wsgi.application'
 #         default=config('DATABASE_URL')
 #     )
 # }
-#
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

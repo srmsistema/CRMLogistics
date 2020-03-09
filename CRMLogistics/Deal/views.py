@@ -2,147 +2,150 @@ from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView, Retrieve
     ListCreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
 from .serializers import *
 from rest_framework import permissions
+from .permissions import IsManager
 
 
-class ListDealView(ListAPIView):
-    queryset = Deal.objects.all()
-    serializer_class = DealListSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+
+class ListOrderAPIView(ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderListSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
-class CreateDealView(CreateAPIView):
-    queryset = Deal.objects.all()
-    serializer_class = DealSerializer
-    # permission_classes = [permissions.IsAuthenticated]
-
-    # def perform_create(self, serializer):
-    #     serializer.save(owner = self.request.user)
 
 
-class UpdateDealView(RetrieveUpdateAPIView):
-    queryset = Deal.objects.all()
-    serializer_class = DealUpdateSerializer
+class CreateOrderAPIView(CreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = [permissions.IsAdminUser|IsManager]
+
+
+
+
+class UpdateOrderAPIView(RetrieveUpdateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
-class DeleteDealView(RetrieveDestroyAPIView):
-    queryset = Deal.objects.all()
-    serializer_class = DealSerializer
+class DeleteOrderAPIView(RetrieveDestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
-class CreateTypeCargoView(ListCreateAPIView):
+class CreateTypeCargoAPIView(ListCreateAPIView):
     queryset = TypeCargo.objects.all()
     serializer_class = TypeCargoSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
-class UpdateTypeCargoView(RetrieveUpdateDestroyAPIView):
+class UpdateTypeCargoAPIView(RetrieveUpdateDestroyAPIView):
     queryset = TypeCargo.objects.all()
     serializer_class = TypeCargoSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
-class CreateTypeAutoView(ListCreateAPIView):
+class CreateTypeAutoAPIView(ListCreateAPIView):
     queryset = TypeAuto.objects.all()
     serializer_class = TypeAutoSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
-class UpdateTypeAutoView(RetrieveUpdateDestroyAPIView):
+class UpdateTypeAutoAPIView(RetrieveUpdateDestroyAPIView):
     queryset = TypeAuto.objects.all()
     serializer_class = TypeAutoSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
-class CreateTypeLoadingView(ListCreateAPIView):
+class CreateTypeLoadingAPIView(ListCreateAPIView):
     queryset = TypeLoading.objects.all()
     serializer_class = TypeLoadingSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
-class UpdateTypeLoadingView(RetrieveUpdateDestroyAPIView):
+class UpdateTypeLoadingAPIView(RetrieveUpdateDestroyAPIView):
     queryset = TypeLoading.objects.all()
     serializer_class = TypeLoadingSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
-class CreateUnitsView(ListCreateAPIView):
+class CreateUnitsAPIView(ListCreateAPIView):
     queryset = Units.objects.all()
     serializer_class = UnitsSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
-class UpdateUnitsView(RetrieveUpdateDestroyAPIView):
+class UpdateUnitsAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Units.objects.all()
     serializer_class = UnitsSerializer
     # permission_classes = (permissions.IsAdminUser)
 
-class CreateWeightView(ListCreateAPIView):
-    queryset = Weight.objects.all()
-    serializer_class = WeightSerializer
-    # permission_classes = (permissions.IsAdminUser)
+# class CreateWeightView(ListCreateAPIView):
+#     queryset = Weight.objects.all()
+#     serializer_class = WeightSerializer
+#     # permission_classes = (permissions.IsAdminUser)
 
 
-class UpdateWeightView(RetrieveUpdateDestroyAPIView):
-    queryset = Weight.objects.all()
-    serializer_class = WeightSerializer
-    # permission_classes = (permissions.IsAdminUser)
+# class UpdateWeightView(RetrieveUpdateDestroyAPIView):
+#     queryset = Weight.objects.all()
+#     serializer_class = WeightSerializer
+#     # permission_classes = (permissions.IsAdminUser)
 
 
-class CreateVolumeView(ListCreateAPIView):
+class CreateVolumeAPIView(ListCreateAPIView):
     queryset = Volume.objects.all()
     serializer_class = VolumeSerializer
     # permission_classes = (permissions.IsAdminUser)
 
-class UpdateVolumeView(RetrieveDestroyAPIView):
+class UpdateVolumeAPIView(RetrieveDestroyAPIView):
     queryset = Volume.objects.all()
     serializer_class = VolumeSerializer
     # permission_classes = (permissions.IsAdminUser)
 
-class CreateParametresTrailerView(ListCreateAPIView):
+class CreateParametresTrailerAPIView(ListCreateAPIView):
     queryset = ParametresTrailer.objects.all()
     serializer_class = ParametresTrailerSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
-class UpdateParametresTrailerView(RetrieveUpdateDestroyAPIView):
+class UpdateParametresTrailerAPIView(RetrieveUpdateDestroyAPIView):
     queryset = ParametresTrailer.objects.all()
     serializer_class = ParametresTrailerSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
-class CreateLocationCargoView(ListCreateAPIView):
+class CreateLocationCargoAPIView(ListCreateAPIView):
     queryset = LocationCargo.objects.all()
     serializer_class = LocationCargoSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
-class UpdateLocationCargoView(RetrieveUpdateDestroyAPIView):
+class UpdateLocationCargoAPIView(RetrieveUpdateDestroyAPIView):
     queryset = LocationCargo.objects.all()
     serializer_class = LocationCargoSerializer
     # permission_classes = (permissions.IsAdminUser)
 
 
-class CreateDealStatusView(ListCreateAPIView):
-    queryset = DealStatus.objects.all()
-    serializer_class = DealStatusSerializer
-    # permission_classes = (permissions.IsAdminUser)
+# class CreateDealStatusView(ListCreateAPIView):
+#     queryset = DealStatus.objects.all()
+#     serializer_class = DealStatusSerializer
+#     # permission_classes = (permissions.IsAdminUser)
+#
+#
+# class UpdateDealStatusView(RetrieveUpdateDestroyAPIView):
+#     queryset = DealStatus.objects.all()
+#     serializer_class = DealStatusSerializer
+#     # permission_classes = (permissions.IsAdminUser)
 
 
-class UpdateDealStatusView(RetrieveUpdateDestroyAPIView):
-    queryset = DealStatus.objects.all()
-    serializer_class = DealStatusSerializer
-    # permission_classes = (permissions.IsAdminUser)
-
-
-class CreateSubclassHazardView(ListCreateAPIView):
-    queryset = SubclassHazard.objects.all()
-    serializer_class = SubclassHazardSerializer
-    # permission_classes = (permissions.IsAdminUser)
-
-
-class UpdateSubclassHazardView(RetrieveUpdateDestroyAPIView):
-    queryset = SubclassHazard.objects.all()
-    serializer_class = SubclassHazardSerializer
-    # permission_classes = (permissions.IsAdminUser)
+# class CreateSubclassHazardView(ListCreateAPIView):
+#     queryset = SubclassHazard.objects.all()
+#     serializer_class = SubclassHazardSerializer
+#     # permission_classes = (permissions.IsAdminUser)
+#
+#
+# class UpdateSubclassHazardView(RetrieveUpdateDestroyAPIView):
+#     queryset = SubclassHazard.objects.all()
+#     serializer_class = SubclassHazardSerializer
+#     # permission_classes = (permissions.IsAdminUser)

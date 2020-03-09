@@ -1,13 +1,14 @@
+from .serializers import *
 from django.http import Http404
-from rest_framework.renderers import JSONRenderer
-from rest_framework import generics, status
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-from .renderers import UserJSONRenderer
-from .serializers import *
+from rest_framework.renderers import JSONRenderer
+from rest_framework import generics, status
 from rest_framework.generics import RetrieveUpdateAPIView, ListAPIView
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+from Deal.permissions import IsManager, IsClient, IsDriver
+
+
 
 class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     permission_classes = [IsAdminUser]
@@ -58,7 +59,6 @@ class UserListAPIView(ListAPIView):
 
 class RegistrationAPIView(APIView):
     permission_classes = (AllowAny,)
-    #renderer_classes = (UserJSONRenderer,)
     serializer_class = RegistrationSerializer
 
     def post(self, request):
@@ -89,21 +89,8 @@ class TradingSetListAPIView(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = TradingSetSerializer
 
-
     queryset = TradingSet.objects.all()
 
-
-class LegalEntityListAPIView(ListAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = LegalEntitySerializer
-
-    queryset = LegalEntity.objects.all()
-
-
-class LegalEntityDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = LegalEntity.objects.all()
-    serializer_class = LegalEntitySerializer
-    permission_classes = [IsAuthenticated]
 
 class DriverListAPIView(ListAPIView):
     permission_classes = [IsAuthenticated]
@@ -142,3 +129,15 @@ class ManagerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Manager.objects.all()
     serializer_class = ManagersSerializer
     permission_classes = [IsAdminUser]
+
+
+class ClientCreateAPIView(generics.CreateAPIView):
+    queryset = Clients.objects.all()
+    permission_classes = [IsAuthenticated]
+    serializer_class = ClientSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+

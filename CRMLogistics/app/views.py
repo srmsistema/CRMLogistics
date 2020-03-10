@@ -4,15 +4,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.renderers import JSONRenderer
 from rest_framework import generics, status
-from rest_framework.generics import RetrieveUpdateAPIView, ListAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from Deal.permissions import IsManager, IsClient, IsDriver
 
 
 
-class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
+class UserRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAdminUser]
-    # renderer_classes = (UserJSONRenderer,)
     serializer_class = UsersSerializer
     queryset = User.objects.all()
 
@@ -51,14 +49,14 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAdminUser]
 
 
-class UserListAPIView(ListAPIView):
-    permission_classes = [IsAdminUser, ]
+class UserListAPIView(generics.ListAPIView):
+    permission_classes = [IsAdminUser]
     serializer_class = UsersSerializer
     queryset = User.objects.all()
 
 
 class RegistrationAPIView(APIView):
-    permission_classes = (AllowAny,)
+    permission_classes = [AllowAny]
     serializer_class = RegistrationSerializer
 
     def post(self, request):
@@ -69,8 +67,7 @@ class RegistrationAPIView(APIView):
 
 
 class LoginAPIView(APIView):
-    permission_classes = (AllowAny,)
-    #renderer_classes = (UserJSONRenderer,)
+    permission_classes = [AllowAny]
     serializer_class = LoginSerializer
 
     def post(self, request):
@@ -79,34 +76,44 @@ class LoginAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class TradingSetCreateAPIView(generics.CreateAPIView):
+    queryset = TradingSet.objects.all()
+    serializer_class = TradingSetSerializer
+    permission_classes = [IsAdminUser]
+
+
 class TradingSetDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TradingSet.objects.all()
     serializer_class = TradingSetSerializer
     permission_classes = [IsAdminUser]
 
 
-class TradingSetListAPIView(ListAPIView):
-    permission_classes = [IsAuthenticated]
+class TradingSetListAPIView(generics.ListAPIView):
+    permission_classes = [IsAdminUser]
     serializer_class = TradingSetSerializer
-
     queryset = TradingSet.objects.all()
 
 
-class DriverListAPIView(ListAPIView):
-    permission_classes = [IsAuthenticated]
+class DriverCreateAPIView(generics.CreateAPIView):
+    queryset = Driver.objects.all()
+    permission_classes = [IsAdminUser]
     serializer_class = DriversSerializer
 
+
+class DriverListAPIView(generics.ListAPIView):
+    permission_classes = [IsAdminUser]
+    serializer_class = DriversSerializer
     queryset = Driver.objects.all()
 
 
 class DriverDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Driver.objects.all()
     serializer_class = DriversSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
 
-class IndividualListAPIView(ListAPIView):
-    permission_classes = [IsAuthenticated]
+class IndividualListAPIView(generics.ListAPIView):
+    permission_classes = [IsAdminUser]
     serializer_class = IndividualsSerializer
     
     queryset = Individual.objects.all()
@@ -118,12 +125,23 @@ class IndividualDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAdminUser]
 
 
-class ManagerListAPIView(ListAPIView):
+class ManagerCreateAPIView(generics.CreateAPIView):
+    queryset = Manager.objects.all()
     permission_classes = [IsAdminUser]
     serializer_class = ManagersSerializer
-    
+
+
+
+class ManagerListAPIView(generics.ListAPIView):
+    permission_classes = [IsAdminUser|IsManager]
+    serializer_class = ManagersSerializer
     queryset = Manager.objects.all()
 
+    def get_queryset(self):
+        if self.request.user.is_staff and self.request.user:
+            return Clients.objects.all()
+        elif self.request.user.is_manager and self.request.user:
+            return Clients.objects.filter(user=self.request.user)
 
 class ManagerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Manager.objects.all()
@@ -138,6 +156,23 @@ class ClientCreateAPIView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+        user = self.request.user
+        user.is_client = True
+        user.save()
+
+class ClientListAPIView(generics.ListAPIView):
+    queryset = Clients.objects.all()
+    permission_classes = [IsAdminUser|IsClient]
+    serializer_class = ClientSerializer
+
+    def get_queryset(self):
+        if self.request.user.is_staff and self.request.user:
+            return  Clients.objects.all()
+        elif self.request.user.is_client and self.request.user:
+            return Clients.objects.filter(user = self.request.user)
+
+
+
 
 
 

@@ -21,12 +21,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 class UsersSerializer(serializers.ModelSerializer):
     password = serializers.CharField(max_length=128, min_length=8, write_only=True)
-    roles = serializers.CharField(max_length=50, read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'is_admin', 'password',
-                  'is_staff', 'is_active', 'is_client', 'is_manager', 'is_driver']
+        fields = ['id', 'username', 'email', 'is_admin', 'password','is_staff','is_active', 'is_client', 'is_manager', 'is_driver']
         read_only_fields = ('token',)
 
     def update(self, instance, validated_data):
@@ -37,9 +35,7 @@ class UsersSerializer(serializers.ModelSerializer):
 
         if password is not None:
             instance.set_password(password)
-
         instance.save()
-
         return instance
 
 
@@ -82,7 +78,7 @@ class TradingSetSerializer(serializers.ModelSerializer):
 
 class DriversSerializer(serializers.ModelSerializer):
 
-    User_id = UsersSerializer(required=True)
+    user = UsersSerializer(required=True)
 
     class Meta:
         model = Driver

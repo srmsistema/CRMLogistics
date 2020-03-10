@@ -23,11 +23,14 @@ urlpatterns += [
     path('trading_sets/', TradingSetListAPIView.as_view(), name='tradingset'),
     path('trading_sets/<int:pk>/', TradingSetDetailAPIView.as_view(), name='tradingset_detail'),
     path('drivers/', DriverListAPIView.as_view(), name='driver'),
+    path('drivers/create', DriverCreateAPIView.as_view(), name='driver_create'),
     path('drivers/<int:pk>', DriverDetailAPIView.as_view(), name='driver_detail'),
     path('individuals/', IndividualListAPIView.as_view(), name='individual'),
     path('individuals/<int:pk>', IndividualDetailAPIView.as_view(), name='individual_detail'),
     path('managers/', ManagerListAPIView.as_view(), name='manager'),
+    path('managers/create', ManagerCreateAPIView.as_view(), name='manager_create'),
     path('managers/<int:pk>', ManagerDetailAPIView.as_view(), name='manager_detail'),
+    path('clients/', ClientListAPIView.as_view(), name='client_list'),
     path('clients/create', ClientCreateAPIView.as_view(), name='client_create')
 ]
 

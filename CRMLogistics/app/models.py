@@ -59,8 +59,6 @@ class TradingSet(models.Model):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    is_admin = models.BooleanField(default=False, verbose_name='Администратор')
-    is_staff = models.BooleanField(default=False, verbose_name='Персонал')
     username = models.CharField(db_index=True, max_length=255, blank=False, unique=True, default='',
                                 verbose_name='Имя пользователя')
     email = models.EmailField(unique=True, blank=True, verbose_name='Почта')
@@ -70,6 +68,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_client = models.BooleanField(default=False, verbose_name='Клиент')
     is_manager = models.BooleanField(default=False, verbose_name='Менеджер')
     is_driver = models.BooleanField(default=False, verbose_name='Исполнитель')
+    is_admin = models.BooleanField(default=False, verbose_name='Администратор')
+    is_staff = models.BooleanField(default=False, verbose_name='Персонал')
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
@@ -77,7 +77,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return self.username
+
+
 
     @property
     def token(self):

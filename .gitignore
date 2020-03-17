@@ -93,4 +93,4 @@ static
 
 migrations
 staticfiles/
-.idea
+/.idea

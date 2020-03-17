@@ -1,6 +1,0 @@
-*.py[cod]
-*.mo
-.env
-venv/
-db.sqlite3
-/.idea

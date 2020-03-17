@@ -59,7 +59,7 @@ coverage.xml
 # Django stuff:
 *.log
 local_settings.py
-db.sqlite3/
+db.sqlite3
 
 # Flask stuff:
 instance/
@@ -98,7 +98,7 @@ celerybeat-schedule
 *.sage.py
 
 # Environments
-.env/
+.env
 .venv
 env/
 venv/
@@ -128,8 +128,8 @@ dmypy.json
 ### Example user template
 
 # IntelliJ project files
-.idea
-*.iml
+/.idea
+*.iml/
 out
 gen
 

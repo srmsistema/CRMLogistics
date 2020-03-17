@@ -2,56 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66cdfee8-906b-41ed-810d-6d85dba07a00" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/.env" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/Deal/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/Deal/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/Deal/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/Deal/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/Deal/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/Deal/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/Deal/permissions.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/Deal/serializers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/Deal/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/Deal/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/Deal/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/Procfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/app/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/app/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/app/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/app/backends.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/app/forms.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/app/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/app/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/app/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/app/renderers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/app/serializers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/app/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/app/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/app/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/crm/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/crm/asgi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/crm/exceptions.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/crm/settings.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/crm/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/crm/wsgi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/db.sqlite3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/manage.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/runtime.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/templates/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/templates/home.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/templates/registration/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/templates/registration/password_change_done.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/templates/registration/password_change_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/templates/registration/password_reset_complete.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/templates/registration/password_reset_confirm.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/templates/registration/password_reset_done.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/templates/registration/password_reset_email.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/templates/registration/password_reset_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/templates/registration/password_reset_subject.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRMLogistics/templates/signup.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+            <state relative-caret-position="96">
+              <caret line="100" column="4" lean-forward="true" selection-start-line="100" selection-start-column="4" selection-end-line="100" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -573,8 +524,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+        <state relative-caret-position="96">
+          <caret line="100" column="4" lean-forward="true" selection-start-line="100" selection-start-column="4" selection-end-line="100" selection-end-column="4" />
         </state>
       </provider>
     </entry>

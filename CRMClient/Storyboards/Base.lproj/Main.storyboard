@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Enter View Controller-->
+        <!--Sign In View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="EnterViewController" customModule="CRMClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SignInViewController" customModule="CRMClient" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,7 +29,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ewx-fs-N46">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Логин" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ewx-fs-N46">
                                 <rect key="frame" x="32" y="239" width="309" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -41,7 +41,7 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="-11" maxX="0.0" maxY="-42"/>
                                 <state key="normal" title="ВОЙТИ" backgroundImage="rectangle-1"/>
                                 <connections>
-                                    <segue destination="blu-Rs-Thx" kind="presentation" modalPresentationStyle="fullScreen" id="ohs-RS-Hox"/>
+                                    <action selector="saveInfo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rEr-xS-ahk"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Войти" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zc7-4N-Kqk">
@@ -74,6 +74,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="nameField" destination="Ewx-fs-N46" id="Xo2-wJ-i6f"/>
+                        <outlet property="passwordField" destination="qHz-hp-EGm" id="ufi-uB-075"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -225,10 +229,10 @@
             </objects>
             <point key="canvasLocation" x="964" y="885"/>
         </scene>
-        <!--Create View Controller-->
+        <!--Registration View Controller-->
         <scene sceneID="Waw-yz-Mj3">
             <objects>
-                <viewController id="26n-yS-WTw" customClass="CreateViewController" customModule="CRMClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="26n-yS-WTw" customClass="RegistrationViewController" customModule="CRMClient" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ABv-eT-X7r">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -288,11 +292,20 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <inset key="imageEdgeInsets" minX="50" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="СОЗДАТЬ АККАУНТ" backgroundImage="rectangle-1"/>
+                                <connections>
+                                    <action selector="saveInfo:" destination="26n-yS-WTw" eventType="touchUpInside" id="mD0-L3-Yap"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="kBz-55-euA"/>
                     </view>
+                    <connections>
+                        <outlet property="checkField" destination="Pej-E1-ust" id="GUN-KQ-KcI"/>
+                        <outlet property="emailField" destination="vgF-5C-aWx" id="GYL-Ou-o9a"/>
+                        <outlet property="nameField" destination="UPc-fF-kjF" id="hYK-cL-ggD"/>
+                        <outlet property="passwordField" destination="w2Z-YF-UIa" id="P1w-Mg-1cp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5uy-gd-DtU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -642,7 +655,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="eVI-rd-zDz">
             <objects>
-                <tabBarController id="blu-Rs-Thx" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainVC" id="blu-Rs-Thx" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="rkN-40-ssu"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" itemPositioning="centered" id="unL-58-sWz">
@@ -1157,11 +1170,10 @@
         <image name="Отлично! Теперь введите код из письма" width="226" height="31"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zcT-7o-srq"/>
         <segue reference="LtL-Lu-SR0"/>
         <segue reference="bOB-NC-f2z"/>
         <segue reference="MGj-RN-ELU"/>
-        <segue reference="TPj-x9-tJ9"/>
+        <segue reference="EUL-gA-tM5"/>
         <segue reference="nUb-AL-b80"/>
     </inferredMetricsTieBreakers>
 </document>

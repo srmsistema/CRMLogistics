@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		0E1E9659B559E813303FFF97 /* Pods_CRMClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 389E062281F1978F42B79E06 /* Pods_CRMClient.framework */; };
 		E013CC882404D03F0070CE21 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E013CC872404D03F0070CE21 /* GoogleService-Info.plist */; };
-		E03EBBCC2400F42600047540 /* EnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBCB2400F42600047540 /* EnterViewController.swift */; };
-		E03EBBCE2400F48200047540 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBCD2400F48200047540 /* CreateAccountViewController.swift */; };
+		E03EBBCC2400F42600047540 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBCB2400F42600047540 /* SignInViewController.swift */; };
+		E03EBBCE2400F48200047540 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBCD2400F48200047540 /* RegistrationViewController.swift */; };
 		E03EBBD02400F4C900047540 /* RestoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBCF2400F4C900047540 /* RestoreViewController.swift */; };
 		E03EBBD22400F51500047540 /* TakeOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBD12400F51500047540 /* TakeOrderViewController.swift */; };
 		E03EBBD42400F55300047540 /* AllOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBD32400F55300047540 /* AllOrdersViewController.swift */; };
@@ -40,8 +40,8 @@
 		66F13F0F260B3F3E1226F729 /* Pods-CRMClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRMClient.release.xcconfig"; path = "Target Support Files/Pods-CRMClient/Pods-CRMClient.release.xcconfig"; sourceTree = "<group>"; };
 		7C8F8A2A2B27542EA6D7159D /* Pods-CRMClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRMClient.debug.xcconfig"; path = "Target Support Files/Pods-CRMClient/Pods-CRMClient.debug.xcconfig"; sourceTree = "<group>"; };
 		E013CC872404D03F0070CE21 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E03EBBCB2400F42600047540 /* EnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterViewController.swift; sourceTree = "<group>"; };
-		E03EBBCD2400F48200047540 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		E03EBBCB2400F42600047540 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		E03EBBCD2400F48200047540 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		E03EBBCF2400F4C900047540 /* RestoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreViewController.swift; sourceTree = "<group>"; };
 		E03EBBD12400F51500047540 /* TakeOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeOrderViewController.swift; sourceTree = "<group>"; };
 		E03EBBD32400F55300047540 /* AllOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllOrdersViewController.swift; sourceTree = "<group>"; };
@@ -133,8 +133,10 @@
 				E0CEE77A2414C606007F1FBF /* Model.swift */,
 				E0736BF6241117DF00C70989 /* Constants.swift */,
 				E0736BF82411180F00C70989 /* Extensions.swift */,
+				E0736BF0241116E700C70989 /* ServerManager.swift */,
 				E0736BF4241117B600C70989 /* HTTPRequestManager.swift */,
 				E078BB5A23F1482F00D4DCE9 /* Info.plist */,
+				E04669FD24056DCA007C5867 /* Extension.swift */,
 				E0E7BBBF2404D1DC0055B242 /* Controllers */,
 				E0E7BBC02404D2070055B242 /* Storyboards */,
 				E013CC862404D02B0070CE21 /* Supporting Files */,
@@ -145,9 +147,8 @@
 		E0E7BBBF2404D1DC0055B242 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E0736BF0241116E700C70989 /* ServerManager.swift */,
-				E03EBBCD2400F48200047540 /* CreateAccountViewController.swift */,
-				E03EBBCB2400F42600047540 /* EnterViewController.swift */,
+				E03EBBCD2400F48200047540 /* RegistrationViewController.swift */,
+				E03EBBCB2400F42600047540 /* SignInViewController.swift */,
 				E03EBBCF2400F4C900047540 /* RestoreViewController.swift */,
 				E03EBBD12400F51500047540 /* TakeOrderViewController.swift */,
 				E03EBBD32400F55300047540 /* AllOrdersViewController.swift */,
@@ -158,7 +159,6 @@
 				E03EBBDB2400F89800047540 /* HistoryViewController.swift */,
 				E03EBBDF240105C000047540 /* MapViewController.swift */,
 				E03EBBDD2400FDB800047540 /* DetailsViewController.swift */,
-				E04669FD24056DCA007C5867 /* Extension.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -293,8 +293,8 @@
 				E0736BF7241117DF00C70989 /* Constants.swift in Sources */,
 				E0736BF32411176900C70989 /* HTTPStatusCode.swift in Sources */,
 				E03EBBDA2400F61E00047540 /* NotificationViewController.swift in Sources */,
-				E03EBBCE2400F48200047540 /* CreateAccountViewController.swift in Sources */,
-				E03EBBCC2400F42600047540 /* EnterViewController.swift in Sources */,
+				E03EBBCE2400F48200047540 /* RegistrationViewController.swift in Sources */,
+				E03EBBCC2400F42600047540 /* SignInViewController.swift in Sources */,
 				E078BB4D23F1482C00D4DCE9 /* AppDelegate.swift in Sources */,
 				E0FBD310240E0A0400E0C596 /* StatusViewController.swift in Sources */,
 				E03EBBD22400F51500047540 /* TakeOrderViewController.swift in Sources */,

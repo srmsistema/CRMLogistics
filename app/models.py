@@ -13,14 +13,9 @@ from django.conf import settings
 class CustomUserManager(BaseUserManager):
     use_in_migrations = True
     #exclude = ('',)
-    """
-    Custom user model manager where email is the unique identifiers
-    for authentication instead of usernames.
-    """
+
     def create_user(self, username, email, password, **extra_fields):
-        """
-        Create and save a User with the given email and password.
-        """
+
         if not username:
             raise ValueError(_('Должно быть введено имя пользователя.'))
         if email:

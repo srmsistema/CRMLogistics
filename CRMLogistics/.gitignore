@@ -35,6 +35,9 @@ __pycache__/
 # Distribution / packaging
 .Python
 /.idea
+.idea/
+.idea
+/.idea/
 env/
 build/
 develop-eggs/
@@ -87,7 +90,7 @@ __pycache__/
 local_settings.py
 
 .env
-db.sqlite3
+db.sqlite3/
 
 .idea/
 venv

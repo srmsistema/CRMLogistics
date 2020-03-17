@@ -7,7 +7,7 @@ from rest_framework import authentication, exceptions
 from .models import User
 
 class JWTAuthentication(authentication.BaseAuthentication):
-    authentication_header_prefix = "Token"
+    authentication_header_prefix = 'Bearer'
 
     def authenticate(self, request):
         request.user = None
@@ -24,16 +24,16 @@ class JWTAuthentication(authentication.BaseAuthentication):
         elif len(auth_header) > 2:
             return None
 
-
         prefix = auth_header[0].decode('utf-8')
         token = auth_header[1].decode('utf-8')
 
         if prefix.lower() != auth_header_prefix:
             return None
 
-        return self._authenticate_credentials(request, token)
+        return self._authenticate_credentails(request, token)
 
-    def _authenticate_credentials(self, request, token):
+    def _authenticate_credentails(self, request, token):
+
         try:
             payload = jwt.decode(token, settings.SECRET_KEY)
         except:
@@ -42,7 +42,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
 
         try:
             user = User.objects.get(pk=payload['id'])
-        except User.DoesNotExist:
+        except:
             msg = 'No user matching this token was found.'
             raise exceptions.AuthenticationFailed(msg)
 

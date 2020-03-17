@@ -2,10 +2,7 @@ import jwt
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.base_user import BaseUserManager
-from django.utils.translation import ugettext_lazy as _
-import datetime
 from datetime import datetime, timedelta
 from django.conf import settings
 
@@ -23,7 +20,7 @@ class CustomUserManager(BaseUserManager):
         Create and save a User with the given email and password.
         """
         if not username:
-            raise ValueError(_('Должно быть введено имя пользователя.'))
+            raise ValueError('Должно быть введено имя пользователя.')
         if email:
             email = self.normalize_email(email)
         user = self.model(username=username, email=email, **extra_fields)
@@ -79,8 +76,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
-
-
     @property
     def token(self):
         return self._generate_jwt_token()
@@ -90,7 +85,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         token = jwt.encode({
             'id': self.pk,
-            'exp': dt.utcfromtimestamp(dt.timestamp())  # CHANGE HERE
+            'exp': int(dt.strftime('%S'))
         }, settings.SECRET_KEY, algorithm='HS256')
 
         return token.decode('utf-8')
@@ -175,4 +170,3 @@ class Clients(models.Model):
 
     def __str__(self):
         return '%s' % (self.user)
-

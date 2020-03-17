@@ -6,14 +6,15 @@ class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         max_length=128,
         min_length=8,
-        write_only=True
+        write_only=True,
+        style={'input_type': 'password'}
     )
 
     token = serializers.CharField(max_length=255, read_only=True)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password','token']
+        fields = ('username', 'email', 'password','token')
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
@@ -24,7 +25,7 @@ class UsersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'is_admin', 'password','is_staff','is_active', 'is_client', 'is_manager', 'is_driver']
+        fields = ('id', 'username', 'email', 'is_admin', 'password','is_staff','is_active', 'is_client', 'is_manager', 'is_driver', 'token')
         read_only_fields = ('token',)
 
     def update(self, instance, validated_data):
@@ -41,7 +42,7 @@ class UsersSerializer(serializers.ModelSerializer):
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=255)
-    password = serializers.CharField(max_length=255, write_only=True)
+    password = serializers.CharField(max_length=255, write_only=True, style={'input_type': 'password'})
     token = serializers.CharField(max_length=255, read_only=True)
 
     def validate(self, data):
@@ -64,6 +65,7 @@ class LoginSerializer(serializers.Serializer):
 
         return {
             'username': user.username,
+            'email': user.email,
             'token': user.token
         }
 

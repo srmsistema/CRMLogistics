@@ -5,7 +5,11 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
+    {% for form in forms %}
+      {{ form }}
+      <img src="{{ form.photo.url }}" width="240">
+  {% endfor %}
+
   <p><a href="{% url 'logout' %}">logout</a></p>
 {% else %}
   <p>You are not logged in</p>

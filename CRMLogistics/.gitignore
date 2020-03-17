@@ -86,20 +86,13 @@ __pycache__/
 local_settings.py
 
 .env
-.env/
-/.env/
-db.sqlite3/
 db.sqlite3
-/db.sqlite3/
-/db.sqlite3
 
-../.idea
-/.idea
-.idea/
-/.idea/
+*.idea/
+
+
 venv
-venv/
-/venv/
+
 
 static
 

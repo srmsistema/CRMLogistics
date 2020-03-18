@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 from .serializers import *
 from django.http import Http404
 from rest_framework.response import Response
@@ -8,7 +6,6 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework import generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from Deal.permissions import IsManager, IsClient, IsDriver
-from .renderers import UserJSONRenderer
 
 
 class UserRetrieveUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -142,7 +139,7 @@ class ManagerCreateAPIView(generics.CreateAPIView):
 
 
 class ManagerListAPIView(generics.ListAPIView):
-    permission_classes = [IsAdminUser | IsManager]
+    permission_classes = [IsAdminUser]
     serializer_class = ManagersSerializer
     queryset = Manager.objects.all()
 

@@ -3,9 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager
-from datetime import datetime, timedelta
-from django.conf import settings
-
+from rest_framework_simplejwt.tokens import RefreshToken
 
 class CustomUserManager(BaseUserManager):
     use_in_migrations = True
@@ -78,17 +76,17 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @property
     def token(self):
-        return self._generate_jwt_token()
+        return self._generate_jwt_token_()
 
-    def _generate_jwt_token(self):
-        dt = datetime.now() + timedelta(days=60)
+    def _generate_jwt_token_(self):
+        user = User.objects.get(id=self.pk)
+        refresh = self.get_token(user)
+        token = str(refresh.access_token)
+        return token
 
-        token = jwt.encode({
-            'id': self.pk,
-            'exp': int(dt.strftime('%S'))
-        }, settings.SECRET_KEY, algorithm='HS256')
-
-        return token.decode('utf-8')
+    @classmethod
+    def get_token(cls, user):
+        return RefreshToken.for_user(user)
 
     class Meta:
         verbose_name = 'Пользователь'

@@ -2,7 +2,6 @@ from django.urls import path
 from .views import *
 from django.views.generic import TemplateView
 from rest_framework_jwt.views import obtain_jwt_token
-from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
     path('users/password_change/', TemplateView.as_view(template_name="password_change_form.html"), name='password_change'),
@@ -31,9 +30,4 @@ urlpatterns += [
     path('managers/<int:pk>', ManagerDetailAPIView.as_view(), name='manager_detail'),
     path('clients/', ClientListAPIView.as_view(), name='client_list'),
     path('clients/create', ClientCreateAPIView.as_view(), name='client_create'),
-]
-
-urlpatterns += [
-    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]

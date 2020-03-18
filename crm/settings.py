@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-import dj_database_url
 from decouple import config
 import django_heroku
+from datetime import timedelta
+from django.conf import settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -52,7 +53,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAdminUser',
     ]
-
 }
 
 # Application definition
@@ -93,7 +93,6 @@ TEMPLATES = [
 # ----------------------------------------------------
 WSGI_APPLICATION = 'crm.wsgi.application'
 # ----------------------------------------------------
-
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases

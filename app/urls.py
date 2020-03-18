@@ -2,7 +2,6 @@ from django.urls import path
 from .views import *
 from django.views.generic import TemplateView
 from rest_framework_jwt.views import obtain_jwt_token
-from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
     path('users/password_change/', TemplateView.as_view(template_name="password_change_form.html"), name='password_change'),
@@ -22,14 +21,13 @@ urlpatterns += [
     path('trading_sets/', TradingSetListAPIView.as_view(), name='tradingset'),
     path('trading_sets/<int:pk>/', TradingSetDetailAPIView.as_view(), name='tradingset_detail'),
     path('drivers/', DriverListAPIView.as_view(), name='driver'),
+    path('drivers/create', DriverCreateAPIView.as_view(), name='driver_create'),
     path('drivers/<int:pk>', DriverDetailAPIView.as_view(), name='driver_detail'),
     path('individuals/', IndividualListAPIView.as_view(), name='individual'),
     path('individuals/<int:pk>', IndividualDetailAPIView.as_view(), name='individual_detail'),
     path('managers/', ManagerListAPIView.as_view(), name='manager'),
-    path('managers/<int:pk>', ManagerDetailAPIView.as_view(), name='manager_detail')
-]
-
-urlpatterns += [
-    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('managers/create', ManagerCreateAPIView.as_view(), name='manager_create'),
+    path('managers/<int:pk>', ManagerDetailAPIView.as_view(), name='manager_detail'),
+    path('clients/', ClientListAPIView.as_view(), name='client_list'),
+    path('clients/create', ClientCreateAPIView.as_view(), name='client_create'),
 ]

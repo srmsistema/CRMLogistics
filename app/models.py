@@ -1,8 +1,11 @@
+import datetime
+
 import jwt
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager
+from django.utils import timezone
 from rest_framework_simplejwt.tokens import RefreshToken
 
 class CustomUserManager(BaseUserManager):
@@ -132,14 +135,14 @@ class UserStatus(models.Model):
 
 class Driver(models.Model):
     user = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True, verbose_name='Пользователь')
-    autoTechPassPhoto = models.ImageField(null=True, upload_to='static', verbose_name='Технический паспорт авто')
-    trailerTechPassPhoto = models.ImageField(null=True, upload_to='static', verbose_name='Технический паспорт прицепа')
-    autoOwnerPass = models.ImageField(null=True, upload_to='static', verbose_name='Паспорт владельца')
-    driverPass = models.ImageField(null=True, upload_to='static', verbose_name='Паспорт водителя')
-    driverLicense = models.ImageField(null=True, upload_to='static', verbose_name='Водительская лицензия')
-    internationalTransportationLicense = models.ImageField(null=True, upload_to='static',
+    autoTechPassPhoto = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Технический паспорт авто')
+    trailerTechPassPhoto = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Технический паспорт прицепа')
+    autoOwnerPass = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Паспорт владельца')
+    driverPass = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Паспорт водителя')
+    driverLicense = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Водительская лицензия')
+    internationalTransportationLicense = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static',
                                                            verbose_name='Лицензия на международные перевозки')
-    insurancePolicy = models.ImageField(null=True, upload_to='static', verbose_name='Страховой полис')
+    insurancePolicy = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Страховой полис')
 
     class Meta:
         verbose_name = 'Исполнитель'
@@ -158,9 +161,9 @@ class Clients(models.Model):
     first_name = models.CharField(max_length=30, blank=True, verbose_name='Имя')
     last_name = models.CharField(max_length=30, blank=True, verbose_name='Фамилия')
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default=1, verbose_name='Пол')
-    dateOfBirth = models.DateField(default=None, null=True, blank=True, verbose_name='Дата рождения')
+    dateOfBirth = models.DateField(default=timezone.now, blank=True, verbose_name='Дата рождения')
     phone = models.CharField(max_length=255, null=True, blank=True, default='', verbose_name='Телефон')
-    photo = models.ImageField(null=True, blank=True, upload_to='static', verbose_name='Фото')
+    photo = models.ImageField(default='static/blank-profile-picture-973460_6404.png', blank=True, upload_to='static', verbose_name='Фото', null=False)
 
     class Meta:
         verbose_name = 'Клиент'

@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserChangeForm
 from django.contrib.auth.models import Group
 
-from .models import Individual, UserStatus, Driver, TradingSet, Manager, User
+from .models import Individual, UserStatus, Driver, TradingSet, Manager, User, Clients
 from django.contrib import admin
 from .forms import SignupForm
 from Deal.models import Order
@@ -13,26 +13,24 @@ class CustomUserAdmin(UserAdmin):
     add_form = SignupForm
     form = CustomUserChangeForm
     model = User
-    list_display = ('username', 'email', 'is_staff', 'is_active',)
-    list_filter = ('username', 'email', 'is_staff', 'is_active',)
+    list_display = ('username', 'email', 'is_staff', 'is_active','is_client', 'is_manager', 'is_driver')
+    list_filter = ('username', 'email', 'is_staff', 'is_active','is_client', 'is_manager', 'is_driver')
     fieldsets = (
-        (None, {'fields': ('username', 'first_name', 'last_name', 'email', 'gender',
-                           'dateOfBirth', 'phone', 'photo', 'password')}),
+        (None, {'fields': ('username',  'email', 'password','is_client', 'is_manager', 'is_driver')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')})
     )
 
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'first_name', 'last_name','email', 'gender',
-                           'dateOfBirth', 'phone', 'photo', 'password1',
-                       'password2', 'is_staff', 'is_active')}
+            'fields': ('username', 'email','password1','password2', 'is_staff', 'is_active','is_client', 'is_manager', 'is_driver')}
         ),
     )
-    search_fields = ('email',)
-    ordering = ('email',)
+    search_fields = ('username',)
+    ordering = ('username',)
 
 
+admin.site.register(Clients)
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(UserStatus)
 admin.site.register(Driver)
@@ -40,6 +38,8 @@ admin.site.register(Individual)
 admin.site.register(TradingSet)
 admin.site.register(Manager)
 admin.site.unregister(Group)
+
+
 
 
 class ManagerAdminSite(AdminSite):

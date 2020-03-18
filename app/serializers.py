@@ -6,15 +6,15 @@ class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         max_length=128,
         min_length=8,
-        write_only=True
+        write_only=True,
+        style={'input_type': 'password'}
     )
 
     token = serializers.CharField(max_length=255, read_only=True)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'password',
-                  'gender', 'dateOfBirth', 'phone', 'photo', 'token']
+        fields = ('username', 'email', 'password','token')
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
@@ -25,8 +25,7 @@ class UsersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'is_admin', 'password',
-                  'is_staff', 'is_active', 'gender', 'dateOfBirth', 'phone', 'photo']
+        fields = ('id', 'username', 'email', 'is_admin', 'password','is_staff','is_active', 'is_client', 'is_manager', 'is_driver', 'token')
         read_only_fields = ('token',)
 
     def update(self, instance, validated_data):
@@ -37,15 +36,13 @@ class UsersSerializer(serializers.ModelSerializer):
 
         if password is not None:
             instance.set_password(password)
-
         instance.save()
-
         return instance
 
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=255)
-    password = serializers.CharField(max_length=255, write_only=True)
+    password = serializers.CharField(max_length=255, write_only=True, style={'input_type': 'password'})
     token = serializers.CharField(max_length=255, read_only=True)
 
     def validate(self, data):
@@ -68,6 +65,7 @@ class LoginSerializer(serializers.Serializer):
 
         return {
             'username': user.username,
+            'email': user.email,
             'token': user.token
         }
 
@@ -82,15 +80,15 @@ class TradingSetSerializer(serializers.ModelSerializer):
 
 class DriversSerializer(serializers.ModelSerializer):
 
-    User_id = UsersSerializer(required=True)
+    user = UsersSerializer(required=True)
 
     class Meta:
         model = Driver
-        fields = ('User_id', 'autoTechPassPhoto', 'trailerTechPassPhoto', 'autoOwnerPass', 'driverPass', 'driverLicense',
+        fields = ('user', 'autoTechPassPhoto', 'trailerTechPassPhoto', 'autoOwnerPass', 'driverPass', 'driverLicense',
             'internationalTransportationLicense', 'insurancePolicy')
 
         def create(self, validated_data):
-            user_data = validated_data.pop('User_id')
+            user_data = validated_data.pop('user')
             user = UsersSerializer.create(UsersSerializer(), validated_data=user_data)
             driver, created = Driver.objects.update_or_create(user=user)
             return driver
@@ -98,11 +96,11 @@ class DriversSerializer(serializers.ModelSerializer):
 
 class IndividualsSerializer(serializers.ModelSerializer):
     
-    User_id = UsersSerializer(required=True)
+    user = UsersSerializer(required=True)
     
     class Meta:
         model = Individual
-        fields = ('User_id', 'address')
+        fields = ('user', 'address')
             
     def create(self, validated_data):
         user_data = validated_data.pop('User_id')
@@ -113,14 +111,25 @@ class IndividualsSerializer(serializers.ModelSerializer):
 
 class ManagersSerializer(serializers.ModelSerializer):
 
-    User_id = UsersSerializer(required=True)
+    user = UsersSerializer(required=True)
 
     class Meta:
         model = Manager
-        fields = ('User_id', 'tradingSet')
+        fields = ('user', 'tradingSet')
 
     def create(self, validated_data):
-        user_data = validated_data.pop('User_id')
+        user_data = validated_data.pop('user')
         user = UsersSerializer.create(UsersSerializer(), validated_data=user_data)
         individual, created = Individual.objects.update_or_create(user=user)
         return individual
+
+class ClientSerializer(serializers.ModelSerializer):
+
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model =  Clients
+        fields = ('user','first_name', 'last_name', 'gender', 'dateOfBirth', 'phone', 'photo')
+
+
+

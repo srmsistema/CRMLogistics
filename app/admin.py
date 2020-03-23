@@ -9,6 +9,9 @@ from django.contrib import admin
 from .forms import SignupForm
 from Deal.models import Order
 
+from django import forms
+
+
 class CustomUserAdmin(UserAdmin):
     add_form = SignupForm
     form = CustomUserChangeForm

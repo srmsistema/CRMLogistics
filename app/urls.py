@@ -31,3 +31,4 @@ urlpatterns += [
     path('clients/', ClientListAPIView.as_view(), name='client_list'),
     path('clients/create', ClientCreateAPIView.as_view(), name='client_create'),
 ]
+

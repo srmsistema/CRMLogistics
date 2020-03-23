@@ -48,7 +48,8 @@ class ParametresTrailerSerializer(serializers.ModelSerializer):
 class LocationCargoSerializer(serializers.ModelSerializer):
     class Meta:
         model = LocationCargo
-        fields = ['locationCoordinates', 'sendingTimeCoordinates', 'locationCoordinatesStatus']
+        fields = ['longitude', 'latitude', 'sendingTimeCoordinates', ]
+                  # 'locationCoordinatesStatus']
 
 # class DealStatusSerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -67,13 +68,16 @@ class OrderListSerializer(serializers.ModelSerializer):
     # dealStatus = DealStatusSerializer(many=False, read_only=True)
     parametresTrailer = ParametresTrailerSerializer(many=False, read_only=True)
     locationCargo= LocationCargoSerializer(many=False, read_only=True)
-    user = serializers.CharField(source='user.__str__')
+    user = serializers.CharField(source='owner.__str__')
 
     class Meta:
         model = Order
         fields = '__all__'
 
 class OrderSerializer(serializers.ModelSerializer):
+
+    numberOrderFromClient = serializers.IntegerField(source='count_orders_number', read_only=True)
+
     class Meta:
         model = Order
         fields = '__all__'

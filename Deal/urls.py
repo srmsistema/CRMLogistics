@@ -2,10 +2,11 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('deal/', ListOrderAPIView.as_view(), name='deal'),
-    path('deal/create/', CreateOrderAPIView.as_view(), name = 'create_deal'),
-    path('deal/update/<int:pk>', UpdateOrderAPIView.as_view(), name = 'update_deal'),
-    path('deal/delete/<int:pk>', DeleteOrderAPIView.as_view(), name = 'delete_deal'),
+    path('order/', ListOrderAPIView.as_view(), name='order'),
+    path('order/<int:pk>', UpdateOrderAPIView.as_view(), name = 'detail_order'),
+    path('order/create/', CreateOrderAPIView.as_view(), name = 'create_order'),
+    path('order/update/<int:pk>', UpdateOrderAPIView.as_view(), name = 'update_order'),
+    path('order/delete/<int:pk>', DeleteOrderAPIView.as_view(), name = 'delete_order'),
     path('type-cargo/create/',  CreateTypeCargoAPIView.as_view(), name = 'type_cargo_create'),
     path('type-cargo/update/<int:pk>', UpdateTypeCargoAPIView.as_view(), name = 'type_cargo_update'),
     path('type-auto/create/', CreateTypeAutoAPIView.as_view(), name = 'type_auto_create'),

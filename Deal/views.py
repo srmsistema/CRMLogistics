@@ -1,5 +1,7 @@
 from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView, CreateAPIView, \
     ListCreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import AllowAny
+
 from .serializers import *
 from rest_framework import permissions
 from .permissions import IsManager, IsClient
@@ -11,13 +13,13 @@ class ListOrderAPIView(ListAPIView):
     serializer_class = OrderListSerializer
     permission_classes = [permissions.IsAdminUser | IsClient | IsManager]
 
-    def get_queryset(self):
-        if self.request.user.is_staff and self.request.user:
-            return Clients.objects.all()
-        elif self.request.user.is_client and self.request.user:
-            return Clients.objects.filter(user=self.request.user)
-        elif self.request.user.is_manager and self.request.user:
-            return Clients.objects.filter(user=self.request.user)
+    # def get_queryset(self):
+    #     if self.request.user.is_staff and self.request.user:
+    #         return Clients.objects.all()
+    #     elif self.request.user.is_client and self.request.user:
+    #         return Clients.objects.filter(user=self.request.user)
+    #     elif self.request.user.is_manager and self.request.user:
+    #         return Clients.objects.filter(user=self.request.user)
 
 
 class CreateOrderAPIView(CreateAPIView):
@@ -30,7 +32,6 @@ class UpdateOrderAPIView(RetrieveUpdateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = [permissions.IsAdminUser]
-
 
 class DeleteOrderAPIView(RetrieveDestroyAPIView):
     queryset = Order.objects.all()

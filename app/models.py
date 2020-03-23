@@ -154,7 +154,8 @@ class Clients(models.Model):
     female = 'female'
     GENDER_CHOICES = [(male, "мужской"), (female, "женский")]
 
-    user = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True, verbose_name='Пользователь')
+    id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
+    user = models.OneToOneField('User', on_delete=models.CASCADE, verbose_name='Пользователь')
     first_name = models.CharField(max_length=30, blank=True, verbose_name='Имя')
     last_name = models.CharField(max_length=30, blank=True, verbose_name='Фамилия')
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default=1, verbose_name='Пол')

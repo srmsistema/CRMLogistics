@@ -7,7 +7,7 @@ from django.contrib.auth.models import Group
 from .models import Individual, UserStatus, Driver, TradingSet, Manager, User, Clients
 from django.contrib import admin
 from .forms import SignupForm
-from Deal.models import Order
+# from Deal.models import Order
 
 class CustomUserAdmin(UserAdmin):
     add_form = SignupForm
@@ -61,4 +61,4 @@ class ManagerAdmin(admin.ModelAdmin):
         return False
 
 manager_admin_site.register(TradingSet, ManagerAdmin)
-manager_admin_site.register(Order)
+# manager_admin_site.register(Order)

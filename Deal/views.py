@@ -1,35 +1,66 @@
 from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView, CreateAPIView, \
-    ListCreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
+    ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .serializers import *
 from rest_framework import permissions
-from .permissions import IsManager, IsClient
-from app.models import Clients
+from .permissions import IsManager, IsClient, IsDriver
+from rest_framework.response import Response
+from rest_framework import status
 
 
 class ListOrderAPIView(ListAPIView):
     queryset = Order.objects.all()
-    serializer_class = OrderListSerializer
-    permission_classes = [permissions.IsAdminUser | IsClient | IsManager]
+    serializer_class = OrderSerializer
+    permission_classes = [permissions.IsAdminUser | IsClient | IsManager | IsDriver]
 
-    def get_queryset(self):
-        if self.request.user.is_staff and self.request.user:
-            return Clients.objects.all()
-        elif self.request.user.is_client and self.request.user:
-            return Clients.objects.filter(user=self.request.user)
-        elif self.request.user.is_manager and self.request.user:
-            return Clients.objects.filter(user=self.request.user)
+    def get(self, request, *args, **kwargs):
+        if request.user.is_staff and request.user:
+            serializers = OrderSerializer(Order.objects.all(), many=True)
+            return Response(serializers.data, status.HTTP_200_OK)
+        elif request.user.is_client and request.user:
+            serializers = OrderSerializer(Order.objects.filter(user=self.request.user), many=True)
+            return Response(serializers.data, status.HTTP_200_OK)
+        elif request.user.is_manager and request.user:
+            serializers = OrderSerializer(Order.objects.filter(user=self.request.user), many=True)
+            return Response(serializers.data, status.HTTP_200_OK)
+        elif request.user.is_driver and request.user:
+            serializers = OrderDriverListSerializer(Order.objects.all(), many=True)
+            return Response(serializers.data, status.HTTP_200_OK)
+
+
+
+class ListOrderDriverAPIView(ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderDriverListSerializer
+    permission_classes = [IsDriver]
+
+    def get(self, request, *args, **kwargs):
+        serializers = OrderDriverListSerializer(Order.objects.filter(driver__user=request.user), many=True)
+        return Response(serializers.data, status.HTTP_200_OK)
 
 
 class CreateOrderAPIView(CreateAPIView):
     queryset = Order.objects.all()
-    serializer_class = OrderSerializer
-    permission_classes = [permissions.IsAdminUser | IsManager | IsClient]
+    serializer_class = OrderClientCreateSerializer
+    permission_classes = [IsManager | IsClient]
+
+    def perform_create(self, serializer):
+        if self.request.user.is_manager and self.request.user:
+            return serializer.save(user=self.request.user)
+        elif self.request.user.is_client and self.request.user:
+            return serializer.save(user=self.request.user)
 
 
 class UpdateOrderAPIView(RetrieveUpdateAPIView):
     queryset = Order.objects.all()
-    serializer_class = OrderSerializer
-    permission_classes = [permissions.IsAdminUser]
+    serializer_class = OrderDriverUpdateSerializer
+    permission_classes = [permissions.IsAdminUser | IsDriver]
+
+    def perform_update(self, serializer):
+        if self.request.user and self.request.user.is_driver:
+            driver = Driver.objects.get(user=self.request.user)
+            return serializer.save(driver=driver)
+
+
 
 
 class DeleteOrderAPIView(RetrieveDestroyAPIView):

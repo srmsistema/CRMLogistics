@@ -1,9 +1,10 @@
-from builtins import super
+from builtins import super, int
 
 from django.db import models
 from django.conf import settings
 
 from django.db.models import Count
+from crm.app.models import User
 
 # class SubclassHazard(models.Model):
 #     """
@@ -103,10 +104,10 @@ class Volume(models.Model):
     Класс объём
     """
 
-    width = models.IntegerField(default=1, verbose_name='Ширина')
-    height = models.IntegerField(default=1, verbose_name='Высота')
-    length = models.IntegerField(default=1, verbose_name='Длина')
-    unit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, verbose_name='Ед.измерения')
+    width = models.FloatField(default=0.0, verbose_name='Ширина')
+    height = models.FloatField(default=0.0, verbose_name='Высота')
+    length = models.FloatField(default=0.0, verbose_name='Длина')
+    unit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, verbose_name='Ед.изм. объёма')
 
     def count_volume(self):
         return self.width * self.height * self.length
@@ -195,7 +196,7 @@ class Order(models.Model):
         (COMPLETED, 'Завершена'),
         (CANCELLED, 'Отменена')
     )
-    # numberOrderFromClient = models.CharField(max_length=50, blank=True, verbose_name='Номер заказа клиента')
+    numberOrderFromClient = models.IntegerField(default=0, editable=False, verbose_name='Номер заказа клиента')
     priceClient = models.IntegerField(default=0, verbose_name='Цена клиента')
     companyProfit = models.IntegerField(default=0, verbose_name='Прибыль компании')
     fromOrder = models.DateField(blank=True, default="2020-01-01", verbose_name='Дата начала заказа')
@@ -211,7 +212,7 @@ class Order(models.Model):
     typeCargo = models.ForeignKey(TypeCargo,on_delete=models.SET_NULL, null=True, related_name='typeCargo', verbose_name='Тип груза')
     weight = models.IntegerField(default=0, verbose_name='Вес')
     #subclassHazard = models.ForeignKey(SubclassHazard, on_delete=models.SET_NULL, null=True, related_name='subclassHazard')
-    weightMeasurementUnit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, related_name='weightMeasurementUnit', verbose_name='Ед. изм.')
+    weightMeasurementUnit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, related_name='weightMeasurementUnit', verbose_name='Ед. изм. веса')
     volume = models.ForeignKey(Volume, on_delete=models.SET_NULL, null=True, related_name='volume', verbose_name='Объём')
     orderStatus = models.SmallIntegerField(choices=ORDER_STATUS_CHOICES, default=NEW, blank=True, verbose_name='Статус заказа')
     # parametresTrailer = models.ForeignKey(ParametresTrailer, on_delete=models.SET_NULL, null=True, related_name='parametresTrailer', verbose_name='Параметры заказа')
@@ -231,7 +232,7 @@ class Order(models.Model):
         super(Order, self).save(*args, **kwargs)
 
     def count_orders_number(self):
-        return Order.objects.filter(owner=self.owner).count() + 1
+        return int(\.objects.annotate(orders_count=Count("order")))
 
     def __str__(self):
         return "%s" % self.owner

@@ -11,8 +11,8 @@ from app.models import Clients
 class ListOrderAPIView(ListAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderListSerializer
-    permission_classes = [permissions.IsAdminUser | IsClient | IsManager]
-
+    # permission_classes = [permissions.IsAdminUser | IsClient | IsManager]
+    permission_classes = [AllowAny, ]
     # def get_queryset(self):
     #     if self.request.user.is_staff and self.request.user:
     #         return Clients.objects.all()
@@ -31,7 +31,9 @@ class CreateOrderAPIView(CreateAPIView):
 class UpdateOrderAPIView(RetrieveUpdateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
+    permission_classes = [AllowAny, ]
+
 
 class DeleteOrderAPIView(RetrieveDestroyAPIView):
     queryset = Order.objects.all()

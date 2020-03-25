@@ -36,6 +36,8 @@ class UnitsSerializer(serializers.ModelSerializer):
 #         fields = ['minimum', 'maximum', 'unit']
 
 class VolumeSerializer(serializers.ModelSerializer):
+    unit = serializers.StringRelatedField()
+
     class Meta:
         model = Volume
         fields = ['width', 'height', 'length', 'unit']
@@ -58,17 +60,14 @@ class LocationCargoSerializer(serializers.ModelSerializer):
 #
 
 class OrderListSerializer(serializers.ModelSerializer):
-
-    typeAuto = TypeAutoSerializer(many=False, read_only=True)
-    typeLoading = TypeLoadingSerializer(many=False, read_only=True)
-    typeCargo = TypeCargoSerializer(many=False, read_only=True)
-    # subclassHazard = SubclassHazardSerializer(many=False, read_only=True)
-    # weight = WeightSerializer(many=False, read_only=True)
-    volume = VolumeSerializer(many=False, read_only=True)
-    # dealStatus = DealStatusSerializer(many=False, read_only=True)
-    parametresTrailer = ParametresTrailerSerializer(many=False, read_only=True)
-    locationCargo= LocationCargoSerializer(many=False, read_only=True)
-    user = serializers.CharField(source='owner.__str__')
+    volume = VolumeSerializer()
+    # parametresTrailer = ParametresTrailerSerializer()
+    locationCargo = LocationCargoSerializer()
+    owner = serializers.StringRelatedField()
+    typeAuto = serializers.StringRelatedField(many=False, read_only=True)
+    typeLoading = serializers.StringRelatedField(many=False, read_only=True)
+    typeCargo = serializers.StringRelatedField(many=False, read_only=True)
+    orderStatus = serializers.StringRelatedField(many=False, read_only=True)
 
     class Meta:
         model = Order
@@ -76,7 +75,13 @@ class OrderListSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
 
-    numberOrderFromClient = serializers.IntegerField(source='count_orders_number', read_only=True)
+    volume = VolumeSerializer()
+    # parametresTrailer = ParametresTrailerSerializer()
+    locationCargo = LocationCargoSerializer()
+    owner = serializers.StringRelatedField()
+    typeAuto = serializers.StringRelatedField(many=False, read_only=True)
+    typeLoading = serializers.StringRelatedField(many=False, read_only=True)
+    typeCargo = serializers.StringRelatedField(many=False, read_only=True)
 
     class Meta:
         model = Order

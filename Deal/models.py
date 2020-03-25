@@ -4,7 +4,7 @@ from django.db import models
 from django.conf import settings
 
 from django.db.models import Count
-from crm.app.models import User
+from app.models import User
 
 # class SubclassHazard(models.Model):
 #     """
@@ -230,9 +230,6 @@ class Order(models.Model):
             self.dateUnloading = timezone.now()
 
         super(Order, self).save(*args, **kwargs)
-
-    def count_orders_number(self):
-        return int(\.objects.annotate(orders_count=Count("order")))
 
     def __str__(self):
         return "%s" % self.owner

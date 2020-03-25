@@ -142,17 +142,17 @@ class UpdateVolumeAPIView(RetrieveDestroyAPIView):
     serializer_class = VolumeSerializer
     permission_classes = [permissions.IsAdminUser]
 
+#
+# class CreateParametresTrailerAPIView(ListCreateAPIView):
+#     queryset = ParametresTrailer.objects.all()
+#     serializer_class = ParametresTrailerSerializer
+#     permission_classes = [permissions.IsAdminUser]
 
-class CreateParametresTrailerAPIView(ListCreateAPIView):
-    queryset = ParametresTrailer.objects.all()
-    serializer_class = ParametresTrailerSerializer
-    permission_classes = [permissions.IsAdminUser]
 
-
-class UpdateParametresTrailerAPIView(RetrieveUpdateDestroyAPIView):
-    queryset = ParametresTrailer.objects.all()
-    serializer_class = ParametresTrailerSerializer
-    permission_classes = [permissions.IsAdminUser]
+# class UpdateParametresTrailerAPIView(RetrieveUpdateDestroyAPIView):
+#     queryset = ParametresTrailer.objects.all()
+#     serializer_class = ParametresTrailerSerializer
+#     permission_classes = [permissions.IsAdminUser]
 
 
 class CreateLocationCargoAPIView(ListCreateAPIView):

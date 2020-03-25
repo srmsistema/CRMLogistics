@@ -110,7 +110,7 @@ class Volume(models.Model):
     unit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, verbose_name='Ед.изм. объёма')
 
     def count_volume(self):
-        return self.width * self.height * self.length
+        return "%s %s " % (self.width * self.height * self.length, self.unit)
 
     def __str__(self):
         return "%s" % self.count_volume()
@@ -196,7 +196,7 @@ class Order(models.Model):
         (COMPLETED, 'Завершена'),
         (CANCELLED, 'Отменена')
     )
-    numberOrderFromClient = models.IntegerField(default=0, editable=False, verbose_name='Номер заказа клиента')
+    # numberOrderFromClient = models.IntegerField(default=0, editable=False, verbose_name='Номер заказа клиента')
     priceClient = models.IntegerField(default=0, verbose_name='Цена клиента')
     companyProfit = models.IntegerField(default=0, verbose_name='Прибыль компании')
     fromOrder = models.DateField(blank=True, default="2020-01-01", verbose_name='Дата начала заказа')
@@ -205,10 +205,10 @@ class Order(models.Model):
     dateUnloading = models.DateField(blank=True, default="2020-01-01", verbose_name='Дата выгрузки')
     autoReleaseYear = models.IntegerField(default=0, verbose_name='Год выпуска авто')
     # countPallet = models.IntegerField(default=0, verbose_name='Количество паллет')
-    stateAwning = models.CharField(default='', max_length=100, verbose_name='Состояние тента')
-    requirementsLoading = models.CharField(default='', max_length=100, verbose_name='Требования погрузки')
+    stateAwning = models.CharField(default='', blank=True,  max_length=100, verbose_name='Состояние тента')
+    requirementsLoading = models.CharField(default='', blank=True, max_length=100, verbose_name='Требования погрузки')
     typeAuto = models.ForeignKey(TypeAuto, on_delete=models.SET_NULL, null=True, related_name='typeAuto', verbose_name='Тип авто')
-    # typeLoading = models.ForeignKey(TypeLoading, on_delete=models.SET_NULL, null=True, blank=True, related_name='typeLoading', verbose_name='Тип погрузки')
+    typeLoading = models.ForeignKey(TypeLoading, on_delete=models.SET_NULL, null=True, blank=True, related_name='typeLoading', verbose_name='Тип погрузки')
     typeCargo = models.ForeignKey(TypeCargo,on_delete=models.SET_NULL, null=True, related_name='typeCargo', verbose_name='Тип груза')
     weight = models.IntegerField(default=0, verbose_name='Вес')
     #subclassHazard = models.ForeignKey(SubclassHazard, on_delete=models.SET_NULL, null=True, related_name='subclassHazard')

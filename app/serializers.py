@@ -22,7 +22,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 class UsersSerializer(serializers.ModelSerializer):
     password = serializers.CharField(max_length=128, min_length=8, write_only=True)
-    status = serializers.CharField(source="get_role", read_only=True)
 
     class Meta:
         model = User
@@ -47,6 +46,7 @@ class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=255)
     password = serializers.CharField(max_length=255, write_only=True, style={'input_type': 'password'})
     token = serializers.CharField(max_length=255, read_only=True)
+    status = serializers.CharField(max_length=255, read_only=True)
 
     def validate(self, data):
         username = data.get('username', None)
@@ -69,7 +69,8 @@ class LoginSerializer(serializers.Serializer):
         return {
             'username': user.username,
             'email': user.email,
-            'token': user.token
+            'token': user.token,
+            'status': user.status
         }
 
 

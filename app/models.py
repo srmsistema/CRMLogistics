@@ -1,4 +1,5 @@
 import datetime
+from builtins import super
 
 import jwt
 from django.contrib.postgres.fields import ArrayField
@@ -70,21 +71,23 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_driver = models.BooleanField(default=False, verbose_name='Исполнитель')
     # is_admin = models.BooleanField(default=False, verbose_name='Администратор')
     is_staff = models.BooleanField(default=False, verbose_name='Персонал')
+    status = models.CharField(max_length=255, blank=True, verbose_name='Статус')
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
     objects = CustomUserManager()
 
-    def get_role(self):
+    def save(self, *args, **kwargs):
         if self.is_client:
-            return "client"
+            self.status = "client"
         if self.is_driver:
-            return "driver"
+            self.status = "driver"
         if self.is_manager:
-            return "manager"
+            self.status = "manager"
         if self.is_staff:
-            return "admin"
+            self.status = "admin"
+        super(User, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.username

@@ -62,8 +62,8 @@ class TradingSet(models.Model):
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(db_index=True, max_length=255, blank=False, unique=True, default='',
                                 verbose_name='Имя пользователя')
-    email = models.EmailField(unique=True, blank=True, verbose_name='Почта')
-    password = models.CharField(max_length=255, null=False, verbose_name='Пароль')
+    email = models.EmailField(unique=True, blank=False, verbose_name='Почта')
+    password = models.CharField(max_length=255, blank=False, null=False, verbose_name='Пароль')
     date_joined = models.DateTimeField(auto_now_add=True, verbose_name='Дата регистрации')
     is_active = models.BooleanField(default=True, verbose_name='Активный')
     is_client = models.BooleanField(default=False, verbose_name='Клиент')
@@ -173,11 +173,11 @@ class Clients(models.Model):
     GENDER_CHOICES = [(male, "мужской"), (female, "женский")]
 
     user = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True, verbose_name='Пользователь')
-    first_name = models.CharField(max_length=30, blank=True, verbose_name='Имя')
-    last_name = models.CharField(max_length=30, blank=True, verbose_name='Фамилия')
+    first_name = models.CharField(max_length=30, blank=False, verbose_name='Имя')
+    last_name = models.CharField(max_length=30, blank=False, verbose_name='Фамилия')
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default=1, verbose_name='Пол')
-    dateOfBirth = models.DateField(default=timezone.now, blank=True, verbose_name='Дата рождения')
-    phone = models.CharField(max_length=255, null=True, blank=True, default='', verbose_name='Телефон')
+    dateOfBirth = models.DateField(blank=False, verbose_name='Дата рождения')
+    phone = models.CharField(max_length=255, null=True, blank=False, default='', verbose_name='Телефон')
     photo = models.ImageField(default='static/blank-profile-picture-973460_6404.png', blank=True, upload_to='static', verbose_name='Фото', null=False)
 
     class Meta:

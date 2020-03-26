@@ -2,6 +2,23 @@ from .models import *
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
+# class RegistrationSerializer(serializers.ModelSerializer):
+#     password = serializers.CharField(
+#         max_length=128,
+#         min_length=8,
+#         write_only=True,
+#         style={'input_type': 'password'}
+#     )
+#
+#     token = serializers.CharField(max_length=255, read_only=True)
+#
+#     class Meta:
+#         model = User
+#         fields = ('username', 'email', 'password','token')
+#
+#     def create(self, validated_data):
+#         return User.objects.create_user(**validated_data)
+
 class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         max_length=128,
@@ -129,11 +146,49 @@ class ManagersSerializer(serializers.ModelSerializer):
 
 class ClientSerializer(serializers.ModelSerializer):
 
-    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    user = UsersSerializer(required=True)
 
     class Meta:
         model =  Clients
         fields = ('user','first_name', 'last_name', 'gender', 'dateOfBirth', 'phone', 'photo')
 
 
+class UsersSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(max_length=128, min_length=8, write_only=True)
 
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password','token')
+
+        read_only_fields = ('id', 'token','is_staff','is_active',
+                            'is_client', 'is_manager', 'is_driver', 'status', )
+
+    def update(self, instance, validated_data):
+        password = validated_data.pop('password', None)
+
+        for (key, value) in validated_data.items():
+            setattr(instance, key, value)
+
+        if password is not None:
+            instance.set_password(password)
+        instance.save()
+        return instance
+
+
+class ClientRegistrationSerializer(serializers.ModelSerializer):
+
+    user = UsersSerializer(required=True)
+
+    class Meta:
+        model =  Clients
+        fields = ('user','first_name', 'last_name', 'gender', 'dateOfBirth', 'phone', 'photo')
+        read_only_fields = ('user',)
+
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        user = User.objects.create_user(**user_data)
+        client = Clients.objects.create(user=user, **validated_data)
+        user.is_client = True
+        user.save()
+        client.save()
+        return client

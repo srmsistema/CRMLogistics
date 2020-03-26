@@ -36,7 +36,7 @@ class UnitsSerializer(serializers.ModelSerializer):
 #         fields = ['minimum', 'maximum', 'unit']
 
 class VolumeSerializer(serializers.ModelSerializer):
-    unit = serializers.StringRelatedField()
+    # unit = serializers.StringRelatedField()
 
     class Meta:
         model = Volume
@@ -52,6 +52,7 @@ class LocationCargoSerializer(serializers.ModelSerializer):
         model = LocationCargo
         fields = ['longitude', 'latitude', 'sendingTimeCoordinates', ]
                   # 'locationCoordinatesStatus']
+        read_only_fields = ['sendingTimeCoordinates', ]
 
 # class DealStatusSerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -63,7 +64,7 @@ class OrderListSerializer(serializers.ModelSerializer):
     volume = VolumeSerializer()
     # parametresTrailer = ParametresTrailerSerializer()
     locationCargo = LocationCargoSerializer()
-    owner = serializers.StringRelatedField()
+    user = serializers.StringRelatedField()
     typeAuto = serializers.StringRelatedField(many=False, read_only=True)
     typeLoading = serializers.StringRelatedField(many=False, read_only=True)
     typeCargo = serializers.StringRelatedField(many=False, read_only=True)
@@ -78,7 +79,7 @@ class OrderSerializer(serializers.ModelSerializer):
     volume = VolumeSerializer()
     # parametresTrailer = ParametresTrailerSerializer()
     locationCargo = LocationCargoSerializer()
-    owner = serializers.StringRelatedField()
+    user = serializers.StringRelatedField()
     typeAuto = serializers.StringRelatedField(many=False, read_only=True)
     typeLoading = serializers.StringRelatedField(many=False, read_only=True)
     typeCargo = serializers.StringRelatedField(many=False, read_only=True)
@@ -112,11 +113,11 @@ class OrderClientCreateSerializer(serializers.ModelSerializer):
     volume = VolumeSerializer()
     # parametresTrailer = ParametresTrailerSerializer()
     locationCargo = LocationCargoSerializer()
-    weighMeasurementUnit= serializers.StringRelatedField()
 
     class Meta:
         model = Order
-        fields = ['priceClient', 'requirementsLoading', 'typeCargo', 'weight',
+        fields = ['priceClient', 'requirementsLoading', 'typeCargo', 'typeAuto', 'autoReleaseYear',
+                  'typeLoading', 'stateAwning', 'weight',
                   'weightMeasurementUnit', 'volume', 'locationCargo',  'user']
         read_only_fields = ['user', 'driver', 'orderStatus', 'fromOrder', 'toOrder']
 

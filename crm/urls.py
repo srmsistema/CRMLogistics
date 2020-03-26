@@ -25,5 +25,6 @@ urlpatterns = [
     path('manager-admin/', manager_admin_site.urls),
     path('', include('app.urls')),
     path('users/', include('django.contrib.auth.urls')),
-    path('', include('Deal.urls'))
+    path('', include('Deal.urls')),
+    path('api-auth/', include('rest_framework.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

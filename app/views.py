@@ -1,3 +1,5 @@
+from rest_framework.reverse import reverse_lazy
+
 from .serializers import *
 from django.http import Http404
 from rest_framework.response import Response
@@ -59,7 +61,7 @@ class UserListAPIView(generics.ListAPIView):
 class RegistrationAPIView(APIView):
     permission_classes = (AllowAny,)
     # renderer_classes = (UserJSONRenderer,)
-    serializer_class = RegistrationSerializer
+    serializer_class = ClientRegistrationSerializer
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -154,18 +156,6 @@ class ManagerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Manager.objects.all()
     serializer_class = ManagersSerializer
     permission_classes = [IsAdminUser]
-
-
-class ClientCreateAPIView(generics.CreateAPIView):
-    queryset = Clients.objects.all()
-    permission_classes = [IsAuthenticated]
-    serializer_class = ClientSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-        user = self.request.user
-        user.is_client = True
-        user.save()
 
 
 class ClientListAPIView(generics.ListAPIView):

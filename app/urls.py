@@ -2,6 +2,7 @@ from django.urls import path
 from .views import *
 from django.views.generic import TemplateView
 from rest_framework_jwt.views import obtain_jwt_token
+from Deal.views import ListOrderDriverAPIView
 
 urlpatterns = [
     path('users/password_change/', TemplateView.as_view(template_name="password_change_form.html"), name='password_change'),
@@ -23,12 +24,13 @@ urlpatterns += [
     path('drivers/', DriverListAPIView.as_view(), name='driver'),
     path('drivers/create', DriverCreateAPIView.as_view(), name='driver_create'),
     path('drivers/<int:pk>', DriverDetailAPIView.as_view(), name='driver_detail'),
+    path('drivers/order', ListOrderDriverAPIView.as_view(), name='driver_order'),
     path('individuals/', IndividualListAPIView.as_view(), name='individual'),
     path('individuals/<int:pk>', IndividualDetailAPIView.as_view(), name='individual_detail'),
     path('managers/', ManagerListAPIView.as_view(), name='manager'),
     path('managers/create', ManagerCreateAPIView.as_view(), name='manager_create'),
     path('managers/<int:pk>', ManagerDetailAPIView.as_view(), name='manager_detail'),
     path('clients/', ClientListAPIView.as_view(), name='client_list'),
-    path('clients/create', ClientCreateAPIView.as_view(), name='client_create'),
+
 ]
 

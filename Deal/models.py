@@ -4,7 +4,8 @@ from django.db import models
 from django.conf import settings
 
 from django.db.models import Count
-from app.models import User
+from app.models import User, Driver
+import datetime
 
 # class SubclassHazard(models.Model):
 #     """
@@ -113,7 +114,7 @@ class Volume(models.Model):
         return "%s %s " % (self.width * self.height * self.length, self.unit)
 
     def __str__(self):
-        return "%s" % self.count_volume()
+        return "%s %s" % (self.count_volume(), self.unit)
 
     class Meta:
         verbose_name = "Объём"
@@ -164,7 +165,7 @@ class LocationCargo(models.Model):
     # locationCoordinates = models.CharField(max_length=255, verbose_name='Координаты местоположения')
     longitude = models.FloatField(default=0.0, verbose_name='Долгота')
     latitude = models.FloatField(default=0.0, verbose_name='Широта')
-    sendingTimeCoordinates = models.DateTimeField(auto_now_add=True, blank=True, verbose_name='Время отправки координат')
+    sendingTimeCoordinates = models.CharField(max_length=255, default=datetime.datetime.now().time(), blank=True, verbose_name='Время отправки координат')
     # locationCoordinatesStatus = models.ForeignKey(LocationCoordinatesStatus, on_delete=models.SET_NULL, null=True, verbose_name='Статус координат местоположения')
 
     def __str__(self):
@@ -199,8 +200,8 @@ class Order(models.Model):
     # numberOrderFromClient = models.IntegerField(default=0, editable=False, verbose_name='Номер заказа клиента')
     priceClient = models.IntegerField(default=0, verbose_name='Цена клиента')
     companyProfit = models.IntegerField(default=0, verbose_name='Прибыль компании')
-    fromOrder = models.DateField(blank=True, default="2020-01-01", verbose_name='Дата начала заказа')
-    toOrder = models.DateField(blank=True, default="2020-01-01", verbose_name='Дата завершения заказа')
+    fromOrder = models.CharField(max_length=255, blank=True, default="", verbose_name='Дата начала заказа')
+    toOrder = models.CharField(max_length=255, blank=True, default="", verbose_name='Дата завершения заказа')
     dateLoading = models.DateField(blank=True, default="2020-01-01", verbose_name='Дата погрузки')
     dateUnloading = models.DateField(blank=True, default="2020-01-01", verbose_name='Дата выгрузки')
     autoReleaseYear = models.IntegerField(default=0, verbose_name='Год выпуска авто')
@@ -214,10 +215,11 @@ class Order(models.Model):
     #subclassHazard = models.ForeignKey(SubclassHazard, on_delete=models.SET_NULL, null=True, related_name='subclassHazard')
     weightMeasurementUnit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, related_name='weightMeasurementUnit', verbose_name='Ед. изм. веса')
     volume = models.ForeignKey(Volume, on_delete=models.SET_NULL, null=True, related_name='volume', verbose_name='Объём')
-    orderStatus = models.SmallIntegerField(choices=ORDER_STATUS_CHOICES, default=NEW, blank=True, verbose_name='Статус заказа')
+    orderStatus = models.CharField(max_length=10, choices=ORDER_STATUS_CHOICES, default=ORDER_STATUS_CHOICES[0][1], blank=True, verbose_name='Статус заказа')
     # parametresTrailer = models.ForeignKey(ParametresTrailer, on_delete=models.SET_NULL, null=True, related_name='parametresTrailer', verbose_name='Параметры заказа')
     locationCargo = models.ForeignKey(LocationCargo, on_delete=models.SET_NULL, null=True, related_name='locationCargo', verbose_name='Местоположение груза')
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='owner', verbose_name='Заказчик')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='user', verbose_name='Заказчик')
+    driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, related_name="driver", verbose_name="Водитель")
 
     def save(self, *args, **kwargs):
         if  self.orderStatus == self.CONCLUDED:
@@ -232,7 +234,7 @@ class Order(models.Model):
         super(Order, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "%s" % self.owner
+        return "%s" % self.user
 
     class Meta:
         verbose_name = "Сделка"

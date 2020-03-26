@@ -153,7 +153,7 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = ('user','first_name', 'last_name', 'gender', 'dateOfBirth', 'phone', 'photo')
 
 
-class UsersSerializer(serializers.ModelSerializer):
+class UsersSerializer2(serializers.ModelSerializer):
     password = serializers.CharField(max_length=128, min_length=8, write_only=True)
 
     class Meta:
@@ -177,7 +177,7 @@ class UsersSerializer(serializers.ModelSerializer):
 
 class ClientRegistrationSerializer(serializers.ModelSerializer):
 
-    user = UsersSerializer(required=True)
+    user = UsersSerializer2(required=True)
 
     class Meta:
         model =  Clients

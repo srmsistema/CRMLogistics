@@ -22,10 +22,13 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 class UsersSerializer(serializers.ModelSerializer):
     password = serializers.CharField(max_length=128, min_length=8, write_only=True)
+    status = serializers.CharField(source="get_role", read_only=True)
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'is_admin', 'password','is_staff','is_active', 'is_client', 'is_manager', 'is_driver', 'token')
+        fields = ('id', 'username', 'email', 'password','is_staff','is_active',
+                  'is_client', 'is_manager', 'is_driver', 'status', 'token')
+
         read_only_fields = ('token',)
 
     def update(self, instance, validated_data):

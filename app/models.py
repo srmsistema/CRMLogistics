@@ -68,13 +68,23 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_client = models.BooleanField(default=False, verbose_name='Клиент')
     is_manager = models.BooleanField(default=False, verbose_name='Менеджер')
     is_driver = models.BooleanField(default=False, verbose_name='Исполнитель')
-    is_admin = models.BooleanField(default=False, verbose_name='Администратор')
+    # is_admin = models.BooleanField(default=False, verbose_name='Администратор')
     is_staff = models.BooleanField(default=False, verbose_name='Персонал')
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
     objects = CustomUserManager()
+
+    def get_role(self):
+        if self.is_client:
+            return "client"
+        if self.is_driver:
+            return "driver"
+        if self.is_manager:
+            return "manager"
+        if self.is_staff:
+            return "admin"
 
     def __str__(self):
         return self.username

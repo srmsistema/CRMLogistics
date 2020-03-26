@@ -101,7 +101,7 @@ class OrderDriverListSerializer(serializers.ModelSerializer):
 class OrderDriverUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ['numberOrder', 'priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear',
+        fields = ['priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear',
                   'stateAwning', 'requirementsLoading', 'typeAuto', 'typeLoading', 'typeCargo', 'weight',
                   'volume', 'locationCargo',
                   'user', 'driver', 'orderStatus', 'fromOrder', 'toOrder']
@@ -112,13 +112,13 @@ class OrderClientCreateSerializer(serializers.ModelSerializer):
     volume = VolumeSerializer()
     # parametresTrailer = ParametresTrailerSerializer()
     locationCargo = LocationCargoSerializer()
-
+    weighMeasurementUnit= serializers.StringRelatedField()
 
     class Meta:
         model = Order
-        fields = ['numberOrder', 'priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear', 'stateAwning', 'requirementsLoading',
-                  'typeAuto', 'typeLoading', 'typeCargo', 'weight', 'volume', 'locationCargo',  'user']
-        read_only_fields = ['user', 'driver', 'orderStatus', 'fromOrder', 'toOrder', 'companyProfit']
+        fields = ['priceClient', 'requirementsLoading', 'typeCargo', 'weight',
+                  'weightMeasurementUnit', 'volume', 'locationCargo',  'user']
+        read_only_fields = ['user', 'driver', 'orderStatus', 'fromOrder', 'toOrder']
 
     def create(self, validated_data):
         volume_data = validated_data.pop('volume')

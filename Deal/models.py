@@ -75,7 +75,7 @@ class Units(models.Model):
     value = models.CharField(max_length=50, verbose_name='Значение')
 
     def __str__(self):
-        return self.value
+        return "%s"%(self.value)
 
     class Meta:
         verbose_name = "Ед.изм."
@@ -141,19 +141,19 @@ class ParametresTrailer(models.Model):
         verbose_name_plural = "Параметры прицепа"
 
 
-class LocationCoordinatesStatus(models.Model):
-    """
-    Класс статус координат местоположения
-    """
-
-    status = models.CharField(max_length=50, verbose_name='Статус')
-
-    def __str__(self):
-        return self.status
-
-    class Meta:
-        verbose_name = "Статус координата"
-        verbose_name_plural = "Статусы координат"
+# class LocationCoordinatesStatus(models.Model):
+#     """
+#     Класс статус координат местоположения
+#     """
+#
+#     status = models.CharField(max_length=50, verbose_name='Статус')
+#
+#     def __str__(self):
+#         return self.status
+#
+#     class Meta:
+#         verbose_name = "Статус координата"
+#         verbose_name_plural = "Статусы координат"
 
 
 class LocationCargo(models.Model):
@@ -164,11 +164,11 @@ class LocationCargo(models.Model):
     # locationCoordinates = models.CharField(max_length=255, verbose_name='Координаты местоположения')
     longitude = models.FloatField(default=0.0, verbose_name='Долгота')
     latitude = models.FloatField(default=0.0, verbose_name='Широта')
-    sendingTimeCoordinates = models.TextField(verbose_name='Время отправки координат')
+    sendingTimeCoordinates = models.DateTimeField(auto_now_add=True, blank=True, verbose_name='Время отправки координат')
     # locationCoordinatesStatus = models.ForeignKey(LocationCoordinatesStatus, on_delete=models.SET_NULL, null=True, verbose_name='Статус координат местоположения')
 
     def __str__(self):
-        return "%s, %s" % (self.longitude, self.latitude)
+        return "%s, %s, %s" % (self.longitude, self.latitude, self.sendingTimeCoordinates)
 
     class Meta:
         verbose_name = "Местоположение груза"

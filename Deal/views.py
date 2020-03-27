@@ -60,6 +60,7 @@ class UpdateOrderAPIView(RetrieveUpdateAPIView):
     def perform_update(self, serializer):
         if self.request.user and self.request.user.is_driver:
             driver = Driver.objects.get(user=self.request.user)
+            serializer.save(orderStatus=Order.CONCLUDED)
             return serializer.save(driver=driver)
 
 

@@ -163,13 +163,14 @@ class LocationCargo(models.Model):
     """
 
     # locationCoordinates = models.CharField(max_length=255, verbose_name='Координаты местоположения')
-    longitude = models.FloatField(default=0.0, verbose_name='Долгота')
-    latitude = models.FloatField(default=0.0, verbose_name='Широта')
+    # longitude = models.FloatField(default=0.0, verbose_name='Долгота')
+    # latitude = models.FloatField(default=0.0, verbose_name='Широта')
+    address = models.CharField(max_length=255, default="", blank=False, verbose_name="Адрес")
     sendingTimeCoordinates = models.CharField(max_length=255, default=datetime.datetime.now().time(), blank=True, verbose_name='Время отправки координат')
     # locationCoordinatesStatus = models.ForeignKey(LocationCoordinatesStatus, on_delete=models.SET_NULL, null=True, verbose_name='Статус координат местоположения')
 
     def __str__(self):
-        return "%s, %s, %s" % (self.longitude, self.latitude, self.sendingTimeCoordinates)
+        return "%s, %s" % (self.address, self.sendingTimeCoordinates)
 
     class Meta:
         verbose_name = "Местоположение груза"

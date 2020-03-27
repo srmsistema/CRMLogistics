@@ -50,7 +50,7 @@ class VolumeSerializer(serializers.ModelSerializer):
 class LocationCargoSerializer(serializers.ModelSerializer):
     class Meta:
         model = LocationCargo
-        fields = ['longitude', 'latitude', 'sendingTimeCoordinates', ]
+        fields = ['address', 'sendingTimeCoordinates', ]
                   # 'locationCoordinatesStatus']
         read_only_fields = ['sendingTimeCoordinates', ]
 

@@ -181,7 +181,7 @@ class ClientRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model =  Clients
-        fields = ('user','first_name', 'last_name', 'gender', 'dateOfBirth', 'phone', 'photo')
+        fields = ('user','first_name', 'last_name', 'gender', 'dateOfBirth', 'phone', 'photo', )
         read_only_fields = ('user',)
 
     def create(self, validated_data):

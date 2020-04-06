@@ -32,14 +32,66 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('username',)
     ordering = ('username',)
 
+class ClientsAdmin(admin.ModelAdmin):
+    list_display = ('user', 'first_name', 'last_name', 'phone', 'dateOfBirth')
+    list_filter = ('first_name', 'last_name', )
+    search_fields = ('user__username', 'user__email', 'phone', 'first_name', 'last_name')
 
-admin.site.register(Clients)
+class DriversAdmin(admin.ModelAdmin):
+    list_display = ('user', 'first_name', 'last_name', 'email', 'date_joined',)
+    list_filter = ('first_name', 'last_name', 'user__date_joined', )
+    search_fields = ('user__username', 'user__email', 'first_name', 'last_name', 'user__email')
+
+    def date_joined(self, obj):
+        return obj.user.date_joined
+
+    def email(self, obj):
+        return obj.user.email
+
+    def status(self, obj):
+        return obj.user.status
+
+    date_joined.date_joined = 'Date joined'
+    date_joined.admin_order_field = 'user__date_joined'
+
+    email.email = 'Email'
+    email.admin_order_field = 'user__email'
+
+    status.status = 'Status'
+    status.admin_order_field = 'user__status'
+
+
+class TradingSetAdmin(admin.ModelAdmin):
+    list_display = ('name', 'ownerFullName', 'phone', 'description',)
+    list_filter = ('name', 'ownerFullName')
+    search_fields = ('name', 'ownerFullName', 'phone')
+
+
+class ManagerAdmin(admin.ModelAdmin):
+    list_display = ('user', 'first_name', 'last_name', 'email', 'date_joined', 'tradingSet',)
+    list_filter = ('first_name', 'last_name', 'tradingSet__name')
+    search_fields = ('user__username', 'first_name', 'last_name', 'tradingSet__name', 'user__email')
+
+    def date_joined(self, obj):
+        return obj.user.date_joined
+
+    def email(self, obj):
+        return obj.user.email
+
+    date_joined.date_joined = 'Date joined'
+    date_joined.admin_order_field = 'user__date_joined'
+
+    email.email = 'Email'
+    email.admin_order_field = 'user__email'
+
+
+admin.site.register(Clients, ClientsAdmin)
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(UserStatus)
-admin.site.register(Driver)
+admin.site.register(Driver, DriversAdmin)
 admin.site.register(Individual)
-admin.site.register(TradingSet)
-admin.site.register(Manager)
+admin.site.register(TradingSet, TradingSetAdmin)
+admin.site.register(Manager, ManagerAdmin)
 admin.site.unregister(Group)
 
 

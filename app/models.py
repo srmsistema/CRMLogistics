@@ -113,6 +113,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Manager(models.Model):
     user = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True, verbose_name='Пользователь')
+    first_name = models.CharField(max_length=30, blank=False, default='', verbose_name='Имя')
+    last_name = models.CharField(max_length=30, blank=False, default='', verbose_name='Фамилия')
     tradingSet = models.OneToOneField('TradingSet', to_field='name', on_delete=models.CASCADE, null=True,
                                       verbose_name='Торговый сет')
 
@@ -150,6 +152,8 @@ class UserStatus(models.Model):
 
 class Driver(models.Model):
     user = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True, verbose_name='Пользователь')
+    first_name = models.CharField(max_length=30, blank=False, default='', verbose_name='Имя')
+    last_name = models.CharField(max_length=30, blank=False, default='', verbose_name='Фамилия')
     autoTechPassPhoto = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Технический паспорт авто')
     trailerTechPassPhoto = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Технический паспорт прицепа')
     autoOwnerPass = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Паспорт владельца')
@@ -173,8 +177,8 @@ class Clients(models.Model):
     GENDER_CHOICES = [(male, "мужской"), (female, "женский")]
 
     user = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True, verbose_name='Пользователь')
-    first_name = models.CharField(max_length=30, blank=False, verbose_name='Имя')
-    last_name = models.CharField(max_length=30, blank=False, verbose_name='Фамилия')
+    first_name = models.CharField(max_length=30, blank=False, default='', verbose_name='Имя')
+    last_name = models.CharField(max_length=30, blank=False, default='', verbose_name='Фамилия')
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default=1, verbose_name='Пол')
     dateOfBirth = models.DateField(blank=False, verbose_name='Дата рождения')
     phone = models.CharField(max_length=255, null=True, blank=False, default='', verbose_name='Телефон')

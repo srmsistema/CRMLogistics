@@ -105,7 +105,7 @@ class DriversSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Driver
-        fields = ('user', 'autoTechPassPhoto', 'trailerTechPassPhoto', 'autoOwnerPass', 'driverPass', 'driverLicense',
+        fields = ('user', 'first_name', 'last_name', 'autoTechPassPhoto', 'trailerTechPassPhoto', 'autoOwnerPass', 'driverPass', 'driverLicense',
             'internationalTransportationLicense', 'insurancePolicy')
 
         def create(self, validated_data):

@@ -76,8 +76,10 @@ class LoginAPIView(APIView):
 
     def post(self, request):
         user = request.data
+
         serializer = self.serializer_class(data=user)
         serializer.is_valid(raise_exception=True)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -143,9 +145,9 @@ class ManagerListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         if self.request.user.is_staff and self.request.user:
-            return Manager.objects.all()
+            return Clients.objects.all()
         elif self.request.user.is_manager and self.request.user:
-            return Manager.objects.filter(user=self.request.user)
+            return Clients.objects.filter(user=self.request.user)
 
 
 class ManagerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -176,8 +178,3 @@ class ClientListAPIView(generics.ListAPIView):
             return Clients.objects.all()
         elif self.request.user.is_client and self.request.user:
             return Clients.objects.filter(user=self.request.user)
-
-class ClientUpdateAPIView(generics.UpdateAPIView):
-    queryset = Clients.objects.all()
-    permission_classes = [IsAdminUser, IsClient]
-    serializer_class = ClientSerializer

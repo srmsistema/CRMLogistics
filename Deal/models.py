@@ -1,7 +1,27 @@
+from builtins import super, int
+
 from django.db import models
 from django.conf import settings
-from app.models import Clients, Driver, Manager
+from app.models import Driver
 import datetime
+
+from django.db.models import Count
+from app.models import User
+
+# class SubclassHazard(models.Model):
+#     """
+#     Класс опасности
+#     """
+#
+#     description = models.CharField(max_length=255, verbose_name='Описание')
+#
+#     def __str__(self):
+#         return self.description
+#
+#     class Meta:
+#         verbose_name = "Опасность"
+#         verbose_name_plural = "Опасности"
+from django.utils import timezone
 
 
 class TypeCargo(models.Model):
@@ -64,18 +84,38 @@ class Units(models.Model):
         verbose_name_plural = "Ед.изм."
 
 
+# class Weight(models.Model):
+#     """
+#     Класс вес
+#     """
+#
+#     minimum = models.IntegerField(default=1)
+#     maximum = models.IntegerField(default=10)
+#     unit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True)
+#
+#     def __str__(self):
+#         return self.minimum
+#
+#     class Meta:
+#         verbose_name = "Вес"
+#         verbose_name_plural = "Вес"
+
+
 class Volume(models.Model):
     """
     Класс объём
     """
 
-    width = models.IntegerField(default=1, verbose_name='Ширина')
-    height = models.IntegerField(default=1, verbose_name='Высота')
-    length = models.IntegerField(default=1, verbose_name='Длина')
-    unit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, verbose_name='Ед.измерения')
+    width = models.FloatField(default=0.0, verbose_name='Ширина')
+    height = models.FloatField(default=0.0, verbose_name='Высота')
+    length = models.FloatField(default=0.0, verbose_name='Длина')
+    unit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, verbose_name='Ед.изм. объёма')
+
+    def count_volume(self):
+        return "%s %s " % (self.width * self.height * self.length, self.unit)
 
     def __str__(self):
-        return '{}'.format(self.width)
+        return "%s" % self.count_volume()
 
     class Meta:
         verbose_name = "Объём"
@@ -96,31 +136,40 @@ class ParametresTrailer(models.Model):
     connik = models.IntegerField(default=1, verbose_name='Кол-во конников')
 
     def __str__(self):
-        return '{}'.format(self.heightNoLess)
+        return "Высота не меньше: %s \n Кол-во ремней: %s \n Кол-во конников: %s" % (self.heightNoLess, self.demin, self.connik)
 
     class Meta:
         verbose_name = "Параметр прицепа"
         verbose_name_plural = "Параметры прицепа"
 
+
+class LocationCoordinatesStatus(models.Model):
+    """
+    Класс статус координат местоположения
+    """
+
+    status = models.CharField(max_length=50, verbose_name='Статус')
+
+    def __str__(self):
+        return self.status
+
+    class Meta:
+        verbose_name = "Статус координата"
+        verbose_name_plural = "Статусы координат"
+
+
 class LocationCargo(models.Model):
     """
     Класс местоположения груза
     """
-    ORDER_STATUS_CHOICES = (
-        ('Отправлен', 'Отправлен'),
-        ('Получен', 'Получен'),
-        ('Подтвержден', 'Подтвержден'),
-        ('Запрошен повтор отправки', 'Запрошен повтор отправки'),
-    )
 
-    latitude = models.FloatField(default=0.0, verbose_name='Широта')
+    # locationCoordinates = models.CharField(max_length=255, verbose_name='Координаты местоположения')
     longitude = models.FloatField(default=0.0, verbose_name='Долгота')
+    latitude = models.FloatField(default=0.0, verbose_name='Широта')
     sendingTimeCoordinates = models.CharField(max_length=125 ,verbose_name='Время отправки координат', default=datetime.datetime.now().time() )
-    locationCoordinatesStatus = models.CharField(max_length=125 ,choices=ORDER_STATUS_CHOICES, default=ORDER_STATUS_CHOICES[0][1],
-                                                  verbose_name='Статус координат местоположения')
 
     def __str__(self):
-        return '{}'.format(self.locationCoordinatesStatus)
+        return "%s, %s" % (self.longitude, self.latitude)
 
     class Meta:
         verbose_name = "Местоположение груза"
@@ -131,57 +180,51 @@ class Order(models.Model):
     """
     Класс сделка
     """
-    NEW = 0
-    CONCLUDED = 1
-    LOADING = 2
-    TRANSPORTING = 3
-    UNLOADING = 4
-    COMPLETED = 5
-    CANCELLED = 6
 
     ORDER_STATUS_CHOICES = (
-        ('NEW', 'Новая'),
-        ('CONCLUDED', 'Заключена'),
-        ('LOADING', 'Погрузка'),
-        ('TRANSPORTING', 'Транспортировка'),
-        ('UNLOADING', 'Выгрузка'),
-        ('COMPLETED', 'Завершена'),
-        ('CANCELLED', 'Отменена')
+        ('Новая', 'Новая'),
+        ('Заключена', 'Заключена'),
+        ('Погрузка', 'Погрузка'),
+        ('Транспортировка', 'Транспортировка'),
+        ('Выгрузка', 'Выгрузка'),
+        ('Завершена', 'Завершена'),
+        ('Завершена', 'Отменена')
     )
-    numberOrder = models.IntegerField(verbose_name='Номер заказа клиента')
     priceClient = models.IntegerField(default=0, verbose_name='Цена клиента')
     companyProfit = models.IntegerField(default=0, verbose_name='Прибыль компании')
-    fromOrder = models.CharField(max_length=20, blank=True, verbose_name='Дата начала заказа', default=datetime.date.today)
-    toOrder = models.CharField(max_length=20, blank=True, verbose_name='Дата завершения заказа', default='')
-    dateLoading = models.DateField(blank=True, verbose_name='Дата погрузки')
-    dateUnloading = models.DateField(blank=True, verbose_name='Дата выгрузки')
-    autoReleaseYear = models.IntegerField(verbose_name='Год выпуска авто')
-    countPallet = models.IntegerField(verbose_name='Количество паллет')
-    stateAwning = models.CharField(max_length=100, verbose_name='Состояние тента')
-    requirementsLoading = models.CharField(max_length=100, verbose_name='Требования погрузки')
-    typeAuto = models.ForeignKey(TypeAuto, on_delete=models.SET_NULL, null=True, related_name='typeAuto',
-                                 verbose_name='Тип авто', )
-    typeLoading = models.ForeignKey(TypeLoading, on_delete=models.SET_NULL, null=True, blank=True,
-                                    related_name='typeLoading', verbose_name='Тип погрузки')
-    typeCargo = models.ForeignKey(TypeCargo, on_delete=models.SET_NULL, null=True, related_name='typeCargo',
-                                  verbose_name='Тип груза')
+    fromOrder = models.CharField(max_length=125 ,blank=True, default=datetime.date.today, verbose_name='Дата начала заказа')
+    toOrder = models.CharField(max_length=125 ,blank=True, default=" ", verbose_name='Дата завершения заказа')
+    dateLoading = models.DateField(blank=True, default="2020-01-01", verbose_name='Дата погрузки')
+    dateUnloading = models.DateField(blank=True, default="2020-01-01", verbose_name='Дата выгрузки')
+    autoReleaseYear = models.IntegerField(default=0, verbose_name='Год выпуска авто')
+    stateAwning = models.CharField(default='', blank=True,  max_length=100, verbose_name='Состояние тента')
+    requirementsLoading = models.CharField(default='', blank=True, max_length=100, verbose_name='Требования погрузки')
+    typeAuto = models.ForeignKey(TypeAuto, on_delete=models.SET_NULL, null=True, related_name='typeAuto', verbose_name='Тип авто')
+    typeLoading = models.ForeignKey(TypeLoading, on_delete=models.SET_NULL, null=True, blank=True, related_name='typeLoading', verbose_name='Тип погрузки')
+    typeCargo = models.ForeignKey(TypeCargo,on_delete=models.SET_NULL, null=True, related_name='typeCargo', verbose_name='Тип груза')
     weight = models.IntegerField(default=0, verbose_name='Вес')
-    volume = models.ForeignKey(Volume, on_delete=models.SET_NULL, null=True, related_name='volume',
-                               verbose_name='Объём')
-    orderStatus = models.CharField(max_length=125, choices=ORDER_STATUS_CHOICES, default=ORDER_STATUS_CHOICES[0][1], verbose_name='Статус заказа')
-    parametresTrailer = models.ForeignKey(ParametresTrailer, on_delete=models.SET_NULL, null=True,
-                                          related_name='parametresTrailer', verbose_name='Параметры заказа')
-    locationCargo = models.ForeignKey(LocationCargo, on_delete=models.SET_NULL, null=True, related_name='locationCargo',
-                                      verbose_name='Местоположение груза',)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='Пользователь',
-                                verbose_name='Клиент', unique=False)
-    driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, related_name='driver', verbose_name='Водитель')
+    weightMeasurementUnit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, related_name='weightMeasurementUnit', verbose_name='Ед. изм. веса')
+    volume = models.ForeignKey(Volume, on_delete=models.SET_NULL, null=True, related_name='volume', verbose_name='Объём')
+    orderStatus = models.CharField(max_length=125 ,choices=ORDER_STATUS_CHOICES, default=ORDER_STATUS_CHOICES[0][1], blank=True, verbose_name='Статус заказа')
+    locationCargo = models.ForeignKey(LocationCargo, on_delete=models.SET_NULL, null=True, related_name='locationCargo', verbose_name='Местоположение груза')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='owner', verbose_name='Заказчик')
+    driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, related_name='driver', verbose_name='Исполнитель')
+
+    def save(self, *args, **kwargs):
+        if self.orderStatus == 'Заключена':
+            self.fromOrder = timezone.now()
+        if self.orderStatus == 'Завершена':
+            self.toOrder = timezone.now()
+        if self.orderStatus == 'Погрузка':
+            self.dateLoading = timezone.now()
+        if self.orderStatus == 'Выгрузка':
+            self.dateUnloading = timezone.now()
+
+        super(Order, self).save(*args, **kwargs)
 
     def __str__(self):
-        return '{}'.format(self.user)
+        return "%s" % (self.user)
 
     class Meta:
         verbose_name = "Сделка"
         verbose_name_plural = "Сделки"
-
-

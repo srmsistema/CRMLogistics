@@ -1,5 +1,7 @@
 from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView, CreateAPIView, \
     ListCreateAPIView, RetrieveUpdateDestroyAPIView
+
+from app.models import Driver
 from .serializers import *
 from rest_framework import permissions
 from .permissions import IsManager, IsClient, IsDriver
@@ -140,17 +142,17 @@ class UpdateVolumeAPIView(RetrieveDestroyAPIView):
     serializer_class = VolumeSerializer
     permission_classes = [permissions.IsAdminUser]
 
+#
+# class CreateParametresTrailerAPIView(ListCreateAPIView):
+#     queryset = ParametresTrailer.objects.all()
+#     serializer_class = ParametresTrailerSerializer
+#     permission_classes = [permissions.IsAdminUser]
 
-class CreateParametresTrailerAPIView(ListCreateAPIView):
-    queryset = ParametresTrailer.objects.all()
-    serializer_class = ParametresTrailerSerializer
-    permission_classes = [permissions.IsAdminUser]
 
-
-class UpdateParametresTrailerAPIView(RetrieveUpdateDestroyAPIView):
-    queryset = ParametresTrailer.objects.all()
-    serializer_class = ParametresTrailerSerializer
-    permission_classes = [permissions.IsAdminUser]
+# class UpdateParametresTrailerAPIView(RetrieveUpdateDestroyAPIView):
+#     queryset = ParametresTrailer.objects.all()
+#     serializer_class = ParametresTrailerSerializer
+#     permission_classes = [permissions.IsAdminUser]
 
 
 class CreateLocationCargoAPIView(ListCreateAPIView):
@@ -186,3 +188,5 @@ class UpdateLocationCargoAPIView(RetrieveUpdateDestroyAPIView):
 #     queryset = SubclassHazard.objects.all()
 #     serializer_class = SubclassHazardSerializer
 #     # permission_classes = (permissions.IsAdminUser)
+
+

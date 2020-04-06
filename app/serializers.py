@@ -2,7 +2,6 @@ from .models import *
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
-
 class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         max_length=128,
@@ -15,7 +14,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'token')
+        fields = ('username', 'email', 'password','token')
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
@@ -26,8 +25,7 @@ class UsersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'is_admin', 'password', 'is_staff', 'is_active', 'is_client', 'is_manager',
-                  'is_driver', 'token')
+        fields = ('id', 'username', 'email', 'is_admin', 'password','is_staff','is_active', 'is_client', 'is_manager', 'is_driver', 'token')
         read_only_fields = ('token',)
 
     def update(self, instance, validated_data):
@@ -81,12 +79,13 @@ class TradingSetSerializer(serializers.ModelSerializer):
 
 
 class DriversSerializer(serializers.ModelSerializer):
+
     user = UsersSerializer(required=True)
 
     class Meta:
         model = Driver
         fields = ('user', 'autoTechPassPhoto', 'trailerTechPassPhoto', 'autoOwnerPass', 'driverPass', 'driverLicense',
-                  'internationalTransportationLicense', 'insurancePolicy')
+            'internationalTransportationLicense', 'insurancePolicy')
 
         def create(self, validated_data):
             user_data = validated_data.pop('user')
@@ -96,12 +95,13 @@ class DriversSerializer(serializers.ModelSerializer):
 
 
 class IndividualsSerializer(serializers.ModelSerializer):
+    
     user = UsersSerializer(required=True)
-
+    
     class Meta:
         model = Individual
         fields = ('user', 'address')
-
+            
     def create(self, validated_data):
         user_data = validated_data.pop('User_id')
         user = UsersSerializer.create(UsersSerializer(), validated_data=user_data)
@@ -110,6 +110,7 @@ class IndividualsSerializer(serializers.ModelSerializer):
 
 
 class ManagersSerializer(serializers.ModelSerializer):
+
     user = UsersSerializer(required=True)
 
     class Meta:
@@ -122,10 +123,13 @@ class ManagersSerializer(serializers.ModelSerializer):
         individual, created = Individual.objects.update_or_create(user=user)
         return individual
 
-
 class ClientSerializer(serializers.ModelSerializer):
 
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
-        model = Clients
-        fields = ('user', 'first_name', 'last_name', 'gender', 'dateOfBirth', 'phone', 'photo')
-        read_only_fields = ('user',)
+        model =  Clients
+        fields = ('user','first_name', 'last_name', 'gender', 'dateOfBirth', 'phone', 'photo')
+
+
+

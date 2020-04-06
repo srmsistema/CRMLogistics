@@ -181,13 +181,13 @@ class Order(models.Model):
     """
     Класс сделка
     """
-    NEW = 0
-    CONCLUDED = 1
-    LOADING = 2
-    TRANSPORTING = 3
-    UNLOADING = 4
-    COMPLETED = 5
-    CANCELLED = 6
+    NEW = '0'
+    CONCLUDED = '1'
+    LOADING = '2'
+    TRANSPORTING = '3'
+    UNLOADING = '4'
+    COMPLETED = '5'
+    CANCELLED = '6'
 
     ORDER_STATUS_CHOICES = (
         (NEW, 'Новая'),
@@ -233,6 +233,11 @@ class Order(models.Model):
             self.dateUnloading = timezone.now()
 
         super(Order, self).save(*args, **kwargs)
+
+    def status(self):
+        return '%s' % self.ORDER_STATUS_CHOICES[int(self.orderStatus)][1]
+
+    status.short_description = 'Статус заявки'
 
     def __str__(self):
         return "%s" % self.user

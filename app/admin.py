@@ -9,8 +9,6 @@ from django.contrib import admin
 from .forms import SignupForm
 from Deal.models import Order
 
-from django import forms
-
 
 class CustomUserAdmin(UserAdmin):
     add_form = SignupForm
@@ -23,6 +21,7 @@ class CustomUserAdmin(UserAdmin):
         ('Permissions', {'fields': ('is_staff', 'is_active')})
     )
 
+
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
@@ -32,10 +31,12 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('username',)
     ordering = ('username',)
 
+
 class ClientsAdmin(admin.ModelAdmin):
     list_display = ('user', 'first_name', 'last_name', 'phone', 'dateOfBirth')
     list_filter = ('first_name', 'last_name', )
     search_fields = ('user__username', 'user__email', 'phone', 'first_name', 'last_name')
+
 
 class DriversAdmin(admin.ModelAdmin):
     list_display = ('user', 'first_name', 'last_name', 'email', 'date_joined',)
@@ -44,20 +45,17 @@ class DriversAdmin(admin.ModelAdmin):
 
     def date_joined(self, obj):
         return obj.user.date_joined
+    date_joined.short_description = 'Дата присоединения'
+    date_joined.admin_order_field = 'user__date_joined'
 
     def email(self, obj):
         return obj.user.email
+    email.short_description = 'Почта'
+    email.admin_order_field = 'user__email'
 
     def status(self, obj):
         return obj.user.status
-
-    date_joined.date_joined = 'Date joined'
-    date_joined.admin_order_field = 'user__date_joined'
-
-    email.email = 'Email'
-    email.admin_order_field = 'user__email'
-
-    status.status = 'Status'
+    status.short_description = 'Статус'
     status.admin_order_field = 'user__status'
 
 
@@ -74,14 +72,12 @@ class ManagerAdmin(admin.ModelAdmin):
 
     def date_joined(self, obj):
         return obj.user.date_joined
+    date_joined.short_description = 'Дата присоединения'
+    date_joined.admin_order_field = 'user__date_joined'
 
     def email(self, obj):
         return obj.user.email
-
-    date_joined.date_joined = 'Date joined'
-    date_joined.admin_order_field = 'user__date_joined'
-
-    email.email = 'Email'
+    email.short_description = 'Почта'
     email.admin_order_field = 'user__email'
 
 
@@ -89,12 +85,10 @@ admin.site.register(Clients, ClientsAdmin)
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(UserStatus)
 admin.site.register(Driver, DriversAdmin)
-admin.site.register(Individual)
 admin.site.register(TradingSet, TradingSetAdmin)
 admin.site.register(Manager, ManagerAdmin)
+admin.site.register(Individual)
 admin.site.unregister(Group)
-
-
 
 
 class ManagerAdminSite(AdminSite):

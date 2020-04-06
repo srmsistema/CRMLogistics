@@ -216,7 +216,8 @@ class Order(models.Model):
         super(Order, self).save(*args, **kwargs)
 
     def status(self):
-        return '%s' % self.ORDER_STATUS_CHOICES[int(self.orderStatus)][1]
+        # return '%s' % self.ORDER_STATUS_CHOICES[int(self.orderStatus)][0]
+        return '%s' % self.orderStatus
     status.short_description = 'Статус заявки'
 
     def __str__(self):

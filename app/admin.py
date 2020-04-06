@@ -1,4 +1,5 @@
 from django.contrib.admin import AdminSite
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserChangeForm
@@ -9,18 +10,68 @@ from django.contrib import admin
 from .forms import SignupForm
 from Deal.models import Order
 
+from django import forms
+from django.contrib import admin
+from django.contrib.auth import get_user_model
+from django.contrib.admin.widgets import FilteredSelectMultiple
+from django.contrib.auth.models import Group
+
+
+class GroupAdminForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        exclude = []
+
+    # Add the users field.
+    users = forms.ModelMultipleChoiceField(
+         queryset=User.objects.all(),
+         required=False,
+         # Use the pretty 'filter_horizontal widget'.
+         widget=FilteredSelectMultiple('users', False)
+    )
+
+    def __init__(self, *args, **kwargs):
+        # Do the normal form initialisation.
+        super(GroupAdminForm, self).__init__(*args, **kwargs)
+        # If it is an existing group (saved objects have a pk).
+        if self.instance.pk:
+            # Populate the users field with the current Group users.
+            self.fields['users'].initial = self.instance.user_set.all()
+
+    def save_m2m(self):
+        # Add the users to the Group.
+        self.instance.user_set.set(self.cleaned_data['users'])
+
+    def save(self, *args, **kwargs):
+        # Default save
+        instance = super(GroupAdminForm, self).save()
+        # Save many-to-many data
+        self.save_m2m()
+        return instance
+
+
+admin.site.unregister(Group)
+
+# Create a new Group admin.
+class GroupAdmin(admin.ModelAdmin):
+    # Use our custom form.
+    form = GroupAdminForm
+    # Filter permissions horizontal as well.
+    filter_horizontal = ['permissions']
+
+# Register the new Group ModelAdmin.
+admin.site.register(Group, GroupAdmin)
 
 class CustomUserAdmin(UserAdmin):
     add_form = SignupForm
     form = CustomUserChangeForm
     model = User
-    list_display = ('username', 'email', 'is_staff', 'is_active','is_client', 'is_manager', 'is_driver')
-    list_filter = ('username', 'email', 'is_staff', 'is_active','is_client', 'is_manager', 'is_driver')
+    list_display = ('username', 'email', 'is_staff','is_client', 'is_driver', 'is_active')
+    list_filter = ('username', 'email', 'is_staff','is_client', 'is_driver', 'is_active')
     fieldsets = (
-        (None, {'fields': ('username',  'email', 'password','is_client', 'is_manager', 'is_driver')}),
+        (None, {'fields': ('username',  'email', 'password','is_client', 'is_driver')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')})
     )
-
 
     add_fieldsets = (
         (None, {
@@ -88,26 +139,26 @@ admin.site.register(Driver, DriversAdmin)
 admin.site.register(TradingSet, TradingSetAdmin)
 admin.site.register(Manager, ManagerAdmin)
 admin.site.register(Individual)
-admin.site.unregister(Group)
+# admin.site.unregister(Group)
 
 
-class ManagerAdminSite(AdminSite):
-    site_header = "CRM Logistics Managers"
-    site_title = "CRM Logistics Events Managers"
-    index_title = "Welcome to CRM Logistics"
-
-manager_admin_site = ManagerAdminSite(name='manager_admin')
-
-
-class ManagerAdmin(admin.ModelAdmin):
-    def has_add_permission(self, request):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
-manager_admin_site.register(TradingSet, ManagerAdmin)
-manager_admin_site.register(Order)
+# class ManagerAdminSite(AdminSite):
+#     site_header = "CRM Logistics Managers"
+#     site_title = "CRM Logistics Events Managers"
+#     index_title = "Welcome to CRM Logistics"
+#
+# manager_admin_site = ManagerAdminSite(name='manager_admin')
+#
+#
+# class ManagerAdmin(admin.ModelAdmin):
+#     def has_add_permission(self, request):
+#         return False
+#
+#     def has_delete_permission(self, request, obj=None):
+#         return False
+#
+#     def has_change_permission(self, request, obj=None):
+#         return False
+#
+# manager_admin_site.register(Manager, ManagerAdmin)
+# manager_admin_site.register(Order)

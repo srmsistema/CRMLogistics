@@ -10,6 +10,7 @@ class IsManager(permissions.BasePermission):
             raise PermissionDenied
         return bool(request.user and request.user.is_manager)
 
+
 class IsClient(permissions.BasePermission):
 
     def has_permission(self, request, view):
@@ -18,6 +19,7 @@ class IsClient(permissions.BasePermission):
         except:
             raise PermissionDenied
         return bool(request.user and request.user.is_client)
+
 
 class IsDriver(permissions.BasePermission):
 

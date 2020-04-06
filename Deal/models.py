@@ -1,9 +1,7 @@
 from builtins import super, int
-
 from django.db import models
 from django.conf import settings
-
-from django.db.models import Count
+from django.utils import timezone
 from app.models import User, Driver
 import datetime
 
@@ -20,7 +18,7 @@ import datetime
 #     class Meta:
 #         verbose_name = "Опасность"
 #         verbose_name_plural = "Опасности"
-from django.utils import timezone
+
 
 
 class TypeCargo(models.Model):
@@ -81,23 +79,6 @@ class Units(models.Model):
     class Meta:
         verbose_name = "Ед.изм."
         verbose_name_plural = "Ед.изм."
-
-
-# class Weight(models.Model):
-#     """
-#     Класс вес
-#     """
-#
-#     minimum = models.IntegerField(default=1)
-#     maximum = models.IntegerField(default=10)
-#     unit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True)
-#
-#     def __str__(self):
-#         return self.minimum
-#
-#     class Meta:
-#         verbose_name = "Вес"
-#         verbose_name_plural = "Вес"
 
 
 class Volume(models.Model):
@@ -236,7 +217,6 @@ class Order(models.Model):
 
     def status(self):
         return '%s' % self.ORDER_STATUS_CHOICES[int(self.orderStatus)][1]
-
     status.short_description = 'Статус заявки'
 
     def __str__(self):

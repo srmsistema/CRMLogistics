@@ -61,10 +61,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(auto_now_add=True, verbose_name='Дата регистрации')
     is_active = models.BooleanField(default=True, verbose_name='Активный')
     is_client = models.BooleanField(default=False, verbose_name='Клиент')
-    is_manager = models.BooleanField(default=False, verbose_name='Менеджер')
+    # is_manager = models.BooleanField(default=False, verbose_name='Менеджер')
     is_driver = models.BooleanField(default=False, verbose_name='Исполнитель')
-    # is_admin = models.BooleanField(default=False, verbose_name='Администратор')
-    is_staff = models.BooleanField(default=False, verbose_name='Персонал')
+    is_staff = models.BooleanField(default=False, verbose_name='Менеджер')
     status = models.CharField(max_length=255, blank=True, verbose_name='Статус')
 
     USERNAME_FIELD = 'username'
@@ -77,10 +76,10 @@ class User(AbstractBaseUser, PermissionsMixin):
             self.status = "client"
         if self.is_driver:
             self.status = "driver"
-        if self.is_manager:
-            self.status = "manager"
-        if self.is_staff:
+        if self.is_superuser:
             self.status = "admin"
+        if self.is_staff:
+            self.status = "manager"
         super(User, self).save(*args, **kwargs)
 
     def __str__(self):

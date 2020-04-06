@@ -2,22 +2,6 @@ from .models import *
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
-# class RegistrationSerializer(serializers.ModelSerializer):
-#     password = serializers.CharField(
-#         max_length=128,
-#         min_length=8,
-#         write_only=True,
-#         style={'input_type': 'password'}
-#     )
-#
-#     token = serializers.CharField(max_length=255, read_only=True)
-#
-#     class Meta:
-#         model = User
-#         fields = ('username', 'email', 'password','token')
-#
-#     def create(self, validated_data):
-#         return User.objects.create_user(**validated_data)
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
@@ -139,10 +123,11 @@ class ManagersSerializer(serializers.ModelSerializer):
         fields = ('user', 'tradingSet')
 
     def create(self, validated_data):
-        user_data = validated_data.pop('user')
-        user = UsersSerializer.create(UsersSerializer(), validated_data=user_data)
-        individual, created = Individual.objects.update_or_create(user=user)
-        return individual
+        trading_set_data = validated_data.pop('tradingSet')
+        trading_set = TradingSetSerializer.create(TradingSetSerializer(), validated_data=trading_set_data)
+        manager, created = Manager.objects.update_or_create(tradingSet=trading_set)
+        return manager
+
 
 class ClientSerializer(serializers.ModelSerializer):
 

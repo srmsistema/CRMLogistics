@@ -64,8 +64,6 @@ class UpdateOrderAPIView(RetrieveUpdateAPIView):
             return serializer.save(driver=driver)
 
 
-
-
 class DeleteOrderAPIView(RetrieveDestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer

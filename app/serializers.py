@@ -99,20 +99,20 @@ class DriversSerializer(serializers.ModelSerializer):
             return driver
 
 
-class IndividualsSerializer(serializers.ModelSerializer):
-
-    user = UsersSerializer(required=True)
-
-    class Meta:
-        model = Individual
-        fields = ('user', 'address')
-
-    def create(self, validated_data):
-        user_data = validated_data.pop('User_id')
-        user = UsersSerializer.create(UsersSerializer(), validated_data=user_data)
-        individual, created = Individual.objects.update_or_create(user=user)
-        return individual
-
+# class IndividualsSerializer(serializers.ModelSerializer):
+#
+#     user = UsersSerializer(required=True)
+#
+#     class Meta:
+#         model = Individual
+#         fields = ('user', 'address')
+#
+#     def create(self, validated_data):
+#         user_data = validated_data.pop('User_id')
+#         user = UsersSerializer.create(UsersSerializer(), validated_data=user_data)
+#         individual, created = Individual.objects.update_or_create(user=user)
+#         return individual
+#
 
 class ManagersSerializer(serializers.ModelSerializer):
 

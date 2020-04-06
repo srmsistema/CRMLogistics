@@ -122,17 +122,17 @@ class DriverDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAdminUser]
 
 
-class IndividualListAPIView(generics.ListAPIView):
-    permission_classes = [IsAdminUser]
-    serializer_class = IndividualsSerializer
-
-    queryset = Individual.objects.all()
-
-
-class IndividualDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Individual.objects.all()
-    serializer_class = IndividualsSerializer
-    permission_classes = [IsAdminUser]
+# class IndividualListAPIView(generics.ListAPIView):
+#     permission_classes = [IsAdminUser]
+#     serializer_class = IndividualsSerializer
+#
+#     queryset = Individual.objects.all()
+#
+#
+# class IndividualDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Individual.objects.all()
+#     serializer_class = IndividualsSerializer
+#     permission_classes = [IsAdminUser]
 
 
 class ManagerCreateAPIView(generics.CreateAPIView):

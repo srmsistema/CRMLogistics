@@ -119,18 +119,18 @@ class Manager(models.Model):
         verbose_name = 'Менеджер'
         verbose_name_plural = 'Менеджеры'
 
-
-class Individual(models.Model):
-    user = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True, verbose_name='Пользователь')
-    address = models.CharField(max_length=255, verbose_name='Адрес')
-
-    class Meta:
-        verbose_name = 'Физическое лицо'
-        verbose_name_plural = 'Физические лица'
-
-    def __str__(self):
-        return '%s' % (self.address)
-
+#
+# class Individual(models.Model):
+#     user = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True, verbose_name='Пользователь')
+#     address = models.CharField(max_length=255, verbose_name='Адрес')
+#
+#     class Meta:
+#         verbose_name = 'Физическое лицо'
+#         verbose_name_plural = 'Физические лица'
+#
+#     def __str__(self):
+#         return '%s' % (self.address)
+#
 
 class UserStatus(models.Model):
     status = models.CharField(max_length=255, verbose_name='Статус')

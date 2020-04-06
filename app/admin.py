@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserChangeForm
 from django.contrib.auth.models import Group
 
-from .models import Individual, UserStatus, Driver, TradingSet, Manager, User, Clients
+from .models import UserStatus, Driver, TradingSet, Manager, User, Clients
 from django.contrib import admin
 from .forms import SignupForm
 from Deal.models import Order
@@ -138,7 +138,7 @@ admin.site.register(UserStatus)
 admin.site.register(Driver, DriversAdmin)
 admin.site.register(TradingSet, TradingSetAdmin)
 admin.site.register(Manager, ManagerAdmin)
-admin.site.register(Individual)
+
 # admin.site.unregister(Group)
 
 

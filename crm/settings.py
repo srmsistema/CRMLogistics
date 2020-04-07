@@ -31,17 +31,19 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
-    'django.contrib.auth',
-    'Deal',
-    'app',
-    'rest_framework',
+    'jet.dashboard',
+    'jet',
     'django.contrib.admin',
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework_jwt',
+    'rest_framework',
     'crispy_forms',
+    'Deal',
+    'app',
 
 ]
 REST_FRAMEWORK = {
@@ -157,7 +159,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 

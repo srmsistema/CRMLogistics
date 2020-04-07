@@ -5,6 +5,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager
 from rest_framework_simplejwt.tokens import RefreshToken
 
+
 class CustomUserManager(BaseUserManager):
     use_in_migrations = True
     # exclude = ('',)
@@ -147,6 +148,11 @@ class Driver(models.Model):
     user = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True, verbose_name='Пользователь')
     first_name = models.CharField(max_length=30, blank=False, default='', verbose_name='Имя')
     last_name = models.CharField(max_length=30, blank=False, default='', verbose_name='Фамилия')
+    date_of_birth = models.DateField(blank=False, null=True, verbose_name='Дата рождения')
+    phone = models.IntegerField(blank=False, null=True, verbose_name='Моб. телефон')
+    address = models.CharField(max_length=100, blank=True, default='', verbose_name='Адрес проживания')
+    auto_type = models.ForeignKey('Deal.TypeAuto', on_delete=models.SET_NULL, null=True, related_name='auto_type',
+                                 verbose_name='Тип авто')
     autoTechPassPhoto = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Технический паспорт авто')
     trailerTechPassPhoto = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Технический паспорт прицепа')
     autoOwnerPass = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Паспорт владельца')

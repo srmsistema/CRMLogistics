@@ -149,7 +149,7 @@ class Driver(models.Model):
     first_name = models.CharField(max_length=30, blank=False, default='', verbose_name='Имя')
     last_name = models.CharField(max_length=30, blank=False, default='', verbose_name='Фамилия')
     date_of_birth = models.DateField(blank=False, null=True, verbose_name='Дата рождения')
-    phone = models.IntegerField(blank=False, null=True, verbose_name='Моб. телефон')
+    phone = models.CharField(max_length=255, blank=False, default='', verbose_name='Телефон')
     address = models.CharField(max_length=100, blank=True, default='', verbose_name='Адрес проживания')
     auto_type = models.ForeignKey('Deal.TypeAuto', on_delete=models.SET_NULL, null=True, related_name='auto_type',
                                  verbose_name='Тип авто')

@@ -21,7 +21,9 @@ urlpatterns = [
     # path('parametres-trailer/update/<int:pk>', UpdateParametresTrailerAPIView.as_view(),
     #      name='parametres_trailer_update'),
     path('location-cargo/create/', CreateLocationCargoAPIView.as_view(), name='location_cargo_create'),
-    path('location-cargo/update/', UpdateLocationCargoAPIView.as_view(), name='location_cargo_update'),
+    path('location-cargo/update/<int:pk>', UpdateLocationCargoAPIView.as_view(), name='location_cargo_update'),
+    path('state-awning/create/', CreateStateAwningAPIView.as_view(), name='state_awning_create'),
+    path('state-awning/update/<int:pk>', UpdateStateAwningAPIView.as_view(), name='state_awning_update'),
     # path('deal-status/create/', CreateDealStatusView.as_view(), name = 'deal_status_create'),
     # path('deal-status/update/<int:pk>', UpdateDealStatusView.as_view(), name = 'deal_status_update'),
 ]

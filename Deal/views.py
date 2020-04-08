@@ -43,7 +43,7 @@ class ListOrderDriverAPIView(ListAPIView):
 class CreateOrderAPIView(CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderClientCreateSerializer
-    permission_classes = [IsManager | IsClient]
+    permission_classes = [ IsManager | IsClient]
 
     def perform_create(self, serializer):
         if self.request.user.is_manager and self.request.user:
@@ -68,6 +68,18 @@ class DeleteOrderAPIView(RetrieveDestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = [permissions.IsAdminUser]
+
+
+class CreateStateAwningAPIView(ListCreateAPIView):
+    queryset = StateAwning.objects.all()
+    serializer_class = StateAwningSerializer
+    permission_classes = [permissions.IsAdminUser | IsClient]
+
+
+class UpdateStateAwningAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = StateAwning.objects.all()
+    serializer_class = StateAwningSerializer
+    permission_classes = [permissions.IsAdminUser | IsClient]
 
 
 class CreateTypeCargoAPIView(ListCreateAPIView):

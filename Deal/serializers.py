@@ -50,21 +50,27 @@ class VolumeSerializer(serializers.ModelSerializer):
 class LocationCargoSerializer(serializers.ModelSerializer):
     class Meta:
         model = LocationCargo
-        fields = ['address', 'sendingTimeCoordinates', ]
+        fields = ['address', 'sendingTimeCoordinates']
                   # 'locationCoordinatesStatus']
         read_only_fields = ['sendingTimeCoordinates', ]
 
-# class DealStatusSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = DealStatus
-#         fields = ['new', 'concluded', 'loading', 'transportation', 'unloading', 'completed', 'cancel']
-#
+    def create(self, validated_data):
+        location = LocationCargo.objects.create(sendingTimeCoordinates=datetime.datetime.now().time(), **validated_data)
+        return location
+
+
+class StateAwningSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StateAwning
+        fields = '__all__'
+
 
 class OrderListSerializer(serializers.ModelSerializer):
     volume = VolumeSerializer()
     # parametresTrailer = ParametresTrailerSerializer()
     locationCargo = LocationCargoSerializer()
     user = serializers.StringRelatedField()
+    stateAwning = StateAwningSerializer()
     typeAuto = serializers.StringRelatedField(many=False, read_only=True)
     typeLoading = serializers.StringRelatedField(many=False, read_only=True)
     typeCargo = serializers.StringRelatedField(many=False, read_only=True)

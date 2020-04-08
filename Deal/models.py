@@ -4,6 +4,7 @@ from django.conf import settings
 from django.utils import timezone
 from app.models import User, Driver
 import datetime
+import re
 
 # class SubclassHazard(models.Model):
 #     """
@@ -147,8 +148,13 @@ class LocationCargo(models.Model):
     # longitude = models.FloatField(default=0.0, verbose_name='Долгота')
     # latitude = models.FloatField(default=0.0, verbose_name='Широта')
     address = models.CharField(max_length=255, default="", blank=False, verbose_name="Адрес")
-    sendingTimeCoordinates = models.CharField(max_length=255, default=datetime.datetime.now().time(), blank=True, verbose_name='Время отправки координат')
+    sendingTimeCoordinates = models.CharField(max_length=255, default='', blank=True, verbose_name='Время отправки координат')
     # locationCoordinatesStatus = models.ForeignKey(LocationCoordinatesStatus, on_delete=models.SET_NULL, null=True, verbose_name='Статус координат местоположения')
+
+    def save(self, *args, **kwargs):
+        date = datetime.datetime.now().time()
+        self.sendingTimeCoordinates = date
+        super(LocationCargo, self).save(*args, **kwargs)
 
     def __str__(self):
         return "%s, %s" % (self.address, self.sendingTimeCoordinates)
@@ -156,6 +162,34 @@ class LocationCargo(models.Model):
     class Meta:
         verbose_name = "Местоположение груза"
         verbose_name_plural = "Местоположения грузов"
+
+class StateAwning(models.Model):
+    noHoles = models.BooleanField(default=False, verbose_name="Без дыр")
+    noGaps = models.BooleanField(default=False, verbose_name="Без щелей")
+    dry = models.BooleanField(default=False, verbose_name="Сухой")
+    noPatches = models.BooleanField(default=False, verbose_name="Отсутствие заплаток")
+
+    class Meta:
+        verbose_name = 'Состояние тента'
+        verbose_name_plural = 'Состояния тентов'
+
+    def __str__(self):
+        noHoles = self.noHoles
+        noGaps =self.noGaps
+        dry = self.dry
+        noPatches = self.noPatches
+        state = ''
+        if noHoles:
+            state += 'Без дыр, '
+        if noGaps:
+            state += 'Без щелей, '
+        if dry:
+            state += 'Сухой, '
+        if noPatches:
+            state += 'Без заплаток '
+
+        state = state[0] + re.sub( '(?<!^)(?=[A-Z])', '_', state[1:] ).lower()
+        return state[:-2]
 
 
 class Order(models.Model):
@@ -179,6 +213,7 @@ class Order(models.Model):
         (COMPLETED, 'Завершена'),
         (CANCELLED, 'Отменена')
     )
+    name = models.CharField(default='', blank=True,  max_length=100, verbose_name='Название')
     # numberOrderFromClient = models.IntegerField(default=0, editable=False, verbose_name='Номер заказа клиента')
     priceClient = models.IntegerField(default=0, verbose_name='Цена клиента')
     companyProfit = models.IntegerField(default=0, verbose_name='Прибыль компании')
@@ -188,7 +223,7 @@ class Order(models.Model):
     dateUnloading = models.DateField(blank=True, null=True, verbose_name='Дата выгрузки')
     autoReleaseYear = models.IntegerField(default=0, verbose_name='Год выпуска авто')
     # countPallet = models.IntegerField(default=0, verbose_name='Количество паллет')
-    stateAwning = models.CharField(default='', blank=True,  max_length=100, verbose_name='Состояние тента')
+    stateAwning = models.ForeignKey(StateAwning, on_delete=models.SET_NULL, null=True, blank=True, related_name='stateAwning', verbose_name='Состояние тента')
     requirementsLoading = models.CharField(default='', blank=True, max_length=100, verbose_name='Требования погрузки')
     typeAuto = models.ForeignKey(TypeAuto, on_delete=models.SET_NULL, null=True, related_name='typeAuto', verbose_name='Тип авто')
     typeLoading = models.ForeignKey(TypeLoading, on_delete=models.SET_NULL, null=True, blank=True, related_name='typeLoading', verbose_name='Тип погрузки')

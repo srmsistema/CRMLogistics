@@ -50,8 +50,6 @@ class GroupAdminForm(forms.ModelForm):
         return instance
 
 
-admin.site.unregister(Group)
-
 # Create a new Group admin.
 class GroupAdmin(admin.ModelAdmin):
     # Use our custom form.
@@ -59,8 +57,6 @@ class GroupAdmin(admin.ModelAdmin):
     # Filter permissions horizontal as well.
     filter_horizontal = ['permissions']
 
-# Register the new Group ModelAdmin.
-admin.site.register(Group, GroupAdmin)
 
 class CustomUserAdmin(UserAdmin):
     add_form = SignupForm
@@ -133,6 +129,9 @@ class ManagerAdmin(admin.ModelAdmin):
     email.admin_order_field = 'user__email'
 
 
+admin.site.unregister(Group)
+# Register the new Group ModelAdmin.
+admin.site.register(Group, GroupAdmin)
 admin.site.register(Clients, ClientsAdmin)
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(UserStatus)

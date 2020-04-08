@@ -34,6 +34,7 @@ class LocationCargoAdmin(admin.ModelAdmin):
 
 
 class OrderAdmin(admin.ModelAdmin):
+
     list_display = ('user', 'driver', 'status', 'fromOrder', 'toOrder')
     list_filter = ('fromOrder', 'toOrder', 'dateLoading', 'dateUnloading',
                    'typeLoading__type', 'typeCargo__type', 'orderStatus')
@@ -42,10 +43,11 @@ class OrderAdmin(admin.ModelAdmin):
 
 #admin.site.register(SubclassHazard)
 admin.site.register(Volume)
-admin.site.register(TypeAuto, TypeAutoAdmin)
+# admin.site.register(TypeAuto, TypeAutoAdmin)
 admin.site.register(TypeCargo, TypeCargoAdmin)
 admin.site.register(TypeLoading, TypeLoadingAdmin)
 admin.site.register(Units)
+admin.site.register(StateAwning)
 admin.site.register(LocationCargo, LocationCargoAdmin)
 admin.site.register(Order, OrderAdmin)
 

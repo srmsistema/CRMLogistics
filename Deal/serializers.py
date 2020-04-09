@@ -97,11 +97,11 @@ class OrderDriverUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear',
+        fields = ['name', 'priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear',
                   'stateAwning', 'requirementsLoading', 'typeAuto', 'typeLoading', 'typeCargo', 'weight',
                   'volume', 'locationCargo', 'user', 'driver', 'orderStatus', 'fromOrder', 'toOrder']
 
-        read_only_fields = ['priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear',
+        read_only_fields = ['name', 'priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear',
                   'stateAwning', 'requirementsLoading', 'typeAuto', 'typeLoading', 'typeCargo', 'weight',
                   'volume', 'locationCargo', 'user', 'driver', 'fromOrder', 'toOrder']
 
@@ -127,7 +127,7 @@ class OrderClientCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['priceClient', 'requirementsLoading', 'typeCargo', 'typeAuto', 'autoReleaseYear',
+        fields = ['name', 'priceClient', 'requirementsLoading', 'typeCargo', 'typeAuto', 'autoReleaseYear',
                   'typeLoading', 'stateAwning', 'weight',
                   'weightMeasurementUnit', 'volume', 'locationCargo',  'user']
         read_only_fields = ['user', 'driver', 'orderStatus', 'fromOrder', 'toOrder']

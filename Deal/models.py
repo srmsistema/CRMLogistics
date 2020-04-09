@@ -198,22 +198,16 @@ class Order(models.Model):
     """
     Класс сделка
     """
-    NEW = '0'
-    CONCLUDED = '1'
-    LOADING = '2'
-    TRANSPORTING = '3'
-    UNLOADING = '4'
-    COMPLETED = '5'
-    CANCELLED = '6'
+
 
     ORDER_STATUS_CHOICES = (
-        (NEW, 'Новая'),
-        (CONCLUDED, 'Заключена'),
-        (LOADING, 'Погрузка'),
-        (TRANSPORTING, 'Транспортировка'),
-        (UNLOADING, 'Выгрузка'),
-        (COMPLETED, 'Завершена'),
-        (CANCELLED, 'Отменена')
+        ('Новая', 'Новая'),
+        ('Заключена', 'Заключена'),
+        ('Погрузка', 'Погрузка'),
+        ('Транспортировка', 'Транспортировка'),
+        ('Выгрузка', 'Выгрузка'),
+        ('Завершена', 'Завершена'),
+        ('Отменена', 'Отменена')
     )
     name = models.CharField(default='', blank=True,  max_length=100, verbose_name='Название')
     # numberOrderFromClient = models.IntegerField(default=0, editable=False, verbose_name='Номер заказа клиента')
@@ -234,21 +228,21 @@ class Order(models.Model):
     #subclassHazard = models.ForeignKey(SubclassHazard, on_delete=models.SET_NULL, null=True, related_name='subclassHazard')
     weightMeasurementUnit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, related_name='weightMeasurementUnit', verbose_name='Ед. изм. веса')
     volume = models.ForeignKey(Volume, on_delete=models.SET_NULL, null=True, related_name='volume', verbose_name='Объём')
-    orderStatus = models.CharField(max_length=10, choices=ORDER_STATUS_CHOICES, default=ORDER_STATUS_CHOICES[0][1], blank=True, verbose_name='Статус заказа')
+    orderStatus = models.CharField(max_length=10, choices=ORDER_STATUS_CHOICES, default=ORDER_STATUS_CHOICES[0][0], blank=True, verbose_name='Статус заказа')
     # parametresTrailer = models.ForeignKey(ParametresTrailer, on_delete=models.SET_NULL, null=True, related_name='parametresTrailer', verbose_name='Параметры заказа')
     locationCargo = models.ForeignKey(LocationCargo, on_delete=models.SET_NULL, null=True, related_name='locationCargo', verbose_name='Местоположение груза')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='user', verbose_name='Заказчик')
     driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, blank=True, related_name="driver", verbose_name="Водитель")
 
     def save(self, *args, **kwargs):
-        if  self.orderStatus == self.CONCLUDED:
-            self.fromOrder = datetime.date.today
-        elif self.orderStatus == self.COMPLETED:
-            self.toOrder = datetime.date.today
-        elif self.orderStatus == self.LOADING:
-            self.dateLoading = datetime.date.today
-        elif self.orderStatus == self.UNLOADING:
-            self.dateUnloading = datetime.date.today
+        if self.orderStatus == self.ORDER_STATUS_CHOICES[1][0]:
+            self.fromOrder = datetime.date.today()
+        elif self.orderStatus == self.ORDER_STATUS_CHOICES[5][0]:
+            self.toOrder = datetime.date.today()
+        elif self.orderStatus == self.ORDER_STATUS_CHOICES[2][0]:
+            self.dateLoading = datetime.date.today()
+        elif self.orderStatus == self.ORDER_STATUS_CHOICES[4][0]:
+            self.dateUnloading = datetime.date.today()
 
         super(Order, self).save(*args, **kwargs)
 

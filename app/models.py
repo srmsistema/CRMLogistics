@@ -84,7 +84,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         super(User, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.username
+        return "%s" % (self.username)
+
+    def get_email_field_name(cls):
+        return cls.email
 
     @property
     def token(self):
@@ -179,7 +182,7 @@ class Clients(models.Model):
     first_name = models.CharField(max_length=30, blank=False, default='', verbose_name='Имя')
     last_name = models.CharField(max_length=30, blank=False, default='', verbose_name='Фамилия')
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default=1, verbose_name='Пол')
-    dateOfBirth = models.DateField(blank=False, verbose_name='Дата рождения')
+    dateOfBirth = models.DateField(blank=False, null=True, verbose_name='Дата рождения')
     phone = models.CharField(max_length=255, null=True, blank=False, default='', verbose_name='Телефон')
     photo = models.ImageField(default='static/blank-profile-picture-973460_6404.png', blank=True, upload_to='static', verbose_name='Фото', null=False)
 

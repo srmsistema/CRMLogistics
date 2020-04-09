@@ -148,13 +148,13 @@ class LocationCargo(models.Model):
     # longitude = models.FloatField(default=0.0, verbose_name='Долгота')
     # latitude = models.FloatField(default=0.0, verbose_name='Широта')
     address = models.CharField(max_length=255, default="", blank=False, verbose_name="Адрес")
-    sendingTimeCoordinates = models.CharField(max_length=255, default='', blank=True, verbose_name='Время отправки координат')
+    sendingTimeCoordinates = models.CharField(max_length=255, default=datetime.datetime.now().time(), blank=True, verbose_name='Время отправки координат')
     # locationCoordinatesStatus = models.ForeignKey(LocationCoordinatesStatus, on_delete=models.SET_NULL, null=True, verbose_name='Статус координат местоположения')
 
-    def save(self, *args, **kwargs):
-        date = datetime.datetime.now().time()
-        self.sendingTimeCoordinates = date
-        super(LocationCargo, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     sendingTime =
+    #     self.sendingTimeCoordinates = sendingTime
+    #     super(LocationCargo, self).save(*args, **kwargs)
 
     def __str__(self):
         return "%s, %s" % (self.address, self.sendingTimeCoordinates)
@@ -162,6 +162,7 @@ class LocationCargo(models.Model):
     class Meta:
         verbose_name = "Местоположение груза"
         verbose_name_plural = "Местоположения грузов"
+
 
 class StateAwning(models.Model):
     noHoles = models.BooleanField(default=False, verbose_name="Без дыр")
@@ -186,9 +187,10 @@ class StateAwning(models.Model):
         if dry:
             state += 'Сухой, '
         if noPatches:
-            state += 'Без заплаток '
+            state += 'Без заплаток, '
 
         state = state[0] + re.sub( '(?<!^)(?=[A-Z])', '_', state[1:] ).lower()
+        print(state)
         return state[:-2]
 
 
@@ -236,19 +238,20 @@ class Order(models.Model):
     # parametresTrailer = models.ForeignKey(ParametresTrailer, on_delete=models.SET_NULL, null=True, related_name='parametresTrailer', verbose_name='Параметры заказа')
     locationCargo = models.ForeignKey(LocationCargo, on_delete=models.SET_NULL, null=True, related_name='locationCargo', verbose_name='Местоположение груза')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='user', verbose_name='Заказчик')
-    driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, related_name="driver", verbose_name="Водитель")
+    driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, blank=True, related_name="driver", verbose_name="Водитель")
 
     def save(self, *args, **kwargs):
         if  self.orderStatus == self.CONCLUDED:
-            self.fromOrder = timezone.now()
-        if self.orderStatus == self.COMPLETED:
-            self.toOrder = timezone.now()
-        if self.orderStatus == self.LOADING:
-            self.dateLoading = timezone.now()
-        if self.orderStatus == self.UNLOADING:
-            self.dateUnloading = timezone.now()
+            self.fromOrder = datetime.date.today
+        elif self.orderStatus == self.COMPLETED:
+            self.toOrder = datetime.date.today
+        elif self.orderStatus == self.LOADING:
+            self.dateLoading = datetime.date.today
+        elif self.orderStatus == self.UNLOADING:
+            self.dateUnloading = datetime.date.today
 
         super(Order, self).save(*args, **kwargs)
+
 
     def status(self):
         # return '%s' % self.ORDER_STATUS_CHOICES[int(self.orderStatus)][1]

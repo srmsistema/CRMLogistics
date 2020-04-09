@@ -43,7 +43,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 #admin.site.register(SubclassHazard)
 admin.site.register(Volume)
-# admin.site.register(TypeAuto, TypeAutoAdmin)
+admin.site.register(TypeAuto, TypeAutoAdmin)
 admin.site.register(TypeCargo, TypeCargoAdmin)
 admin.site.register(TypeLoading, TypeLoadingAdmin)
 admin.site.register(Units)

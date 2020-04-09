@@ -27,9 +27,9 @@ urlpatterns += [
     path('drivers/order', ListOrderDriverAPIView.as_view(), name='driver_order'),
     # path('individuals/', IndividualListAPIView.as_view(), name='individual'),
     # path('individuals/<int:pk>', IndividualDetailAPIView.as_view(), name='individual_detail'),
-    path('managers/', ManagerListAPIView.as_view(), name='manager'),
-    path('managers/create', ManagerCreateAPIView.as_view(), name='manager_create'),
-    path('managers/<int:pk>', ManagerDetailAPIView.as_view(), name='manager_detail'),
+    # path('managers/', ManagerListAPIView.as_view(), name='manager'),
+    # path('managers/create', ManagerCreateAPIView.as_view(), name='manager_create'),
+    # path('managers/<int:pk>', ManagerDetailAPIView.as_view(), name='manager_detail'),
     path('clients/', ClientListAPIView.as_view(), name='client_list'),
 
 ]

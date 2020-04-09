@@ -27,7 +27,7 @@ class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'password','is_staff','is_active',
-                  'is_client', 'is_manager', 'is_driver', 'status', 'token')
+                  'is_client', 'is_driver', 'status', 'token')
 
         read_only_fields = ('token',)
 
@@ -41,6 +41,15 @@ class UsersSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+
+class UsersSerializer3(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email')
+
+        read_only_fields = ('token',)
 
 
 class LoginSerializer(serializers.Serializer):
@@ -100,6 +109,13 @@ class DriversSerializer(serializers.ModelSerializer):
             return driver
 
 
+class DriversSerializer2(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+
+    class Meta:
+        model = Driver
+        fields = ('user', 'first_name', 'last_name', 'phone')
+
 # class IndividualsSerializer(serializers.ModelSerializer):
 #
 #     user = UsersSerializer(required=True)
@@ -147,7 +163,7 @@ class UsersSerializer2(serializers.ModelSerializer):
         fields = ('username', 'email', 'password','token')
 
         read_only_fields = ('id', 'token','is_staff','is_active',
-                            'is_client', 'is_manager', 'is_driver', 'status', )
+                            'is_client', 'is_driver', 'status', )
 
     def update(self, instance, validated_data):
         password = validated_data.pop('password', None)

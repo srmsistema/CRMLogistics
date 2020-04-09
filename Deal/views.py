@@ -12,7 +12,7 @@ from rest_framework import status
 class ListOrderAPIView(ListAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = [permissions.IsAdminUser | IsClient | IsManager | IsDriver]
+    permission_classes = [ IsDriver | IsClient | permissions.IsAdminUser]
 
     def get(self, request, *args, **kwargs):
         if request.user.is_staff and request.user:
@@ -21,13 +21,12 @@ class ListOrderAPIView(ListAPIView):
         elif request.user.is_client and request.user:
             serializers = OrderSerializer(Order.objects.filter(user=self.request.user), many=True)
             return Response(serializers.data, status.HTTP_200_OK)
-        elif request.user.is_manager and request.user:
-            serializers = OrderSerializer(Order.objects.filter(user=self.request.user), many=True)
-            return Response(serializers.data, status.HTTP_200_OK)
         elif request.user.is_driver and request.user:
             serializers = OrderDriverListSerializer(Order.objects.all(), many=True)
             return Response(serializers.data, status.HTTP_200_OK)
-
+        # elif request.user.is_manager and request.user:
+        #     serializers = OrderSerializer(Order.objects.filter(user=self.request.user), many=True)
+        #     return Response(serializers.data, status.HTTP_200_OK)
 
 
 class ListOrderDriverAPIView(ListAPIView):
@@ -43,12 +42,12 @@ class ListOrderDriverAPIView(ListAPIView):
 class CreateOrderAPIView(CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderClientCreateSerializer
-    permission_classes = [ IsManager | IsClient]
+    permission_classes = [ IsClient]
 
     def perform_create(self, serializer):
-        if self.request.user.is_manager and self.request.user:
-            return serializer.save(user=self.request.user)
-        elif self.request.user.is_client and self.request.user:
+        # if self.request.user.is_manager and self.request.user:
+        #     return serializer.save(user=self.request.user)
+        if self.request.user.is_client and self.request.user:
             return serializer.save(user=self.request.user)
 
 
@@ -60,7 +59,7 @@ class UpdateOrderAPIView(RetrieveUpdateAPIView):
     def perform_update(self, serializer):
         if self.request.user and self.request.user.is_driver:
             driver = Driver.objects.get(user=self.request.user)
-            serializer.save(orderStatus=Order.CONCLUDED)
+            # serializer.save(orderStatus=Order.ORDER_STATUS_CHOICES[1][1])
             return serializer.save(driver=driver)
 
 
@@ -169,7 +168,7 @@ class UpdateVolumeAPIView(RetrieveDestroyAPIView):
 class CreateLocationCargoAPIView(ListCreateAPIView):
     queryset = LocationCargo.objects.all()
     serializer_class = LocationCargoSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [IsClient | permissions.IsAdminUser]
 
 
 class UpdateLocationCargoAPIView(RetrieveUpdateDestroyAPIView):

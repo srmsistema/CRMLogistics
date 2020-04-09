@@ -135,28 +135,28 @@ class DriverDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 #     permission_classes = [IsAdminUser]
 
 
-class ManagerCreateAPIView(generics.CreateAPIView):
-    queryset = Manager.objects.all()
-    permission_classes = [IsAdminUser]
-    serializer_class = ManagersSerializer
-
-
-class ManagerListAPIView(generics.ListAPIView):
-    permission_classes = [IsAdminUser]
-    serializer_class = ManagersSerializer
-    queryset = Manager.objects.all()
-
-    def get_queryset(self):
-        if self.request.user.is_staff and self.request.user:
-            return Clients.objects.all()
-        elif self.request.user.is_manager and self.request.user:
-            return Clients.objects.filter(user=self.request.user)
-
-
-class ManagerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Manager.objects.all()
-    serializer_class = ManagersSerializer
-    permission_classes = [IsAdminUser]
+# class ManagerCreateAPIView(generics.CreateAPIView):
+#     queryset = Manager.objects.all()
+#     permission_classes = [IsAdminUser]
+#     serializer_class = ManagersSerializer
+#
+#
+# class ManagerListAPIView(generics.ListAPIView):
+#     permission_classes = [IsAdminUser]
+#     serializer_class = ManagersSerializer
+#     queryset = Manager.objects.all()
+#
+#     def get_queryset(self):
+#         if self.request.user.is_staff and self.request.user:
+#             return Clients.objects.all()
+#         elif self.request.user.is_manager and self.request.user:
+#             return Clients.objects.filter(user=self.request.user)
+#
+#
+# class ManagerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Manager.objects.all()
+#     serializer_class = ManagersSerializer
+#     permission_classes = [IsAdminUser]
 
 
 class ClientListAPIView(generics.ListAPIView):

@@ -112,6 +112,13 @@ class TradingSetAdmin(admin.ModelAdmin):
     list_filter = ('name', 'ownerFullName')
     search_fields = ('name', 'ownerFullName', 'phone')
 
+    def get_readonly_fields(self, request, obj=None):
+        if not request.user.is_superuser and request.user.is_staff:
+            return [f.name for f in self.model._meta.fields]
+        return super(TradingSetAdmin, self).get_readonly_fields(
+            request, obj=obj
+        )
+
 
 class ManagerAdmin(admin.ModelAdmin):
     list_display = ('user', 'first_name', 'last_name', 'email', 'date_joined', 'tradingSet',)

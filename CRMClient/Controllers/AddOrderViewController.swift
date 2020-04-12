@@ -1,14 +1,14 @@
 //
-//  MapYandexViewController.swift
+//  AddOrderViewController.swift
 //  CRMClient
 //
-//  Created by Nurzhan Ababakirov on 3/20/20.
+//  Created by Nurzhan Ababakirov on 4/8/20.
 //  Copyright © 2020 Nurzhan Ababakirov. All rights reserved.
 //
 
 import UIKit
 
-class MapYandexViewController: UIViewController {
+class AddOrderViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

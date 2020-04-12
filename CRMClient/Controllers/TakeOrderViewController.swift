@@ -1,60 +1,62 @@
+////
+////  MainViewController.swift
+////  CRMClient
+////
+////  Created by Nurzhan Ababakirov on 2/22/20.
+////  Copyright © 2020 Nurzhan Ababakirov. All rights reserved.
+////
 //
-//  MainViewController.swift
-//  CRMClient
 //
-//  Created by Nurzhan Ababakirov on 2/22/20.
-//  Copyright © 2020 Nurzhan Ababakirov. All rights reserved.
+//import UIKit
 //
-
-
-import UIKit
-
-//var list = ["Hi"]
-//var sList = ["chto"]
+//var list = [String]()
+//var sList = [String]()
 //
 //var indexAt = 0
 //let defaults = UserDefaults.standard
-
-
-class TakeOrderViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
-    
-    private let defaults = UserDefaults.standard
-    
-    var list = ["Suck", "My balls"]
-    var sList = ["I am GAY", "Hello"]
-    
-    @IBOutlet weak var tableView: UITableView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        sList = defaults.stringArray(forKey: "sList") ?? [String]()
+//
+//
+//class TakeOrderViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+//    
+//    private let defaults = UserDefaults.standard
+//    
+//    var list = ["Su", "ls"]
+//    var sList = ["I am", "Hello"]
+//    
+//    @IBOutlet weak var tableView: UITableView!
+//    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//         sList = defaults.stringArray(forKey: "sList") ?? [String]()
 //        list = defaults.stringArray(forKey: "list") ?? [String]()
-        tableView.reloadData()
-        
-    }
-    
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        tableView.reloadData()
+//        
+//    }
+//    
 //    override func viewDidAppear(_ animated: Bool) {
 //        tableView.reloadData()
 //    }
-    
+//    
 //
 //    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 //        return 1
 //    }
 //
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
-        let row = indexPath.row
-        cell.textLabel?.text = list[row]
-        cell.detailTextLabel!.text = sList[row]
-       
-        return cell
-    }
-    
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return list.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
+//        let row = indexPath.row
+//        cell.textLabel?.text = list[row]
+//        cell.detailTextLabel!.text = sList[row]
+//       
+//        return cell
+//    }
+//    
 //    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
 //        indexAt = indexPath.row
 //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -82,6 +84,6 @@ class TakeOrderViewController: UIViewController, UITableViewDataSource, UITableV
 //        print(list[row])
 //    }
 //
-}
-
-
+//}
+//
+//

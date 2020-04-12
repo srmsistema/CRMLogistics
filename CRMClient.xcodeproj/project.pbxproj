@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0E1E9659B559E813303FFF97 /* Pods_CRMClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 389E062281F1978F42B79E06 /* Pods_CRMClient.framework */; };
+		E003FADF242CD41B00296DA9 /* ClientProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E003FADE242CD41B00296DA9 /* ClientProfileViewController.swift */; };
+		E00A8346243DBCFE004B274A /* AddOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00A8345243DBCFE004B274A /* AddOrderViewController.swift */; };
 		E013CC882404D03F0070CE21 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E013CC872404D03F0070CE21 /* GoogleService-Info.plist */; };
 		E03EBBCC2400F42600047540 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBCB2400F42600047540 /* SignInViewController.swift */; };
 		E03EBBCE2400F48200047540 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBCD2400F48200047540 /* RegistrationViewController.swift */; };
@@ -31,7 +33,9 @@
 		E078BB5423F1482C00D4DCE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E078BB5223F1482C00D4DCE9 /* Main.storyboard */; };
 		E078BB5623F1482F00D4DCE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E078BB5523F1482F00D4DCE9 /* Assets.xcassets */; };
 		E078BB5923F1482F00D4DCE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E078BB5723F1482F00D4DCE9 /* LaunchScreen.storyboard */; };
+		E0977FC1242C55A7000032C6 /* DriverSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0977FC0242C55A7000032C6 /* DriverSignInViewController.swift */; };
 		E0CEE77B2414C606007F1FBF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CEE77A2414C606007F1FBF /* Model.swift */; };
+		E0D7F354242EF45100944725 /* DriverProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7F353242EF45100944725 /* DriverProfileViewController.swift */; };
 		E0FBD310240E0A0400E0C596 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FBD30F240E0A0400E0C596 /* StatusViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +43,8 @@
 		389E062281F1978F42B79E06 /* Pods_CRMClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CRMClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66F13F0F260B3F3E1226F729 /* Pods-CRMClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRMClient.release.xcconfig"; path = "Target Support Files/Pods-CRMClient/Pods-CRMClient.release.xcconfig"; sourceTree = "<group>"; };
 		7C8F8A2A2B27542EA6D7159D /* Pods-CRMClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRMClient.debug.xcconfig"; path = "Target Support Files/Pods-CRMClient/Pods-CRMClient.debug.xcconfig"; sourceTree = "<group>"; };
+		E003FADE242CD41B00296DA9 /* ClientProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientProfileViewController.swift; sourceTree = "<group>"; };
+		E00A8345243DBCFE004B274A /* AddOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOrderViewController.swift; sourceTree = "<group>"; };
 		E013CC872404D03F0070CE21 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E03EBBCB2400F42600047540 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		E03EBBCD2400F48200047540 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
@@ -64,7 +70,9 @@
 		E078BB5523F1482F00D4DCE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E078BB5823F1482F00D4DCE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E078BB5A23F1482F00D4DCE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E0977FC0242C55A7000032C6 /* DriverSignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverSignInViewController.swift; sourceTree = "<group>"; };
 		E0CEE77A2414C606007F1FBF /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		E0D7F353242EF45100944725 /* DriverProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverProfileViewController.swift; sourceTree = "<group>"; };
 		E0FBD30F240E0A0400E0C596 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +105,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E00B7B9F24212E9000E3BB28 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E0CEE77A2414C606007F1FBF /* Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E00B7BA024212ED400E3BB28 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				E078BB4C23F1482C00D4DCE9 /* AppDelegate.swift */,
+				E078BB4E23F1482C00D4DCE9 /* SceneDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		E013CC862404D02B0070CE21 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,16 +152,15 @@
 		E078BB4B23F1482C00D4DCE9 /* CRMClient */ = {
 			isa = PBXGroup;
 			children = (
-				E078BB4C23F1482C00D4DCE9 /* AppDelegate.swift */,
-				E078BB4E23F1482C00D4DCE9 /* SceneDelegate.swift */,
 				E0736BF22411176900C70989 /* HTTPStatusCode.swift */,
-				E0CEE77A2414C606007F1FBF /* Model.swift */,
 				E0736BF6241117DF00C70989 /* Constants.swift */,
 				E0736BF82411180F00C70989 /* Extensions.swift */,
 				E0736BF0241116E700C70989 /* ServerManager.swift */,
 				E0736BF4241117B600C70989 /* HTTPRequestManager.swift */,
 				E078BB5A23F1482F00D4DCE9 /* Info.plist */,
 				E04669FD24056DCA007C5867 /* Extension.swift */,
+				E00B7BA024212ED400E3BB28 /* Delegates */,
+				E00B7B9F24212E9000E3BB28 /* Model */,
 				E0E7BBBF2404D1DC0055B242 /* Controllers */,
 				E0E7BBC02404D2070055B242 /* Storyboards */,
 				E013CC862404D02B0070CE21 /* Supporting Files */,
@@ -147,10 +171,11 @@
 		E0E7BBBF2404D1DC0055B242 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E03EBBCD2400F48200047540 /* RegistrationViewController.swift */,
 				E03EBBCB2400F42600047540 /* SignInViewController.swift */,
+				E03EBBCD2400F48200047540 /* RegistrationViewController.swift */,
 				E03EBBCF2400F4C900047540 /* RestoreViewController.swift */,
 				E03EBBD12400F51500047540 /* TakeOrderViewController.swift */,
+				E00A8345243DBCFE004B274A /* AddOrderViewController.swift */,
 				E03EBBD32400F55300047540 /* AllOrdersViewController.swift */,
 				E03EBBD52400F5CD00047540 /* CurrentOrdersViewController.swift */,
 				E03EBBD72400F5EA00047540 /* FinishedOrdersViewController.swift */,
@@ -158,7 +183,10 @@
 				E0FBD30F240E0A0400E0C596 /* StatusViewController.swift */,
 				E03EBBDB2400F89800047540 /* HistoryViewController.swift */,
 				E03EBBDF240105C000047540 /* MapViewController.swift */,
+				E003FADE242CD41B00296DA9 /* ClientProfileViewController.swift */,
 				E03EBBDD2400FDB800047540 /* DetailsViewController.swift */,
+				E0977FC0242C55A7000032C6 /* DriverSignInViewController.swift */,
+				E0D7F353242EF45100944725 /* DriverProfileViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -184,6 +212,7 @@
 				E078BB4623F1482C00D4DCE9 /* Frameworks */,
 				E078BB4723F1482C00D4DCE9 /* Resources */,
 				F749D5E345743BA219935AA8 /* [CP] Embed Pods Frameworks */,
+				9D48D6D3F139021AFAF13367 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -264,6 +293,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9D48D6D3F139021AFAF13367 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CRMClient/Pods-CRMClient-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CRMClient/Pods-CRMClient-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CRMClient/Pods-CRMClient-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F749D5E345743BA219935AA8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -288,7 +334,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0D7F354242EF45100944725 /* DriverProfileViewController.swift in Sources */,
 				E0CEE77B2414C606007F1FBF /* Model.swift in Sources */,
+				E00A8346243DBCFE004B274A /* AddOrderViewController.swift in Sources */,
 				E0736BF1241116E700C70989 /* ServerManager.swift in Sources */,
 				E0736BF7241117DF00C70989 /* Constants.swift in Sources */,
 				E0736BF32411176900C70989 /* HTTPStatusCode.swift in Sources */,
@@ -297,12 +345,14 @@
 				E03EBBCC2400F42600047540 /* SignInViewController.swift in Sources */,
 				E078BB4D23F1482C00D4DCE9 /* AppDelegate.swift in Sources */,
 				E0FBD310240E0A0400E0C596 /* StatusViewController.swift in Sources */,
+				E0977FC1242C55A7000032C6 /* DriverSignInViewController.swift in Sources */,
 				E03EBBD22400F51500047540 /* TakeOrderViewController.swift in Sources */,
 				E03EBBDC2400F89800047540 /* HistoryViewController.swift in Sources */,
 				E03EBBE0240105C000047540 /* MapViewController.swift in Sources */,
 				E03EBBD42400F55300047540 /* AllOrdersViewController.swift in Sources */,
 				E0736BF92411180F00C70989 /* Extensions.swift in Sources */,
 				E078BB4F23F1482C00D4DCE9 /* SceneDelegate.swift in Sources */,
+				E003FADF242CD41B00296DA9 /* ClientProfileViewController.swift in Sources */,
 				E04669FE24056DCA007C5867 /* Extension.swift in Sources */,
 				E03EBBD82400F5EA00047540 /* FinishedOrdersViewController.swift in Sources */,
 				E03EBBD02400F4C900047540 /* RestoreViewController.swift in Sources */,

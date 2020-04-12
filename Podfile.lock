@@ -71,10 +71,30 @@ PODS:
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - PromisesObjC (1.2.8)
+  - YandexMapKit (3.5.0):
+    - YandexRuntime (= 3.5.0)
+  - YandexMapKitDirections (3.5.0):
+    - YandexMapKit (= 3.5.0)
+    - YandexRuntime (= 3.5.0)
+  - YandexMapKitPlaces (3.5.0):
+    - YandexMapKit (= 3.5.0)
+    - YandexRuntime (= 3.5.0)
+  - YandexMapKitSearch (3.5.0):
+    - YandexMapKit (= 3.5.0)
+    - YandexRuntime (= 3.5.0)
+  - YandexMapKitTransport (3.5.0):
+    - YandexMapKit (= 3.5.0)
+    - YandexRuntime (= 3.5.0)
+  - YandexRuntime (3.5.0)
 
 DEPENDENCIES:
   - Alamofire
   - Firebase/Analytics
+  - YandexMapKit (= 3.5)
+  - YandexMapKitDirections (= 3.5)
+  - YandexMapKitPlaces (= 3.5)
+  - YandexMapKitSearch (= 3.5)
+  - YandexMapKitTransport (= 3.5)
 
 SPEC REPOS:
   trunk:
@@ -92,6 +112,12 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
+    - YandexMapKit
+    - YandexMapKitDirections
+    - YandexMapKitPlaces
+    - YandexMapKitSearch
+    - YandexMapKitTransport
+    - YandexRuntime
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -108,7 +134,13 @@ SPEC CHECKSUMS:
   GoogleUtilities: f8de7ddf8c706f58e9b405d53e38bbdaa2731e5a
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  YandexMapKit: ecd4b78de34a35df63d066ac299e6fd0fe46d1ba
+  YandexMapKitDirections: 4298725d34df043ec127dd6e76f457e24f378188
+  YandexMapKitPlaces: 6bc38c5e6fa34870a3c718a0b7921bf159cae7ee
+  YandexMapKitSearch: b46ddd1c80e2e35d006cdfc4ab88070a50cebeda
+  YandexMapKitTransport: 52f64fdc16bc83f8849b47e4143a698b6be24c49
+  YandexRuntime: 2d55244d06267106cf9b00c25a1e63f72a73b6fd
 
-PODFILE CHECKSUM: 7914f8d3edbc5b156eaac1f20378fb2f2dc1ce60
+PODFILE CHECKSUM: c6b3a3c1240b98a0d33231cf0ec96b49c424f020
 
 COCOAPODS: 1.8.4

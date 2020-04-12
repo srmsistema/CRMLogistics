@@ -7,6 +7,7 @@
 //
 import Firebase
 import UIKit
+import YandexMapKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions:
         [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        YMKMapKit.setApiKey("5006da10-ff68-422c-aa6f-d597b4cbf752")
         return true
       }
     }

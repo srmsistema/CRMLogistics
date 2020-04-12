@@ -31,7 +31,8 @@ class SignInViewController: UIViewController {
                               print(successMessage)
                            self.nextVC(identifier: "MainVC")
                            }) { (error) in
-                              print("I am gay", error)
+                            self.createAlert(title: "Ошибка", message: "Неправильный логин или пароль")
+                              print(error)
                            }
                     
             }
@@ -44,5 +45,16 @@ class SignInViewController: UIViewController {
                self.present(nextVC, animated: true, completion: nil)
        }
 
+         func createAlert(title: String, message: String)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "ОК", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+            self.present(alert, animated: true, completion: nil)
+        
+        
+    }
+
+    
     }
 

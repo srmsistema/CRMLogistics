@@ -27,7 +27,7 @@ class TypeCargo(models.Model):
     Класс тип груза
     """
 
-    type = models.CharField(max_length=50, verbose_name='Тип')
+    type = models.CharField(max_length=50, verbose_name='Тип груза')
 
     def __str__(self):
         return self.type
@@ -42,7 +42,7 @@ class TypeAuto(models.Model):
     Класс тип автомобиля
     """
 
-    type = models.CharField(max_length=100, verbose_name='Тип')
+    type = models.CharField(max_length=100, verbose_name='Тип авто')
 
     def __str__(self):
         return self.type
@@ -57,7 +57,7 @@ class TypeLoading(models.Model):
     Класс тип погрузки
     """
 
-    type = models.CharField(max_length=100, verbose_name='Тип')
+    type = models.CharField(max_length=100, verbose_name='Тип погрузки')
 
     def __str__(self):
         return self.type

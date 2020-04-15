@@ -52,8 +52,8 @@ class OrderAdmin(admin.ModelAdmin):
 
     list_display = ('user', 'driver', 'status', 'fromOrder', 'toOrder')
     list_filter = ('fromOrder', 'toOrder', 'dateLoading', 'dateUnloading',
-                   'typeLoading__type', 'typeCargo__type', 'orderStatus')
-    search_fields = ('user__username', 'driver__username', )
+                   'typeLoading__type', 'typeCargo__type', 'orderStatus', 'user__username')
+    search_fields = ('user__username',  'driver__user__username')
 
     def has_add_permission(self, request):
         return True

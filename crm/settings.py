@@ -56,7 +56,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAdminUser',
     ]
 }
-
+###
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=60),

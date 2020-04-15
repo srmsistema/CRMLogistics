@@ -90,7 +90,7 @@ class Volume(models.Model):
     width = models.FloatField(default=0.0, verbose_name='Ширина')
     height = models.FloatField(default=0.0, verbose_name='Высота')
     length = models.FloatField(default=0.0, verbose_name='Длина')
-    unit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, verbose_name='Ед.изм. объёма')
+    unit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, verbose_name='Ед.изм.')
 
     def count_volume(self):
         return "%s %s " % (self.width * self.height * self.length, self.unit)
@@ -181,16 +181,14 @@ class StateAwning(models.Model):
         noPatches = self.noPatches
         state = ''
         if noHoles:
-            state += 'Без дыр, '
+            state += 'без дыр, '
         if noGaps:
-            state += 'Без щелей, '
+            state += 'без щелей, '
         if dry:
-            state += 'Сухой, '
+            state += 'сухой, '
         if noPatches:
-            state += 'Без заплаток, '
+            state += 'без заплаток, '
 
-        state = state[0] + re.sub( '(?<!^)(?=[A-Z])', '_', state[1:] ).lower()
-        print(state)
         return state[:-2]
 
 

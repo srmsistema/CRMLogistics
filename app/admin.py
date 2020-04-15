@@ -125,6 +125,7 @@ class ManagerAdmin(admin.ModelAdmin):
     list_filter = ('first_name', 'last_name', 'tradingSet__name')
     search_fields = ('user__username', 'first_name', 'last_name', 'tradingSet__name', 'user__email')
 
+
     def date_joined(self, obj):
         return obj.user.date_joined
     date_joined.short_description = 'Дата присоединения'

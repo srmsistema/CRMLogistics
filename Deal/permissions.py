@@ -5,10 +5,10 @@ class IsManager(permissions.BasePermission):
 
     def has_permission(self, request, view):
         try:
-            request.user.is_manager
+            request.user.is_staff
         except:
             raise PermissionDenied
-        return bool(request.user and request.user.is_manager)
+        return bool(request.user and request.user.is_staff)
 
 
 class IsClient(permissions.BasePermission):

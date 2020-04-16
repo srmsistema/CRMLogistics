@@ -169,3 +169,9 @@ class ClientListAPIView(generics.ListAPIView):
             return Clients.objects.all()
         elif self.request.user.is_client and self.request.user:
             return Clients.objects.filter(user=self.request.user)
+
+
+class ClientDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Clients.objects.all()
+    serializer_class = ClientSerializer
+    permission_classes = [ IsClient ]

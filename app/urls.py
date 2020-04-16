@@ -31,6 +31,6 @@ urlpatterns += [
     # path('managers/create', ManagerCreateAPIView.as_view(), name='manager_create'),
     # path('managers/<int:pk>', ManagerDetailAPIView.as_view(), name='manager_detail'),
     path('clients/', ClientListAPIView.as_view(), name='client_list'),
-
+    path('clients/<int:pk>', ClientDetailAPIView.as_view(), name='client_detail'),
 ]
 

@@ -119,7 +119,7 @@ class DriverListAPIView(generics.ListAPIView):
 class DriverDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Driver.objects.all()
     serializer_class = DriversSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsDriver, IsClient ]
 
 
 # class IndividualListAPIView(generics.ListAPIView):

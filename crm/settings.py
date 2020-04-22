@@ -195,5 +195,6 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 REST_USE_JWT = True
+JET_SIDE_MENU_COMPACT = True
 
 django_heroku.settings(locals())

@@ -119,6 +119,6 @@ admin.site.register(TypeCargo, TypeCargoAdmin)
 admin.site.register(TypeLoading, TypeLoadingAdmin)
 admin.site.register(Units)
 admin.site.register(StateAwning, StateAwningAdmin)
-admin.site.register(LocationCargo, LocationCargoAdmin)
+# admin.site.register(LocationCargo, LocationCargoAdmin)
 admin.site.register(Order, OrderAdmin)
 

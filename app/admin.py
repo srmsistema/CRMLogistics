@@ -86,7 +86,7 @@ class ClientsAdmin(admin.ModelAdmin):
 
 
 class DriversAdmin(admin.ModelAdmin):
-    list_display = ('user', 'first_name', 'last_name', 'email', 'date_joined',)
+    list_display = ('user', 'first_name', 'last_name', 'email', 'date_joined', 'phone')
     list_filter = ('first_name', 'last_name', 'user__date_joined', 'auto_type__type',)
     search_fields = ('user__username', 'user__email', 'first_name', 'last_name', 'user__email',
                      'phone', 'address', 'auto_type__type',)

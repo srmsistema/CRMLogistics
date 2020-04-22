@@ -211,7 +211,7 @@ class Order(models.Model):
     # numberOrderFromClient = models.IntegerField(default=0, editable=False, verbose_name='Номер заказа клиента')
     priceClient = models.IntegerField(default=0, verbose_name='Цена клиента')
     companyProfit = models.IntegerField(default=0, verbose_name='Прибыль компании')
-    fromOrder = models.DateField(blank=True, null=True, verbose_name='Дата начала заказа')
+    fromOrder = models.DateField(blank=True, null=True, default=datetime.date.today, verbose_name='Дата начала заказа')
     toOrder = models.DateField(blank=True, null=True,  verbose_name='Дата завершения заказа')
     dateLoading = models.DateField(blank=True, null=True, verbose_name='Дата погрузки')
     dateUnloading = models.DateField(blank=True, null=True, verbose_name='Дата выгрузки')
@@ -233,9 +233,7 @@ class Order(models.Model):
     driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, blank=True, related_name="driver", verbose_name="Водитель")
 
     def save(self, *args, **kwargs):
-        if self.orderStatus == self.ORDER_STATUS_CHOICES[1][0]:
-            self.fromOrder = datetime.date.today()
-        elif self.orderStatus == self.ORDER_STATUS_CHOICES[5][0]:
+        if self.orderStatus == self.ORDER_STATUS_CHOICES[5][0]:
             self.toOrder = datetime.date.today()
         elif self.orderStatus == self.ORDER_STATUS_CHOICES[2][0]:
             self.dateLoading = datetime.date.today()

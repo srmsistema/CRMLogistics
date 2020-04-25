@@ -207,11 +207,14 @@ class Order(models.Model):
         ('Завершена', 'Завершена'),
         ('Отменена', 'Отменена')
     )
+
+    numberOrderFromClient = models.IntegerField(blank=True, default=1, verbose_name='Номер заказа клиента')
     name = models.CharField(default='', blank=True,  max_length=100, verbose_name='Название')
     # numberOrderFromClient = models.IntegerField(default=0, editable=False, verbose_name='Номер заказа клиента')
     priceClient = models.IntegerField(default=0, verbose_name='Цена клиента')
     companyProfit = models.IntegerField(default=0, verbose_name='Прибыль компании')
     fromOrder = models.DateField(blank=True, null=True, default=datetime.date.today, verbose_name='Дата начала заказа')
+    dateOrderConclusion = models.DateField(blank=True, null=True, verbose_name='Дата заключения заказа')
     toOrder = models.DateField(blank=True, null=True,  verbose_name='Дата завершения заказа')
     dateLoading = models.DateField(blank=True, null=True, verbose_name='Дата погрузки')
     dateUnloading = models.DateField(blank=True, null=True, verbose_name='Дата выгрузки')
@@ -233,7 +236,9 @@ class Order(models.Model):
     driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, blank=True, related_name="driver", verbose_name="Водитель")
 
     def save(self, *args, **kwargs):
-        if self.orderStatus == self.ORDER_STATUS_CHOICES[5][0]:
+        if self.orderStatus == self.ORDER_STATUS_CHOICES[1][0]:
+            self.dateOrderConclusion = datetime.date.today()
+        elif self.orderStatus == self.ORDER_STATUS_CHOICES[5][0]:
             self.toOrder = datetime.date.today()
         elif self.orderStatus == self.ORDER_STATUS_CHOICES[2][0]:
             self.dateLoading = datetime.date.today()
@@ -249,7 +254,7 @@ class Order(models.Model):
     status.short_description = 'Статус заявки'
 
     def __str__(self):
-        return "%s" % self.user
+        return "№ %s" % self.numberOrderFromClient
 
     class Meta:
         verbose_name = "Сделка"

@@ -57,8 +57,17 @@ class GroupAdmin(admin.ModelAdmin):
     # Filter permissions horizontal as well.
     filter_horizontal = ['permissions']
 
+class DriverInline(admin.StackedInline):
+    model = Driver
+
+class ManagerInline(admin.StackedInline):
+    model = Manager
 
 class CustomUserAdmin(UserAdmin):
+    inlines = [
+        DriverInline,
+        ManagerInline
+    ]
     add_form = SignupForm
     form = CustomUserChangeForm
     model = User
@@ -90,6 +99,7 @@ class DriversAdmin(admin.ModelAdmin):
     list_filter = ('first_name', 'last_name', 'user__date_joined', 'auto_type__type',)
     search_fields = ('user__username', 'user__email', 'first_name', 'last_name', 'user__email',
                      'phone', 'address', 'auto_type__type',)
+    fk_name = 'user'
 
     def date_joined(self, obj):
         return obj.user.date_joined

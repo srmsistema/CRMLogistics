@@ -99,11 +99,11 @@ class OrderDriverUpdateSerializer(serializers.ModelSerializer):
         model = Order
         fields = ['name', 'priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear',
                   'stateAwning', 'requirementsLoading', 'typeAuto', 'typeLoading', 'typeCargo', 'weight',
-                  'volume', 'locationCargo', 'user', 'driver', 'orderStatus', 'fromOrder', 'toOrder']
+                  'volume', 'locationCargo', 'user', 'driver', 'orderStatus', 'fromOrder', 'dateOrderConclusion', 'toOrder']
 
         read_only_fields = ['name', 'priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear',
                   'stateAwning', 'requirementsLoading', 'typeAuto', 'typeLoading', 'typeCargo', 'weight',
-                  'volume', 'locationCargo', 'user', 'driver', 'fromOrder', 'toOrder']
+                  'volume', 'locationCargo', 'user', 'driver', 'fromOrder', 'dateOrderConclusion', 'toOrder']
 
         # def update(self, instance, validated_data):
         #     orderStatus = validated_data.get('orderStatus', instance.orderStatus)
@@ -127,10 +127,10 @@ class OrderClientCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['name', 'priceClient', 'requirementsLoading', 'typeCargo', 'typeAuto', 'autoReleaseYear',
+        fields = ['name', 'numberOrderFromClient','priceClient', 'requirementsLoading', 'typeCargo', 'typeAuto', 'autoReleaseYear',
                   'typeLoading', 'stateAwning', 'weight',
                   'weightMeasurementUnit', 'volume', 'locationCargo',  'user']
-        read_only_fields = ['user', 'driver', 'orderStatus', 'fromOrder', 'toOrder']
+        read_only_fields = ['user', 'driver', 'orderStatus', 'fromOrder', 'dateOrderConclusion', 'toOrder', 'numberOrderFromClient']
 
     def create(self, validated_data):
         volume_data = validated_data.pop('volume')

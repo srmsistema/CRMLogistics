@@ -1,3 +1,4 @@
+from django.db.models import Max
 from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView, CreateAPIView, \
     ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
@@ -39,16 +40,16 @@ class ListOrderDriverAPIView(ListAPIView):
         return Response(serializers.data, status.HTTP_200_OK)
 
 
-class CreateOrderAPIView(CreateAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderClientCreateSerializer
-    permission_classes = [ IsClient]
-
-    def perform_create(self, serializer):
-        # if self.request.user.is_manager and self.request.user:
-        #     return serializer.save(user=self.request.user)
-        if self.request.user.is_client and self.request.user:
-            return serializer.save(user=self.request.user)
+# class CreateOrderAPIView(CreateAPIView):
+#     queryset = Order.objects.all()
+#     serializer_class = OrderClientCreateSerializer
+#     permission_classes = [ IsClient]
+#
+#     def perform_create(self, serializer):
+#         # if self.request.user.is_manager and self.request.user:
+#         #     return serializer.save(user=self.request.user)
+#         if self.request.user.is_client and self.request.user:
+#             return serializer.save(user=self.request.user)
 
 
 class UpdateOrderAPIView(RetrieveUpdateAPIView):
@@ -175,6 +176,23 @@ class UpdateLocationCargoAPIView(RetrieveUpdateDestroyAPIView):
     queryset = LocationCargo.objects.all()
     serializer_class = LocationCargoSerializer
     permission_classes = [permissions.IsAdminUser]
+
+
+class CreateOrderAPIView(CreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderClientCreateSerializer
+    permission_classes = [IsClient]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        order = Order.objects.filter(user=request.user)
+        num = order.aggregate(Max('numberOrderFromClient'))
+        if num['numberOrderFromClient__max'] is None:
+            num['numberOrderFromClient__max'] = 0
+        num['numberOrderFromClient__max'] += 1
+        serializer.save(numberOrderFromClient=num['numberOrderFromClient__max'], user=request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 # class CreateDealStatusView(ListCreateAPIView):
 #     queryset = DealStatus.objects.all()

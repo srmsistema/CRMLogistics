@@ -169,6 +169,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+JET_SIDE_MENU_COMPACT = True
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
@@ -183,7 +185,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'crm')
 
 AUTH_USER_MODEL = 'app.User'  # new
-LOGOUT_REDIRECT_URL = 'login'  # new
+LOGOUT_REDIRECT_URL = '/admin/login/?next=/admin/'  # new
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -195,6 +197,5 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 REST_USE_JWT = True
-JET_SIDE_MENU_COMPACT = True
 
 django_heroku.settings(locals())

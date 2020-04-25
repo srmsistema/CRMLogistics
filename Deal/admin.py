@@ -1,6 +1,7 @@
 import csv
 
 from django.contrib import admin
+from django.db.models import Max
 from django.http import HttpResponse
 
 from .models import *
@@ -47,9 +48,6 @@ class LocationCargoAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         return True
 
-    def has_change_permission(self, request, obj=None):
-        return True
-
     def has_module_permission(self, request):
         return True
 
@@ -65,9 +63,6 @@ class StateAwningAdmin(admin.ModelAdmin):
     list_display = ('noHoles', 'noGaps', 'dry', 'noPatches',)
 
     def has_add_permission(self, request):
-        return True
-
-    def has_change_permission(self, request, obj=None):
         return True
 
     def has_module_permission(self, request):
@@ -87,9 +82,6 @@ class VolumeAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         return True
 
-    def has_change_permission(self, request, obj=None):
-        return True
-
     def has_module_permission(self, request):
         return True
     #
@@ -102,12 +94,16 @@ class VolumeAdmin(admin.ModelAdmin):
 
 
 class OrderAdmin(admin.ModelAdmin):
+    fields = ('name', 'priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear',
+                  'stateAwning', 'requirementsLoading', 'typeAuto', 'typeLoading', 'typeCargo', 'weight',
+                  'volume', 'locationCargo', 'user', 'driver', 'orderStatus', 'fromOrder', 'dateOrderConclusion', 'toOrder')
     list_display = ('user', '__str__', 'driver', 'status', 'fromOrder', 'toOrder')
     list_filter = (('driver__user__username', custom_titled_filter('Имя пользователя водителя')), 'fromOrder', 'toOrder', 'dateLoading', 'dateUnloading',
                    'typeLoading__type', 'typeCargo__type', 'orderStatus',
                    ('user__username', custom_titled_filter('Имя пользователя клиента') ))
     search_fields = ('user__username',  'driver__user__username')
-    # list_display_links = None
+    readonly_fields = ('numberOrderFromClient', 'fromOrder', 'dateOrderConclusion', 'toOrder', 'dateLoading',
+                       'dateUnloading', 'driver', 'orderStatus', 'user')
 
     def lookup_allowed(self, key, value):
         if key in ('driver__user__username'):
@@ -130,19 +126,27 @@ class OrderAdmin(admin.ModelAdmin):
         else:
             return qs
 
-    # def changelist_view(self, request, extra_context=None):
-    #     self.order = request.GET['order']
-    #     return super(OrderAdmin, self).changelist_view(request, extra_context=extra_context)
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        orders_qs = Order.objects.filter(user=request.user)
+        if orders_qs:
+            num = orders_qs.aggregate(Max('numberOrderFromClient'))
+            if num['numberOrderFromClient__max'] is None:
+                num['numberOrderFromClient__max'] = 0
+            num['numberOrderFromClient__max'] += 1
+            obj.numberOrderFromClient = ['numberOrderFromClient__max']
+        obj.save()
 
-    # def get_readonly_fields(self, request, obj=None):
-    #     if request.user.is_superuser:
-    #         return self.fields
-    #     elif request.user.is_staff and request.:
-    #         return ['name', 'priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear', 'companyProfit',
-    #               'stateAwning', 'requirementsLoading', 'typeAuto', 'typeLoading', 'typeCargo', 'weight',
-    #               'volume', 'locationCargo', 'user', 'driver', 'orderStatus', 'fromOrder', 'dateOrderConclusion',
-    #               'toOrder', 'weightMeasurementUnit']
-    #     return super(OrderAdmin, self).get_readonly_fields(request, obj=obj)
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            if request.user.is_superuser:
+                return ()
+            if request.user.is_staff:
+                return ['name', 'priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear', 'companyProfit',
+                      'stateAwning', 'requirementsLoading', 'typeAuto', 'typeLoading', 'typeCargo', 'weight',
+                      'volume', 'locationCargo', 'user', 'driver', 'orderStatus', 'fromOrder', 'dateOrderConclusion',
+                      'toOrder', 'weightMeasurementUnit', 'numberOrderFromClient']
+        return super(OrderAdmin, self).get_readonly_fields(request, obj=obj)
 
 
 #admin.site.register(SubclassHazard)
@@ -152,6 +156,6 @@ admin.site.register(TypeCargo, TypeCargoAdmin)
 admin.site.register(TypeLoading, TypeLoadingAdmin)
 admin.site.register(Units)
 admin.site.register(StateAwning, StateAwningAdmin)
-# admin.site.register(LocationCargo, LocationCargoAdmin)
+admin.site.register(LocationCargo, LocationCargoAdmin)
 admin.site.register(Order, OrderAdmin)
 

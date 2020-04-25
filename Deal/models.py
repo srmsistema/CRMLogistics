@@ -93,10 +93,10 @@ class Volume(models.Model):
     unit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, verbose_name='Ед.изм.')
 
     def count_volume(self):
-        return "%s %s " % (self.width * self.height * self.length, self.unit)
+        return "%s" % (self.width * self.height * self.length)
 
     def __str__(self):
-        return "%s %s" % (self.count_volume(), self.unit)
+        return "%s %s^3" % (self.count_volume(), self.unit)
 
     class Meta:
         verbose_name = "Объём"

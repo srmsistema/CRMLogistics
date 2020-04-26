@@ -148,8 +148,6 @@ class ManagerAdmin(admin.ModelAdmin):
 
 
 admin.site.unregister(Group)
-# Register the new Group ModelAdmin.
-admin.site.register(Group, GroupAdmin)
 admin.site.register(Clients, ClientsAdmin)
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(UserStatus)

@@ -3,6 +3,8 @@ import csv
 from django.contrib import admin
 from django.db.models import Max
 from django.http import HttpResponse
+from django import forms
+from django.shortcuts import render
 
 from .models import *
 
@@ -94,7 +96,7 @@ class VolumeAdmin(admin.ModelAdmin):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    fields = ('name', 'priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear',
+    fields = ('name', 'numberOrderFromClient', 'priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear',
                   'stateAwning', 'requirementsLoading', 'typeAuto', 'typeLoading', 'typeCargo', 'weight',
                   'volume', 'locationCargo', 'user', 'driver', 'orderStatus', 'fromOrder', 'dateOrderConclusion', 'toOrder')
     list_display = ('user', '__str__', 'driver', 'status', 'fromOrder', 'toOrder')
@@ -134,7 +136,7 @@ class OrderAdmin(admin.ModelAdmin):
             if num['numberOrderFromClient__max'] is None:
                 num['numberOrderFromClient__max'] = 0
             num['numberOrderFromClient__max'] += 1
-            obj.numberOrderFromClient = ['numberOrderFromClient__max']
+            obj.numberOrderFromClient = num['numberOrderFromClient__max']
         obj.save()
 
     def get_readonly_fields(self, request, obj=None):
@@ -147,6 +149,21 @@ class OrderAdmin(admin.ModelAdmin):
                       'volume', 'locationCargo', 'user', 'driver', 'orderStatus', 'fromOrder', 'dateOrderConclusion',
                       'toOrder', 'weightMeasurementUnit', 'numberOrderFromClient']
         return super(OrderAdmin, self).get_readonly_fields(request, obj=obj)
+
+    def get_fields(self, request, obj=None):
+        fields = list(super(OrderAdmin, self).get_fields(request, obj))
+        exclude_set = set()
+        if not obj:  # obj will be None on the add page, and something on change pages
+            exclude_set.add('dateLoading')
+            exclude_set.add('dateUnloading')
+            exclude_set.add('user')
+            exclude_set.add('driver')
+            exclude_set.add('orderStatus')
+            exclude_set.add('fromOrder')
+            exclude_set.add('dateOrderConclusion')
+            exclude_set.add('toOrder')
+            exclude_set.add('numberOrderFromClient')
+        return [f for f in fields if f not in exclude_set]
 
 
 #admin.site.register(SubclassHazard)

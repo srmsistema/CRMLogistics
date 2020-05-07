@@ -118,6 +118,7 @@ class UpdateTypeLoadingAPIView(RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAdminUser]
 
 
+
 class CreateUnitsAPIView(ListCreateAPIView):
     queryset = Units.objects.all()
     serializer_class = UnitsSerializer

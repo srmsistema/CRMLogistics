@@ -234,7 +234,7 @@ class Order(models.Model):
     # parametresTrailer = models.ForeignKey(ParametresTrailer, on_delete=models.SET_NULL, null=True, related_name='parametresTrailer', verbose_name='Параметры заказа')
     locationCargo = models.ForeignKey(LocationCargo, on_delete=models.SET_NULL, null=True, related_name='locationCargo', verbose_name='Местоположение груза')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='user', verbose_name='Заказчик')
-    driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, blank=True, related_name="driver", verbose_name="Водитель")
+    driver = models.ForeignKey(Driver, default=0, on_delete=models.SET_NULL, null=True, blank=True, related_name="driver", verbose_name="Водитель")
 
     def save(self, *args, **kwargs):
         if self.orderStatus == self.ORDER_STATUS_CHOICES[1][0]:

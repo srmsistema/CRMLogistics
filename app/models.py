@@ -148,22 +148,24 @@ class UserStatus(models.Model):
 
 
 class Driver(models.Model):
-    user = models.OneToOneField('User', on_delete=models.CASCADE, primary_key=True, verbose_name='Пользователь')
-    first_name = models.CharField(max_length=30, blank=False, default='', verbose_name='Имя')
-    last_name = models.CharField(max_length=30, blank=False, default='', verbose_name='Фамилия')
-    date_of_birth = models.DateField(blank=False, null=True, verbose_name='Дата рождения')
-    phone = models.CharField(max_length=255, blank=False, default='', verbose_name='Телефон')
+    # user = models.OneToOneField('User', blank=True, on_delete=models.CASCADE, primary_key=True, verbose_name='Пользователь')
+    user = models.ForeignKey('User', blank=True, on_delete=models.SET_NULL, null=True,
+                                verbose_name='Пользователь')
+    first_name = models.CharField(max_length=30, blank=True, default='', verbose_name='Имя')
+    last_name = models.CharField(max_length=30, blank=True, default='', verbose_name='Фамилия')
+    date_of_birth = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
+    phone = models.CharField(max_length=255, blank=True, default='', verbose_name='Телефон')
     address = models.CharField(max_length=100, blank=True, default='', verbose_name='Адрес проживания')
-    auto_type = models.ForeignKey('Deal.TypeAuto', on_delete=models.SET_NULL, null=True, related_name='auto_type',
+    auto_type = models.ForeignKey('Deal.TypeAuto', blank=True, on_delete=models.SET_NULL, null=True, related_name='auto_type',
                                  verbose_name='Тип авто')
-    autoTechPassPhoto = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Технический паспорт авто')
-    trailerTechPassPhoto = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Технический паспорт прицепа')
-    autoOwnerPass = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Паспорт владельца')
-    driverPass = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Паспорт водителя')
-    driverLicense = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Водительская лицензия')
-    internationalTransportationLicense = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static',
+    autoTechPassPhoto = models.ImageField(blank=True, default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Технический паспорт авто')
+    trailerTechPassPhoto = models.ImageField(blank=True, default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Технический паспорт прицепа')
+    autoOwnerPass = models.ImageField(blank=True, default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Паспорт владельца')
+    driverPass = models.ImageField(blank=True, default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Паспорт водителя')
+    driverLicense = models.ImageField(blank=True, default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Водительская лицензия')
+    internationalTransportationLicense = models.ImageField(blank=True, default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static',
                                                            verbose_name='Лицензия на международные перевозки')
-    insurancePolicy = models.ImageField(default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Страховой полис')
+    insurancePolicy = models.ImageField(blank=True, default='static/blank-profile-picture-973460_6404.png', null=False, upload_to='static', verbose_name='Страховой полис')
 
     class Meta:
         verbose_name = 'Исполнитель'

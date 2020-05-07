@@ -181,7 +181,7 @@ class UpdateLocationCargoAPIView(RetrieveUpdateDestroyAPIView):
 class CreateOrderAPIView(CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderClientCreateSerializer
-    permission_classes = [IsClient]
+    permission_classes = [IsClient | permissions.IsAdminUser]
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)

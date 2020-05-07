@@ -158,7 +158,7 @@ class OrderAdmin(admin.ModelAdmin):
             exclude_set.add('dateLoading')
             exclude_set.add('dateUnloading')
             exclude_set.add('user')
-            exclude_set.add('driver')
+            # exclude_set.add('driver')
             exclude_set.add('orderStatus')
             exclude_set.add('fromOrder')
             exclude_set.add('dateOrderConclusion')

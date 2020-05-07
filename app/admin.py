@@ -95,21 +95,22 @@ class ClientsAdmin(admin.ModelAdmin):
 
 
 class DriversAdmin(admin.ModelAdmin):
-    list_display = ('user', 'first_name', 'last_name', 'email', 'date_joined', 'phone')
+    # list_display = ('user', 'first_name', 'last_name', 'email', 'date_joined', 'phone')
+    list_display = ('user', 'first_name', 'last_name', 'phone')
     list_filter = ('first_name', 'last_name', 'user__date_joined', 'auto_type__type',)
     search_fields = ('user__username', 'user__email', 'first_name', 'last_name', 'user__email',
                      'phone', 'address', 'auto_type__type',)
     fk_name = 'user'
 
-    def date_joined(self, obj):
-        return obj.user.date_joined
-    date_joined.short_description = 'Дата присоединения'
-    date_joined.admin_order_field = 'user__date_joined'
-
-    def email(self, obj):
-        return obj.user.email
-    email.short_description = 'Почта'
-    email.admin_order_field = 'user__email'
+    # def date_joined(self, obj):
+    #     return obj.user.date_joined
+    # date_joined.short_description = 'Дата присоединения'
+    # date_joined.admin_order_field = 'user__date_joined'
+    #
+    # def email(self, obj):
+    #     return obj.user.email
+    # email.short_description = 'Почта'
+    # email.admin_order_field = 'user__email'
 
     def status(self, obj):
         return obj.user.status

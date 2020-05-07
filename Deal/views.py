@@ -12,7 +12,7 @@ from rest_framework import status
 
 class ListOrderAPIView(ListAPIView):
     queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+    # serializer_class = OrderSerializer
     permission_classes = [ IsDriver | IsClient | permissions.IsAdminUser]
 
     def get(self, request, *args, **kwargs):
@@ -23,7 +23,7 @@ class ListOrderAPIView(ListAPIView):
             serializers = OrderSerializer(Order.objects.filter(user=self.request.user), many=True)
             return Response(serializers.data, status.HTTP_200_OK)
         elif request.user.is_driver and request.user:
-            serializers = OrderDriverListSerializer(Order.objects.all(), many=True)
+            serializers = OrderDriverListSerializer(Order.objects.filter(driver=None), many=True)
             return Response(serializers.data, status.HTTP_200_OK)
         # elif request.user.is_manager and request.user:
         #     serializers = OrderSerializer(Order.objects.filter(user=self.request.user), many=True)

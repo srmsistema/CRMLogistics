@@ -22,6 +22,7 @@ urlpatterns += [
     path('trading_sets/', TradingSetListAPIView.as_view(), name='tradingset'),
     path('trading_sets/<int:pk>/', TradingSetDetailAPIView.as_view(), name='tradingset_detail'),
     path('drivers/', DriverListAPIView.as_view(), name='driver'),
+    path('drivers/profile', DriverProfileAPIView.as_view(), name='driver_profile'),
     path('drivers/create', DriverCreateAPIView.as_view(), name='driver_create'),
     path('drivers/<int:pk>', DriverDetailAPIView.as_view(), name='driver_detail'),
     path('drivers/order', ListOrderDriverAPIView.as_view(), name='driver_order'),

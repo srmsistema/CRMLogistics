@@ -116,6 +116,19 @@ class DriverListAPIView(generics.ListAPIView):
     queryset = Driver.objects.all()
 
 
+class DriverProfileAPIView(generics.RetrieveUpdateAPIView):
+    queryset = Driver.objects.all()
+    serializer_class = DriversSerializerProfile
+    permission_classes = [IsDriver]
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+        # make sure to catch 404's below
+        obj = queryset.get(user=self.request.user)
+        self.check_object_permissions(self.request, obj)
+        return obj
+
+
 class DriverDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Driver.objects.all()
     serializer_class = DriversSerializer

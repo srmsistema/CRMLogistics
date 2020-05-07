@@ -97,7 +97,7 @@ class VolumeAdmin(admin.ModelAdmin):
 
 class OrderAdmin(admin.ModelAdmin):
     fields = ('name', 'numberOrderFromClient', 'priceClient', 'dateLoading', 'dateUnloading', 'autoReleaseYear',
-                  'stateAwning', 'requirementsLoading', 'typeAuto', 'typeLoading', 'typeCargo', 'weight',
+                  'stateAwning', 'requirementsLoading', 'typeAuto', 'typeLoading', 'typeCargo', 'weight', 'weightMeasurementUnit',
                   'volume', 'locationCargo', 'user', 'driver', 'orderStatus', 'fromOrder', 'dateOrderConclusion', 'toOrder')
     list_display = ('user', '__str__', 'driver', 'status', 'fromOrder', 'toOrder')
     list_filter = (('driver__user__username', custom_titled_filter('Имя пользователя водителя')), 'fromOrder', 'toOrder', 'dateLoading', 'dateUnloading',
@@ -106,6 +106,7 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ('user__username',  'driver__user__username')
     readonly_fields = ('numberOrderFromClient', 'fromOrder', 'dateOrderConclusion', 'toOrder', 'dateLoading',
                        'dateUnloading', 'driver', 'orderStatus', 'user')
+
 
     def lookup_allowed(self, key, value):
         if key in ('driver__user__username'):

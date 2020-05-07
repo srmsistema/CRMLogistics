@@ -116,6 +116,19 @@ class DriversSerializer2(serializers.ModelSerializer):
         model = Driver
         fields = ('user', 'first_name', 'last_name', 'phone')
 
+
+class DriversSerializerProfile(serializers.ModelSerializer):
+
+    class Meta:
+        model = Driver
+        fields = ('first_name', 'last_name', 'date_of_birth', 'phone', 'address', 'auto_type',
+            'autoTechPassPhoto', 'trailerTechPassPhoto', 'autoOwnerPass', 'driverPass', 'driverLicense',
+            'internationalTransportationLicense', 'insurancePolicy')
+        read_only_fields = ('first_name', 'last_name', 'date_of_birth', 'phone', 'address', 'auto_type',
+            'autoTechPassPhoto', 'trailerTechPassPhoto', 'autoOwnerPass', 'driverPass', 'driverLicense',
+            'internationalTransportationLicense', 'insurancePolicy')
+
+
 # class IndividualsSerializer(serializers.ModelSerializer):
 #
 #     user = UsersSerializer(required=True)

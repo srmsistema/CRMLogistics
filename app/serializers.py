@@ -98,7 +98,7 @@ class DriversSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Driver
-        fields = ('user', 'first_name', 'last_name', 'date_of_birth', 'phone', 'address', 'auto_type',
+        fields = ('id', 'user', 'first_name', 'last_name', 'date_of_birth', 'phone', 'address', 'auto_type',
             'autoTechPassPhoto', 'trailerTechPassPhoto', 'autoOwnerPass', 'driverPass', 'driverLicense',
             'internationalTransportationLicense', 'insurancePolicy')
 

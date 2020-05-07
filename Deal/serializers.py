@@ -27,7 +27,7 @@ class TypeLoadingSerializer(serializers.ModelSerializer):
 class UnitsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Units
-        fields = ['value', ]
+        fields = ['id', 'value', ]
 
 
 # class WeightSerializer(serializers.ModelSerializer):

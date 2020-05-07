@@ -8,7 +8,42 @@
 
 import UIKit
 
-class RegistrationViewController: UIViewController {
+class RegistrationViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+        //MARK: Picker
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        activeTextField = textField
+        
+        switch textField {
+        case genderField:
+            currentArr = gender
+        default:
+            print("Default")
+        }
+        pickerView.reloadAllComponents()
+        return true
+    }
+    
+    
+    
+    // Picker View
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return currentArr.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return currentArr[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print("Selected", currentArr[row])
+        activeTextField.text = currentArr[row]
+    }
+
 
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
@@ -19,6 +54,12 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var numberField: UITextField!
     @IBOutlet weak var genderField: UITextField!
     
+    let gender = ["Мужской","Женский"]
+    
+    let pickerView = UIPickerView()
+    var currentArr : [String] = []
+    var activeTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         nameField.text = ""
@@ -27,8 +68,14 @@ class RegistrationViewController: UIViewController {
         firstNameField.text = ""
         lastNameField.text = ""
         numberField.text = ""
-        genderField.text = ""
         dateOfBirthField.text = ""
+        
+        genderField.delegate = self
+        
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        
+        genderField.inputView = pickerView
 
     }
     
@@ -43,13 +90,22 @@ class RegistrationViewController: UIViewController {
             let lastName = lastNameField.text!
             let phone = numberField.text!
             let dateOfBirth = dateOfBirthField.text!
-            let gender = genderField.text!
+//            let gender = genderField.text!
     
+            let typeOfGender = genderField.text!
+            var numGender = ""
+            switch typeOfGender {
+            case "Мужской":
+                numGender = "male"
+            case "Женский":
+                numGender = "female"
+            default:()
+            }
             
             print(name, email, password, firstName, lastName, phone, dateOfBirth, gender)
             
             let user = User(username: name, email: email, password: password)
-            let userInfo = UserInfo(user: user, first_name: firstName, last_name: lastName, gender: gender, dateOfBirth: dateOfBirth, phone: phone)
+            let userInfo = UserInfo(user: user, first_name: firstName, last_name: lastName, gender: numGender, dateOfBirth: dateOfBirth, phone: phone)
             
             print(userInfo.user.username)
             
@@ -101,6 +157,10 @@ class RegistrationViewController: UIViewController {
                 nextVC.modalPresentationStyle = .fullScreen
                     self.present(nextVC, animated: true, completion: nil)
     }
+            
+
+    
+    
         }
     }
 }

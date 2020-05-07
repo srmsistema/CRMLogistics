@@ -15,7 +15,6 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         nameField.text = ""
         passwordField.text = ""
     }
@@ -27,34 +26,30 @@ class SignInViewController: UIViewController {
                 print(name, password)
                 let loginInfo = LogInfo(username: name, password: password)
                 
-                 ServerManager.shared.postSignIn(loginInfo: loginInfo, { (successMessage) in
-                              print(successMessage)
-                           self.nextVC(identifier: "MainVC")
-                           }) { (error) in
-                            self.createAlert(title: "Ошибка", message: "Неправильный логин или пароль")
-                              print(error)
-                           }
-                    
+                ServerManager.shared.postSignIn(loginInfo: loginInfo, { (userInfo) in
+                        print(userInfo)
+                        UserDefaults.standard.set(userInfo.token, forKey: "token")
+                        self.nextVC(identifier: "MainVC")
+                        }) { (error) in
+                        self.createAlert(title: "Ошибка", message: "Неправильный логин или пароль")
+                            print(error)
+                        }
             }
-            
         }
+    
      func nextVC(identifier: String) {
            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-               let nextVC = storyboard.instantiateViewController(withIdentifier: identifier)
+           let nextVC = storyboard.instantiateViewController(withIdentifier: identifier)
            nextVC.modalPresentationStyle = .fullScreen
                self.present(nextVC, animated: true, completion: nil)
        }
 
-         func createAlert(title: String, message: String)
-    {
+     func createAlert(title: String, message: String)
+        {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: "ОК", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
             self.present(alert, animated: true, completion: nil)
-        
-        
-    }
-
-    
-    }
+        }
+}
 

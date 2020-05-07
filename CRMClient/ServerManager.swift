@@ -4,7 +4,6 @@
 //
 //  Created by Nurzhan Ababakirov on 3/5/20.
 //  Copyright © 2020 Nurzhan Ababakirov. All rights reserved.
-//
 
 import UIKit
 import Alamofire
@@ -80,23 +79,42 @@ extension ServerManager {
                 }
     
      
-    func getUserInfo(userInfo: UserInfo, _ completion: @escaping (UserInfo) -> Void, _ error: @escaping (String) -> Void){
+    func getProfileInfo(token: String, _ completion: @escaping ([Profile]) -> Void, _ error: @escaping (String) -> Void){
         let header: [String: String] = [
-            "Content-Type": "application/json"
+            "Authorization": "Bearer \(token)"
         ]
-        self.get(url: "http://protected-peak-29297.herokuapp.com/users/", header: header, completion: {
+       self.get(url: "http://crmlogistics.herokuapp.com/clients/", header: header, completion: {
             (data) in
             do {
                 guard let data = data else {return}
-                let userInfo = try JSONDecoder().decode(UserInfo.self, from: data)
+                let profileInfo = try JSONDecoder().decode([Profile].self, from: data)
                 DispatchQueue.main.async {
-                    completion(userInfo)
+                    completion(profileInfo)
                 }
             } catch let err {
                        error(err.localizedDescription)
                    }
                }, error: error)
     }
+    
+    func getDriverProfileInfo(token: String, _ completion: @escaping ([Profile]) -> Void, _ error: @escaping (String) -> Void){
+        let header: [String: String] = [
+            "Authorization": "Bearer \(token)"
+        ]
+       self.get(url: "http://crmlogistics.herokuapp.com/drivers/", header: header, completion: {
+            (data) in
+            do {
+                guard let data = data else {return}
+                let profileInfo = try JSONDecoder().decode([Profile].self, from: data)
+                DispatchQueue.main.async {
+                    completion(profileInfo)
+                }
+            } catch let err {
+                       error(err.localizedDescription)
+                   }
+               }, error: error)
+    }
+
     
     func postOrderInfo(token: String, createOrder: CreateOrder,_ completion: @escaping(CreateOrder)-> Void,_ error: @escaping (String)-> Void){
         
@@ -146,6 +164,41 @@ extension ServerManager {
             print(data ?? "success")
         }, error: error)
     }
+    
+        func getOrderList(token: String, _ completion: @escaping ([OrderStruct]) -> Void, _ error: @escaping (String) -> Void){
+        let header: [String: String] = [
+            "Authorization": "Bearer \(token)"
+        ]
+        self.get(url: "https://crmlogistics.herokuapp.com/order/", header: header, completion: {
+            (data) in
+            do {
+                guard let data = data else {return}
+                let orderList = try JSONDecoder().decode([OrderStruct].self, from: data)
+                DispatchQueue.main.async {
+                    completion(orderList)
+                }
+            } catch let err {
+                       error(err.localizedDescription)
+                   }
+               }, error: error)
+        }
+        func getDriverOrderList(token: String, _ completion: @escaping ([DriverOrderStruct]) -> Void, _ error: @escaping (String) -> Void){
+        let header: [String: String] = [
+            "Authorization": "Bearer \(token)"
+        ]
+        self.get(url: "https://crmlogistics.herokuapp.com/order/", header: header, completion: {
+            (data) in
+            do {
+                guard let data = data else {return}
+                let orderList = try JSONDecoder().decode([DriverOrderStruct].self, from: data)
+                DispatchQueue.main.async {
+                    completion(orderList)
+                }
+            } catch let err {
+                       error(err.localizedDescription)
+                   }
+               }, error: error)
+        }
 }
 
 

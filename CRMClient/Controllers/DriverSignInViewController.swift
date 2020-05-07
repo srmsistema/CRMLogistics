@@ -27,16 +27,16 @@ class DriverSignInViewController: UIViewController {
                 print(name, password)
                 let loginInfo = LogInfo(username: name, password: password)
                 
-                 ServerManager.shared.postSignIn(loginInfo: loginInfo, { (successMessage) in
-                              print(successMessage)
-                           self.nextVC(identifier: "DriverVC")
-                           }) { (error) in
-                            self.createAlert(title: "Ошибка", message: "Неправильный логин или пароль")
-                              print(error)
-                           }
-                    
+                ServerManager.shared.postSignIn(loginInfo: loginInfo, { (userInfo) in
+                        print(userInfo)
+                        UserDefaults.standard.set(userInfo.token, forKey: "token")
+                        self.nextVC(identifier: "MainVC")
+                        }) { (error) in
+                        self.createAlert(title: "Ошибка", message: "Неправильный логин или пароль")
+                            print(error)
+                        }
             }
-            
+
         }
      func nextVC(identifier: String) {
            let storyboard = UIStoryboard(name: "Main", bundle: nil)

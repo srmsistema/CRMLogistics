@@ -32,7 +32,7 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     
     
     let cargo = ["Наволочные","Запалеченные","Общие","Режимный груз","Опасный груз"]
-    let car = ["Тентованный полуприцеп (еврофура)","Jumbo","Автосцепка","Рефрижераторный фургон","Изотермический фургон","Контейнеровоз","Открытый бортовой полуприцеп"]
+    let car = ["Тентованный полуприцеп (еврофура)","Jumbo","Рефрижераторный фургон"]
     let load = ["Задняя навалом","Задняя на паллетах","Задняя самоходом","Боковая навалом","Боковая на паллетах","Верхняя"]
     let units = ["Тонна","Килограмм"]
     let holes = ["Да","Нет"]
@@ -84,19 +84,11 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             var numCar = 0
             switch typeOfCar {
             case "Тентованный полуприцеп (еврофура)":
-                numCar = 1
-            case "Jumbo":
-                numCar = 2
-            case "Автосцепка":
                 numCar = 3
+            case "Jumbo":
+                numCar = 1
             case "Рефрижераторный фургон":
-                numCar = 4
-            case "Изотермический фургон":
-                numCar = 5
-            case "Контейнеровоз":
-                numCar = 6
-            case "Открытый бортовой полуприцеп":
-                numCar = 7
+                numCar = 2
                 
             default: ()
             }
@@ -161,9 +153,9 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             var numDry = true
             switch noDry {
             case "Да":
-                numHoles = false
-            case "Нет":
                 numHoles = true
+            case "Нет":
+                numHoles = false
             default: ()
             }
             
@@ -171,9 +163,9 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             var numPatches = true
             switch noPatches {
             case "Да":
-                numHoles = false
-            case "Нет":
                 numHoles = true
+            case "Нет":
+                numHoles = false
             default: ()
             }
             
@@ -191,9 +183,9 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             var numUnit = 0
             switch typeOfUnits {
             case "Тонна":
-                numUnit = 1
+                numUnit = 3
             case "Килограмм":
-                numUnit = 2
+                numUnit = 1
                 
             default: ()
 
@@ -219,8 +211,10 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             ServerManager.shared.postOrderInfo(token: UserDefaults.standard.value(forKey: "token") as! String,createOrder: createOrder, { (successMessage) in
                 nextVC(identifier: "MainVC")
                 print(successMessage)
+
+                createAlert(title: "Поздравялем", message: "Вы добавили заявку!")
             }) { (error) in
-                createAlertError(title: "Ошибка", message: "Проверьте данные")
+                createAlertError(title: "Ошибка", message: "Ваша заявка не добавлена!")
                print(error)
             }
             

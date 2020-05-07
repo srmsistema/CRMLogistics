@@ -14,20 +14,20 @@
 		E03EBBCC2400F42600047540 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBCB2400F42600047540 /* SignInViewController.swift */; };
 		E03EBBCE2400F48200047540 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBCD2400F48200047540 /* RegistrationViewController.swift */; };
 		E03EBBD02400F4C900047540 /* RestoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBCF2400F4C900047540 /* RestoreViewController.swift */; };
-		E03EBBD22400F51500047540 /* TakeOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBD12400F51500047540 /* TakeOrderViewController.swift */; };
-		E03EBBD42400F55300047540 /* AllOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBD32400F55300047540 /* AllOrdersViewController.swift */; };
 		E03EBBD62400F5CD00047540 /* CurrentOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBD52400F5CD00047540 /* CurrentOrdersViewController.swift */; };
-		E03EBBD82400F5EA00047540 /* FinishedOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBD72400F5EA00047540 /* FinishedOrdersViewController.swift */; };
-		E03EBBDA2400F61E00047540 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBD92400F61E00047540 /* NotificationViewController.swift */; };
 		E03EBBDC2400F89800047540 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBDB2400F89800047540 /* HistoryViewController.swift */; };
 		E03EBBDE2400FDB800047540 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBDD2400FDB800047540 /* DetailsViewController.swift */; };
 		E03EBBE0240105C000047540 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBDF240105C000047540 /* MapViewController.swift */; };
 		E04669FE24056DCA007C5867 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04669FD24056DCA007C5867 /* Extension.swift */; };
+		E050AF1F245B232800FDFD15 /* DriverOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E050AF1E245B232800FDFD15 /* DriverOrderViewController.swift */; };
+		E0559248246418870051F238 /* DriverOrdersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0559247246418870051F238 /* DriverOrdersCell.swift */; };
 		E0736BF1241116E700C70989 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0736BF0241116E700C70989 /* ServerManager.swift */; };
 		E0736BF32411176900C70989 /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0736BF22411176900C70989 /* HTTPStatusCode.swift */; };
 		E0736BF5241117B600C70989 /* HTTPRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0736BF4241117B600C70989 /* HTTPRequestManager.swift */; };
 		E0736BF7241117DF00C70989 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0736BF6241117DF00C70989 /* Constants.swift */; };
 		E0736BF92411180F00C70989 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0736BF82411180F00C70989 /* Extensions.swift */; };
+		E0778B7E2448820900C0B5CE /* OrdersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0778B7D2448820900C0B5CE /* OrdersCell.xib */; };
+		E0778B802448833C00C0B5CE /* OrdersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0778B7F2448833C00C0B5CE /* OrdersCell.swift */; };
 		E078BB4D23F1482C00D4DCE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E078BB4C23F1482C00D4DCE9 /* AppDelegate.swift */; };
 		E078BB4F23F1482C00D4DCE9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E078BB4E23F1482C00D4DCE9 /* SceneDelegate.swift */; };
 		E078BB5423F1482C00D4DCE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E078BB5223F1482C00D4DCE9 /* Main.storyboard */; };
@@ -49,20 +49,20 @@
 		E03EBBCB2400F42600047540 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		E03EBBCD2400F48200047540 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		E03EBBCF2400F4C900047540 /* RestoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreViewController.swift; sourceTree = "<group>"; };
-		E03EBBD12400F51500047540 /* TakeOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeOrderViewController.swift; sourceTree = "<group>"; };
-		E03EBBD32400F55300047540 /* AllOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllOrdersViewController.swift; sourceTree = "<group>"; };
 		E03EBBD52400F5CD00047540 /* CurrentOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentOrdersViewController.swift; sourceTree = "<group>"; };
-		E03EBBD72400F5EA00047540 /* FinishedOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedOrdersViewController.swift; sourceTree = "<group>"; };
-		E03EBBD92400F61E00047540 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		E03EBBDB2400F89800047540 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		E03EBBDD2400FDB800047540 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		E03EBBDF240105C000047540 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E04669FD24056DCA007C5867 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		E050AF1E245B232800FDFD15 /* DriverOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverOrderViewController.swift; sourceTree = "<group>"; };
+		E0559247246418870051F238 /* DriverOrdersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverOrdersCell.swift; sourceTree = "<group>"; };
 		E0736BF0241116E700C70989 /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
 		E0736BF22411176900C70989 /* HTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
 		E0736BF4241117B600C70989 /* HTTPRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestManager.swift; sourceTree = "<group>"; };
 		E0736BF6241117DF00C70989 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E0736BF82411180F00C70989 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E0778B7D2448820900C0B5CE /* OrdersCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrdersCell.xib; sourceTree = "<group>"; };
+		E0778B7F2448833C00C0B5CE /* OrdersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersCell.swift; sourceTree = "<group>"; };
 		E078BB4923F1482C00D4DCE9 /* CRMClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CRMClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E078BB4C23F1482C00D4DCE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E078BB4E23F1482C00D4DCE9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -171,18 +171,17 @@
 		E0E7BBBF2404D1DC0055B242 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E0559247246418870051F238 /* DriverOrdersCell.swift */,
+				E0778B7F2448833C00C0B5CE /* OrdersCell.swift */,
 				E03EBBCB2400F42600047540 /* SignInViewController.swift */,
 				E03EBBCD2400F48200047540 /* RegistrationViewController.swift */,
 				E03EBBCF2400F4C900047540 /* RestoreViewController.swift */,
-				E03EBBD12400F51500047540 /* TakeOrderViewController.swift */,
 				E00A8345243DBCFE004B274A /* AddOrderViewController.swift */,
-				E03EBBD32400F55300047540 /* AllOrdersViewController.swift */,
-				E03EBBD52400F5CD00047540 /* CurrentOrdersViewController.swift */,
-				E03EBBD72400F5EA00047540 /* FinishedOrdersViewController.swift */,
-				E03EBBD92400F61E00047540 /* NotificationViewController.swift */,
 				E0FBD30F240E0A0400E0C596 /* StatusViewController.swift */,
 				E03EBBDB2400F89800047540 /* HistoryViewController.swift */,
 				E03EBBDF240105C000047540 /* MapViewController.swift */,
+				E03EBBD52400F5CD00047540 /* CurrentOrdersViewController.swift */,
+				E050AF1E245B232800FDFD15 /* DriverOrderViewController.swift */,
 				E003FADE242CD41B00296DA9 /* ClientProfileViewController.swift */,
 				E03EBBDD2400FDB800047540 /* DetailsViewController.swift */,
 				E0977FC0242C55A7000032C6 /* DriverSignInViewController.swift */,
@@ -195,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				E078BB5223F1482C00D4DCE9 /* Main.storyboard */,
+				E0778B7D2448820900C0B5CE /* OrdersCell.xib */,
 				E078BB5723F1482F00D4DCE9 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
@@ -265,6 +265,7 @@
 				E013CC882404D03F0070CE21 /* GoogleService-Info.plist in Resources */,
 				E078BB5623F1482F00D4DCE9 /* Assets.xcassets in Resources */,
 				E078BB5423F1482C00D4DCE9 /* Main.storyboard in Resources */,
+				E0778B7E2448820900C0B5CE /* OrdersCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,23 +339,22 @@
 				E0CEE77B2414C606007F1FBF /* Model.swift in Sources */,
 				E00A8346243DBCFE004B274A /* AddOrderViewController.swift in Sources */,
 				E0736BF1241116E700C70989 /* ServerManager.swift in Sources */,
+				E0559248246418870051F238 /* DriverOrdersCell.swift in Sources */,
 				E0736BF7241117DF00C70989 /* Constants.swift in Sources */,
 				E0736BF32411176900C70989 /* HTTPStatusCode.swift in Sources */,
-				E03EBBDA2400F61E00047540 /* NotificationViewController.swift in Sources */,
+				E0778B802448833C00C0B5CE /* OrdersCell.swift in Sources */,
 				E03EBBCE2400F48200047540 /* RegistrationViewController.swift in Sources */,
 				E03EBBCC2400F42600047540 /* SignInViewController.swift in Sources */,
 				E078BB4D23F1482C00D4DCE9 /* AppDelegate.swift in Sources */,
 				E0FBD310240E0A0400E0C596 /* StatusViewController.swift in Sources */,
 				E0977FC1242C55A7000032C6 /* DriverSignInViewController.swift in Sources */,
-				E03EBBD22400F51500047540 /* TakeOrderViewController.swift in Sources */,
 				E03EBBDC2400F89800047540 /* HistoryViewController.swift in Sources */,
+				E050AF1F245B232800FDFD15 /* DriverOrderViewController.swift in Sources */,
 				E03EBBE0240105C000047540 /* MapViewController.swift in Sources */,
-				E03EBBD42400F55300047540 /* AllOrdersViewController.swift in Sources */,
 				E0736BF92411180F00C70989 /* Extensions.swift in Sources */,
 				E078BB4F23F1482C00D4DCE9 /* SceneDelegate.swift in Sources */,
 				E003FADF242CD41B00296DA9 /* ClientProfileViewController.swift in Sources */,
 				E04669FE24056DCA007C5867 /* Extension.swift in Sources */,
-				E03EBBD82400F5EA00047540 /* FinishedOrdersViewController.swift in Sources */,
 				E03EBBD02400F4C900047540 /* RestoreViewController.swift in Sources */,
 				E03EBBD62400F5CD00047540 /* CurrentOrdersViewController.swift in Sources */,
 				E03EBBDE2400FDB800047540 /* DetailsViewController.swift in Sources */,

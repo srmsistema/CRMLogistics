@@ -65,12 +65,14 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.5.0):
     - GoogleUtilities/Logger
+  - IQKeyboardManagerSwift (6.5.5)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - PromisesObjC (1.2.8)
+  - SwiftyJSON (5.0.0)
   - YandexMapKit (3.5.0):
     - YandexRuntime (= 3.5.0)
   - YandexMapKitDirections (3.5.0):
@@ -90,6 +92,8 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - Firebase/Analytics
+  - IQKeyboardManagerSwift
+  - SwiftyJSON
   - YandexMapKit (= 3.5)
   - YandexMapKitDirections (= 3.5)
   - YandexMapKitPlaces (= 3.5)
@@ -110,8 +114,10 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
+    - IQKeyboardManagerSwift
     - nanopb
     - PromisesObjC
+    - SwiftyJSON
     - YandexMapKit
     - YandexMapKitDirections
     - YandexMapKitPlaces
@@ -132,8 +138,10 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 574a983e829327d7c18f2627f65d9e80164ea8a4
   GoogleDataTransportCCTSupport: cad3cd6cdbdbad6b5c2c9206ec413402755faaaa
   GoogleUtilities: f8de7ddf8c706f58e9b405d53e38bbdaa2731e5a
+  IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   YandexMapKit: ecd4b78de34a35df63d066ac299e6fd0fe46d1ba
   YandexMapKitDirections: 4298725d34df043ec127dd6e76f457e24f378188
   YandexMapKitPlaces: 6bc38c5e6fa34870a3c718a0b7921bf159cae7ee
@@ -141,6 +149,6 @@ SPEC CHECKSUMS:
   YandexMapKitTransport: 52f64fdc16bc83f8849b47e4143a698b6be24c49
   YandexRuntime: 2d55244d06267106cf9b00c25a1e63f72a73b6fd
 
-PODFILE CHECKSUM: c6b3a3c1240b98a0d33231cf0ec96b49c424f020
+PODFILE CHECKSUM: 40e7fda17e148b4cab7c0960f936fc588253b0c5
 
 COCOAPODS: 1.8.4

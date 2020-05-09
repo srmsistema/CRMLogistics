@@ -50,6 +50,25 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 40))
+        toolBar.barStyle = UIBarStyle.blackTranslucent
+        toolBar.tintColor = UIColor.white
+   
+        let doneButton = UIBarButtonItem(title: "Done",style: UIBarButtonItem.Style.done, target: self, action: #selector(AddOrderViewController.donePressed(sender:)))
+
+        toolBar.setItems([doneButton], animated: true)
+        
+        typeOfCargoField.inputAccessoryView = toolBar
+        typeOfCarField.inputAccessoryView = toolBar
+        typeOfLoadField.inputAccessoryView = toolBar
+        typeOfUnitsField.inputAccessoryView = toolBar
+        holesField.inputAccessoryView = toolBar
+        gapsField.inputAccessoryView = toolBar
+        dryField.inputAccessoryView = toolBar
+        patchField.inputAccessoryView = toolBar
+        unitField.inputAccessoryView = toolBar
+
+        
         
         typeOfCargoField.delegate = self
         typeOfCarField.delegate = self
@@ -74,7 +93,10 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         patchField.inputView = pickerView
         unitField.inputView = pickerView
         
+        
     }
+    
+
     
     @IBAction func saveInfo(_ sender: Any) {
         if typeOfCargoField.text != "" && typeOfCarField.text != "" && typeOfLoadField.text != "" && typeOfUnitsField.text != "" && priceClientField.text != "" && autoReleaseYearField.text != "" && weightField.text != "" && widthField.text != "" && heightField.text != "" && lengthField.text != "" && unitField.text != "" && addressField.text != "" && nameField.text != ""
@@ -86,9 +108,9 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             case "Тентованный полуприцеп (еврофура)":
                 numCar = 3
             case "Jumbo":
-                numCar = 1
-            case "Рефрижераторный фургон":
                 numCar = 2
+            case "Рефрижераторный фургон":
+                numCar = 1
                 
             default: ()
             }
@@ -133,9 +155,9 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             var numHoles = true
             switch noHoles {
             case "Да":
-                numHoles = true
-            case "Нет":
                 numHoles = false
+            case "Нет":
+                numHoles = true
             default: ()
             }
             
@@ -143,9 +165,9 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             var numGaps = true
             switch noGaps {
             case "Да":
-                numHoles = true
+                numGaps = false
             case "Нет":
-                numHoles = false
+                numGaps = true
             default: ()
             }
             
@@ -153,19 +175,20 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             var numDry = true
             switch noDry {
             case "Да":
-                numHoles = true
+                numDry = false
             case "Нет":
-                numHoles = false
+                numDry = true
             default: ()
             }
             
             let noPatches = patchField.text!
+           
             var numPatches = true
             switch noPatches {
             case "Да":
-                numHoles = true
+                numPatches = false
             case "Нет":
-                numHoles = false
+                numPatches = true
             default: ()
             }
             
@@ -173,9 +196,9 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             var numVol = 0
             switch typeOfVolume {
             case "Метр":
-                numVol = 1
+                numVol = 5
             case "Сантиметр":
-                numVol = 2
+                numVol = 4
             default: ()
                 }
             
@@ -209,16 +232,16 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             let createOrder = CreateOrder(name: name, price_client: priceClient!, requirements_loading: requirementsLoading, type_cargo: numCarGo, type_auto: numCar, auto_releaseyear: autoReleaseYear!, type_loading: numLoad, state_awning: stateAwing, weight: weight!, weight_measurementunit: numUnit, volume: volume, location_cargo: locationCargo)
             
             ServerManager.shared.postOrderInfo(token: UserDefaults.standard.value(forKey: "token") as! String,createOrder: createOrder, { (successMessage) in
-                nextVC(identifier: "MainVC")
-                print(successMessage)
-
                 createAlert(title: "Поздравялем", message: "Вы добавили заявку!")
+                print(successMessage)
+                
             }) { (error) in
                 createAlertError(title: "Ошибка", message: "Ваша заявка не добавлена!")
                print(error)
             }
             
         }
+        
         func createAlert(title: String, message: String)
         {
             let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
@@ -303,6 +326,10 @@ class AddOrderViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         print("Selected", currentArr[row])
         activeTextField.text = currentArr[row]
+    }
+
+    @objc func donePressed(sender: UIBarButtonItem){
+        activeTextField.resignFirstResponder()
     }
     
     

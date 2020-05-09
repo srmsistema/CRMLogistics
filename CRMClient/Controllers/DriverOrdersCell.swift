@@ -13,14 +13,12 @@ class DriverOrdersCell: UITableViewCell {
 
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var userLabel: UILabel!
     
-    func configure(orders: DriverOrderStruct) {
-        
-        nameLabel.text = ("Название: \(orders.name)")
-        idLabel.text = ("№\(String(orders.id))")
-        //dateLabel.text = orders.fromOrder
-
+    func configure(orders: [DriverOrderStruct]) {
+        nameLabel.text = orders[0].name
+        idLabel.text = ("\(String(orders[0].id))")
+        userLabel.text = orders[0].user.username
         
     }
 }

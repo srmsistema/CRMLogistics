@@ -7,42 +7,74 @@
 
 import Foundation
 
+struct DriverProfileStruct: Codable {
+    let first_name, last_name, phone: String
+    let date_of_birth: String
+    let address: String
+    let auto_type: Int
+    //let autoTechPassPhoto, trailerTechPassPhoto, autoOwnerPass, driverPass: String
+    //let driverLicense, internationalTransportationLicense, insurancePolicy: String
+}
+
+struct OrderStatusStruct: Codable{
+    let orderStatus: String
+}
+
 struct DriverOrderStruct: Codable {
     let id: Int
-    let volume: VolumeDr
+    let volume: VolumeDR
+    let locationCargo: LocationCargoDR
     let numberOrderFromClient: Int
     let name: String
     let priceClient: Int
-    let fromOrder: String
-    //let dateOrderConclusion, toOrder, dateLoading, dateUnloading: JSONNull?
+    let fromOrder, dateOrderConclusion, toOrder, dateLoading: String
+    let dateUnloading: String
     let autoReleaseYear: Int
     let requirementsLoading: String
     let weight: Int
     let orderStatus: String
-    let stateAwning, typeAuto, typeLoading, typeCargo: Int
-    let weightMeasurementUnit, locationCargo, user: Int
-    //let driver: JSONNull?
+    let stateAwning: StateAwningDR
+    let typeAuto, typeLoading, typeCargo: Int
+    let user: UserDR
+    let weightMeasurementUnit, driver: Int
+}
+struct LocationCargoDR: Codable {
+    let address, sendingTimeCoordinates: String
 }
 
-// MARK: - Volume
-struct VolumeDr: Codable {
+
+struct StateAwningDR: Codable {
+    let id: Int
+    let noHoles, noGaps, dry, noPatches: Bool
+}
+struct UserDR: Codable {
+    let username, email: String
+}
+struct VolumeDR: Codable {
     let width, height, length, unit: Int
+
 }
 
 struct OrderStruct: Codable {
+    let numberOrderFromClient: Int
     let id: Int
     let volume: VolumeStruct
     let locationCargo, user, typeAuto, typeLoading: String
     let typeCargo, orderStatus: String
     let stateAwning: StateAwningStruct
-    //let orderdriver = nullToNil(value:["driver"])
+    let driver: Driver
     let name: String
     let priceClient, companyProfit: Int
-    //let fromOrder:NSNull
-    //let fromOrder, toOrder, dateLoading, dateUnloading: NSNull?
+    let fromOrder: String
+    let toOrder, dateLoading, dateUnloading: String
     let autoReleaseYear: Int
     let requirementsLoading: String
     let weight, weightMeasurementUnit: Int
+}
+
+struct Driver: Codable {
+    //let user: JSONNull?
+    let first_name, last_name, phone: String
 }
 
 struct StateAwningStruct: Codable {

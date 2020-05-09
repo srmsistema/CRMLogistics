@@ -25,6 +25,7 @@ class ClientProfileViewController: UIViewController {
         ServerManager.shared.getProfileInfo(token: UserDefaults.standard.value(forKey: "token") as! String, { (data) in
             self.data = data
             self.lnameLabel.text = self.data[0].last_name
+            print(self.data[0].last_name)
             self.fnameLabel.text = self.data[0].first_name
             self.phoneLabel.text = self.data[0].phone
             
@@ -58,7 +59,7 @@ class ClientProfileViewController: UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Отмена", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
         alert.addAction(UIAlertAction(title: "Выйти", style: UIAlertAction.Style.destructive, handler: {(action) in
-            self.nextVC(identifier: "LoginVC")
+            self.nextVC(identifier: "SelectVC")
             UserDefaults.standard.set(nil, forKey: "token")
             alert.dismiss(animated: true, completion: nil)}))
             self.present(alert, animated: true, completion: nil)

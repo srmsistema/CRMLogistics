@@ -13,33 +13,32 @@ class DriverProfileViewController: UIViewController {
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var lnameLabel: UILabel!
     @IBOutlet weak var fnameLabel: UILabel!
+    @IBOutlet weak var autoLabel: UILabel!
     
-    var data = [Profile]()
-
-    var phoneLabelT = ""
-
+    var profile: DriverProfileStruct?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         ServerManager.shared.getDriverProfileInfo(token: UserDefaults.standard.value(forKey: "token") as! String, { (data) in
-            self.data = data
-            self.lnameLabel.text = self.data[0].last_name
-            self.fnameLabel.text = self.data[0].first_name
-            self.phoneLabel.text = self.data[0].phone
+            self.profile = data
+            self.lnameLabel.text = data.last_name
+            self.phoneLabel.text = data.phone
+            self.fnameLabel.text = data.first_name
+            switch data.auto_type{
+            case 1:
+                self.autoLabel.text = "Рефрижераторный фургон"
+            case 2:
+                self.autoLabel.text = "Jumbo"
+            default:
+                self.autoLabel.text =  "Тентованный полуприцеп (еврофура)"
+            }
             
-//            switch self.data[0].gender{
-//            case "male":
-//                self.genderLabel.text = "Мужской"
-//            default:
-//                self.genderLabel.text = "Женский"
-//            }
-            //self.genderLabel.text = self.data[0].gender
         }) { (error) in
-            print(error + " g")
+            print(error)
         }
     }
     
-    
+  
     @IBAction func signOutButton(_ sender: Any) {
     createAlert(title: "Выход", message: "Вы уверены что хотите выйти?")
     
@@ -57,7 +56,7 @@ class DriverProfileViewController: UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Отмена", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
         alert.addAction(UIAlertAction(title: "Выйти", style: UIAlertAction.Style.destructive, handler: {(action) in
-            self.nextVC(identifier: "LoginVC")
+            self.nextVC(identifier: "SelectVC")
             UserDefaults.standard.set(nil, forKey: "token")
             alert.dismiss(animated: true, completion: nil)}))
             self.present(alert, animated: true, completion: nil)

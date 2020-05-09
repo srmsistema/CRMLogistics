@@ -16,9 +16,9 @@ class OrdersCell: UITableViewCell {
     
     func configure(orders: OrderStruct) {
         
-        nameLabel.text = ("Название: \(orders.name)")
-        idLabel.text = ("№\(String(orders.id))")
-        //dateLabel.text = orders.fromOrder
+        nameLabel.text = (orders.name)
+        idLabel.text = ("\(String(orders.id))")
+        dateLabel.text = orders.fromOrder
 
         
     }

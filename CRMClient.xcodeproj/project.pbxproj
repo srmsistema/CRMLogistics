@@ -15,12 +15,12 @@
 		E03EBBCE2400F48200047540 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBCD2400F48200047540 /* RegistrationViewController.swift */; };
 		E03EBBD02400F4C900047540 /* RestoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBCF2400F4C900047540 /* RestoreViewController.swift */; };
 		E03EBBD62400F5CD00047540 /* CurrentOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBD52400F5CD00047540 /* CurrentOrdersViewController.swift */; };
-		E03EBBDC2400F89800047540 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBDB2400F89800047540 /* HistoryViewController.swift */; };
 		E03EBBDE2400FDB800047540 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBDD2400FDB800047540 /* DetailsViewController.swift */; };
-		E03EBBE0240105C000047540 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03EBBDF240105C000047540 /* MapViewController.swift */; };
 		E04669FE24056DCA007C5867 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04669FD24056DCA007C5867 /* Extension.swift */; };
 		E050AF1F245B232800FDFD15 /* DriverOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E050AF1E245B232800FDFD15 /* DriverOrderViewController.swift */; };
 		E0559248246418870051F238 /* DriverOrdersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0559247246418870051F238 /* DriverOrdersCell.swift */; };
+		E055924A246558970051F238 /* DriverDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0559249246558970051F238 /* DriverDetailsViewController.swift */; };
+		E055924D246699940051F238 /* DriverMyOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E055924C246699940051F238 /* DriverMyOrderViewController.swift */; };
 		E0736BF1241116E700C70989 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0736BF0241116E700C70989 /* ServerManager.swift */; };
 		E0736BF32411176900C70989 /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0736BF22411176900C70989 /* HTTPStatusCode.swift */; };
 		E0736BF5241117B600C70989 /* HTTPRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0736BF4241117B600C70989 /* HTTPRequestManager.swift */; };
@@ -50,12 +50,12 @@
 		E03EBBCD2400F48200047540 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		E03EBBCF2400F4C900047540 /* RestoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreViewController.swift; sourceTree = "<group>"; };
 		E03EBBD52400F5CD00047540 /* CurrentOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentOrdersViewController.swift; sourceTree = "<group>"; };
-		E03EBBDB2400F89800047540 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		E03EBBDD2400FDB800047540 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
-		E03EBBDF240105C000047540 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E04669FD24056DCA007C5867 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		E050AF1E245B232800FDFD15 /* DriverOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverOrderViewController.swift; sourceTree = "<group>"; };
 		E0559247246418870051F238 /* DriverOrdersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverOrdersCell.swift; sourceTree = "<group>"; };
+		E0559249246558970051F238 /* DriverDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverDetailsViewController.swift; sourceTree = "<group>"; };
+		E055924C246699940051F238 /* DriverMyOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverMyOrderViewController.swift; sourceTree = "<group>"; };
 		E0736BF0241116E700C70989 /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
 		E0736BF22411176900C70989 /* HTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
 		E0736BF4241117B600C70989 /* HTTPRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestManager.swift; sourceTree = "<group>"; };
@@ -178,11 +178,11 @@
 				E03EBBCF2400F4C900047540 /* RestoreViewController.swift */,
 				E00A8345243DBCFE004B274A /* AddOrderViewController.swift */,
 				E0FBD30F240E0A0400E0C596 /* StatusViewController.swift */,
-				E03EBBDB2400F89800047540 /* HistoryViewController.swift */,
-				E03EBBDF240105C000047540 /* MapViewController.swift */,
 				E03EBBD52400F5CD00047540 /* CurrentOrdersViewController.swift */,
 				E050AF1E245B232800FDFD15 /* DriverOrderViewController.swift */,
+				E055924C246699940051F238 /* DriverMyOrderViewController.swift */,
 				E003FADE242CD41B00296DA9 /* ClientProfileViewController.swift */,
+				E0559249246558970051F238 /* DriverDetailsViewController.swift */,
 				E03EBBDD2400FDB800047540 /* DetailsViewController.swift */,
 				E0977FC0242C55A7000032C6 /* DriverSignInViewController.swift */,
 				E0D7F353242EF45100944725 /* DriverProfileViewController.swift */,
@@ -337,6 +337,7 @@
 			files = (
 				E0D7F354242EF45100944725 /* DriverProfileViewController.swift in Sources */,
 				E0CEE77B2414C606007F1FBF /* Model.swift in Sources */,
+				E055924D246699940051F238 /* DriverMyOrderViewController.swift in Sources */,
 				E00A8346243DBCFE004B274A /* AddOrderViewController.swift in Sources */,
 				E0736BF1241116E700C70989 /* ServerManager.swift in Sources */,
 				E0559248246418870051F238 /* DriverOrdersCell.swift in Sources */,
@@ -348,14 +349,13 @@
 				E078BB4D23F1482C00D4DCE9 /* AppDelegate.swift in Sources */,
 				E0FBD310240E0A0400E0C596 /* StatusViewController.swift in Sources */,
 				E0977FC1242C55A7000032C6 /* DriverSignInViewController.swift in Sources */,
-				E03EBBDC2400F89800047540 /* HistoryViewController.swift in Sources */,
 				E050AF1F245B232800FDFD15 /* DriverOrderViewController.swift in Sources */,
-				E03EBBE0240105C000047540 /* MapViewController.swift in Sources */,
 				E0736BF92411180F00C70989 /* Extensions.swift in Sources */,
 				E078BB4F23F1482C00D4DCE9 /* SceneDelegate.swift in Sources */,
 				E003FADF242CD41B00296DA9 /* ClientProfileViewController.swift in Sources */,
 				E04669FE24056DCA007C5867 /* Extension.swift in Sources */,
 				E03EBBD02400F4C900047540 /* RestoreViewController.swift in Sources */,
+				E055924A246558970051F238 /* DriverDetailsViewController.swift in Sources */,
 				E03EBBD62400F5CD00047540 /* CurrentOrdersViewController.swift in Sources */,
 				E03EBBDE2400FDB800047540 /* DetailsViewController.swift in Sources */,
 				E0736BF5241117B600C70989 /* HTTPRequestManager.swift in Sources */,

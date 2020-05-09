@@ -16,14 +16,25 @@ class CurrentOrdersViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var tableView: UITableView!
     
     var orders = [OrderStruct]()
+    var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(CurrentOrdersViewController.refresh), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refresher)
+        
         ServerManager.shared.getOrderList(token: UserDefaults.standard.value(forKey: "token") as! String, { (ordersList) in
             self.orders = ordersList
             self.tableView.reloadData()
         })
         {(error) in print(error)}
+    }
+    
+    @objc func refresh(){
+        refresher.endRefreshing()
+        tableView.reloadData()
     }
 
     

@@ -97,15 +97,15 @@ extension ServerManager {
                }, error: error)
     }
     
-    func getDriverProfileInfo(token: String, _ completion: @escaping ([Profile]) -> Void, _ error: @escaping (String) -> Void){
+    func getDriverProfileInfo(token: String, _ completion: @escaping (DriverProfileStruct) -> Void, _ error: @escaping (String) -> Void){
         let header: [String: String] = [
             "Authorization": "Bearer \(token)"
         ]
-       self.get(url: "http://crmlogistics.herokuapp.com/drivers/", header: header, completion: {
+       self.get(url: "https://crmlogistics.herokuapp.com/drivers/profile", header: header, completion: {
             (data) in
             do {
                 guard let data = data else {return}
-                let profileInfo = try JSONDecoder().decode([Profile].self, from: data)
+                let profileInfo = try JSONDecoder().decode(DriverProfileStruct.self, from: data)
                 DispatchQueue.main.async {
                     completion(profileInfo)
                 }
@@ -114,7 +114,21 @@ extension ServerManager {
                    }
                }, error: error)
     }
+    
+    func putStatusOrder(token: String, id: Int, statusOrder: OrderStatusStruct,_ completion: @escaping(OrderStatusStruct)-> Void,_ error: @escaping (String)-> Void){
+        let parameters: [String: Any] = [
+            "orderStatus": statusOrder.orderStatus
+        ]
+        
+        let header: [String: String] = [
+            "Authorization": "Bearer \(token)"
+            ]
+        
+        self.put(url: "http://crmlogistics.herokuapp.com/order/update/\(id)", parameters: parameters, header: header, completion: {(data) in
 
+                   print(data ?? "success")
+               }, error: error)
+           }
     
     func postOrderInfo(token: String, createOrder: CreateOrder,_ completion: @escaping(CreateOrder)-> Void,_ error: @escaping (String)-> Void){
         
@@ -182,6 +196,24 @@ extension ServerManager {
                    }
                }, error: error)
         }
+        func getDriverMyOrderList(token: String, _ completion: @escaping ([DriverOrderStruct]) -> Void, _ error: @escaping (String) -> Void){
+        let header: [String: String] = [
+            "Authorization": "Bearer \(token)"
+        ]
+        self.get(url: "https://crmlogistics.herokuapp.com/drivers/order", header: header, completion: {
+            (data) in
+            do {
+                guard let data = data else {return}
+                let orderList = try JSONDecoder().decode([DriverOrderStruct].self, from: data)
+                DispatchQueue.main.async {
+                    completion(orderList)
+                }
+            } catch let err {
+                       error(err.localizedDescription)
+                   }
+               }, error: error)
+        }
+    
         func getDriverOrderList(token: String, _ completion: @escaping ([DriverOrderStruct]) -> Void, _ error: @escaping (String) -> Void){
         let header: [String: String] = [
             "Authorization": "Bearer \(token)"
@@ -199,7 +231,31 @@ extension ServerManager {
                    }
                }, error: error)
         }
+    
+        func postDriverSignIn(loginInfo: LogInfo, _ completion: @escaping (TokInfo)-> Void, _ error: @escaping (String)-> Void){
+            let parameters: [String: Any] = [
+                "username": loginInfo.username,
+                "password": loginInfo.password
+            ]
+            
+            let header: [String: String] = [
+                "Content-Type": "application/json"
+            ]
+            
+            self.post(url: "https://crmlogistics.herokuapp.com/login/", parameters: parameters, header: header, completion: { (data) in
+                do {
+                                        guard let data = data else {return}
+                                        let tokInfo = try JSONDecoder().decode(TokInfo.self, from: data)
+                                        DispatchQueue.main.async {
+                                            completion(tokInfo)
+                                        }
+                                    } catch let err {
+                                            error("\(err.localizedDescription) + I am cool")
+                                        }
+                        }, error: error)
+                    }
 }
 
 
 
+ 

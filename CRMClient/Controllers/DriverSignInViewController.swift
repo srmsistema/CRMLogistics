@@ -27,10 +27,10 @@ class DriverSignInViewController: UIViewController {
                 print(name, password)
                 let loginInfo = LogInfo(username: name, password: password)
                 
-                ServerManager.shared.postSignIn(loginInfo: loginInfo, { (userInfo) in
+                ServerManager.shared.postDriverSignIn(loginInfo: loginInfo, { (userInfo) in
                         print(userInfo)
                         UserDefaults.standard.set(userInfo.token, forKey: "token")
-                        self.nextVC(identifier: "MainVC")
+                        self.nextVC(identifier: "DriverVC")
                         }) { (error) in
                         self.createAlert(title: "Ошибка", message: "Неправильный логин или пароль")
                             print(error)

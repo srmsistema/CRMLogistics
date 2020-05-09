@@ -61,6 +61,17 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate, UIPicke
     var activeTextField: UITextField!
     
     override func viewDidLoad() {
+        
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 40))
+        toolBar.barStyle = UIBarStyle.blackTranslucent
+        toolBar.tintColor = UIColor.white
+   
+        let doneButton = UIBarButtonItem(title: "Done",style: UIBarButtonItem.Style.done, target: self, action: #selector(AddOrderViewController.donePressed(sender:)))
+
+        toolBar.setItems([doneButton], animated: true)
+        
+        genderField.inputAccessoryView = toolBar
+        
         super.viewDidLoad()
         nameField.text = ""
         emailField.text = ""
@@ -101,8 +112,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate, UIPicke
                 numGender = "female"
             default:()
             }
-            
-            print(name, email, password, firstName, lastName, phone, dateOfBirth, gender)
             
             let user = User(username: name, email: email, password: password)
             let userInfo = UserInfo(user: user, first_name: firstName, last_name: lastName, gender: numGender, dateOfBirth: dateOfBirth, phone: phone)
@@ -148,8 +157,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate, UIPicke
                }
             
             
-            
-            
     func nextVC(identifier: String)
     {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -163,4 +170,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate, UIPicke
     
         }
     }
+    @objc func donePressed(sender: UIBarButtonItem){
+        activeTextField.resignFirstResponder()
+    }
+    
 }
